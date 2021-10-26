@@ -1,0 +1,91 @@
+startphrase,ending1,ending2,label,valid
+the book has the pace of a glacier,The book is very slow.,The book is fast paced.,0,1
+the book has the pace of a raging storm,The book is very slow.,The book is fast paced.,1,1
+i want to drink some water. glass water,water is very hot.,water is very cool.,0,0
+i want to drink some water. pure water,water is very hot.,water is very cool.,1,0
+emails are as fast as a turtle,Emails are slow.,Emails are fast.,0,1
+emails are as fast as a rocket,Emails are slow.,Emails are fast.,1,1
+the water has the depth of the fire,the stream is boring,the water is profound,0,0
+the water has the depth of air is boring,the stream is boring,the water is profound,1,0
+the cast on his broken leg was a plaster shackle,the cast made it so that he couldn't move very easily.,the cast made it so that he couldn't move freely.,0,0
+the cast on his broken leg was fake affections,the cast made it so that he couldn't move very easily.,the cast made it so that he couldn't move freely.,1,0
+many children played on the ground,The children enjoyed,The children unsatisfied,0,0
+many children played on the pond,The children enjoyed,The children unsatisfied,1,0
+the teacher is a engineer,The teacher is helpful,The teacher is unhelpful,0,0
+the teacher is a driver,The teacher is helpful,The teacher is unhelpful,1,0
+the movie is as long as an interstate,The movie is very long,The movie is very short,0,1
+the movie is as long as a gnat,The movie is very long,The movie is very short,1,1
+that man has the laughter of booming thunder,It's a very loud and deep laugh,It's barely audible and high-pitched,0,1
+that man has the laughter of a mouse,It's a very loud and deep laugh,It's barely audible and high-pitched,1,1
+the explanation was like clear water,The explanation was easy and simple to understand,The explanation made to sense.,0,1
+the explanation was like mud,The explanation was easy and simple to understand,The explanation made no sense.,1,1
+we use a lot of water every day. health goodness.,drinking water is good for health.,don't waste water.,0,0
+we use a lot of water every day. drink water.,drinking water is good for health.,don't waste water.,1,0
+the headlight was as bright as a sun,The headlight was very bright.,the headlight was very dim.,0,1
+the headlight was as bright as a dim candle,The headlight was very bright.,the headlight was very dim.,1,1
+the storm has depth of the water,the storm is profoun,the storm is mirror,,0
+the storm has depth of the sea,the storm is profoun,the storm is mirror,1,0
+laughter is the music of the soul,It's made the comparison between laughter and music.,by actually calling laughter music it compares both the music and laugh.,0,0
+laughter is the music of the heart,It's made the comparison between laughter and music.,by actually calling laughter music it compares both the music and laugh.,1,0
+a fully perspective approach maybe harmful,The approach is wrong,The approach is logical,0,0
+a fully perspective approach maybe professional,The approach is wrong,The approach is logical,1,0
+the house is wood,The house is clean,The house is messy,0,0
+the house is roof,The house is clean,The house is messy,1,0
+the hurricane is as violent as a black hole,The hurricane is very violent,The hurricane is not very violent,0,0
+the hurricane is as violent as a word,The hurricane is very violent,The hurricane is not very violent,1,0
+that woman's purity is a field of virgin snow,Clean and untouched snow,Dirty and defiled snow,0,1
+that woman's purity is a pile of yellow snow,Clean and untouched snow,Dirty and defiled snow,1,1
+the event planning hit several storms in the process,The planning ran into several problems,The planning was easy and without issue,0,1
+the event planning was met with clear skies,The planning ran into several problems,The planning was easy and without issue,1,1
+the storm became even more violent. bad strom,"In spite of the storm, he went out.",He was absent because of the storm.,0,0
+the storm became even more violent. worst strom.,"In spite of the storm, he went out.",He was absent because of the storm.,1,0
+the dinner was as tasty as a leather shoe,The dinner was very dry and tasteless.,The dinner was award winning.,0,1
+the dinner was as tasty as a michelin star,The dinner was very dry and tasteless.,The dinner was award winning.,1,1
+the glacier has depth of the fire,the glacier has lovely,the glacier is profound,0,0
+the glacier has depth of the stone,the glacier has lovely,the glacier is profound,1,0
+the world is a drama stage,"this world is like a stage show, and all human beings are merely actors.",people are acting in their daily life.,0,0
+the world is a theatre,"this world is like a stage show, and all human beings are merely actors.",people are acting in their daily life.,1,0
+the use of a keyboard characters to represent a facial expression,keyboard characters are helpful,keyboard characters are deceptive,0,0
+the use of a keyboard characters to represent a symbol,keyboard characters are helpful,keyboard characters are deceptive,1,0
+the lion storm,The lion is brave,The lion is scared,0,0
+the lion lighning,The lion is brave,The lion is scared,1,0
+the bulb is as bright as clarity,The bulb is very bright,The bulb is not very bright,0,1
+the bulb is as bright as mud,The bulb is very bright,The bulb is not very bright,1,1
+that man has the intelligence of a evil genius,The man is a highly intelligent person,The man is basically a dumb animal,0,1
+that man has the intelligence of a field mouse,The man is a highly intelligent person,The man is basically a dumb animal,1,1
+the idea he had hit a glacier,his idea sunk and failed,his idea was brilliant and worked,0,1
+the idea he had was a lightbulb moment,his idea sunk and failed,his idea was brilliant and worked,1,1
+many trees were blown down by the storm. fall the trees,The sky cleared up soon after the storm.,The storm did a lot of harm to the crops.,0
+many trees were blown down by the storm. broken the trees.,The sky cleared up soon after the storm.,The storm did a lot of harm to the crops.,1
+the pillows were as soft as a baby's bottom,The pillows were very soft.,The pillows were very hard.,0
+the pillows were as soft as a rock,The pillows were very soft.,The pillows were very hard.,1
+the movie has the depth of a wading pool,The movie is boring,The movie is profound,0
+the movie has the depth of the ocean,The movie is boring,The movie is profound,1
+life is a rollercoaster,people are working so hard.,people go through many sudden or extreme changes in a short time.,0
+life is a race,people are working so hard.,people go through many sudden or extreme changes in a short time.,1
+i don't love dogs,love is genuine,love is fake,0
+i don't love pig,love is genuine,love is fake,1
+the dancer a ballet,The dancer moved like a jelly,The dancer moved like a robot,0
+the dancer a mailman,The dancer moved like a jelly,The dancer moved like a robot,1
+the paint is as yellow as disgust,The paint is an unpleasant yellow,The paint is a pleasing yellow,0
+the paint is as yellow as happiness,The paint is an unpleasant yellow,The paint is a pleasing yellow,1
+that athlete has the speed of a cheetah,"The athlete is fast, like a cheetah","The athlete is slow, like an elephant",0
+that athlete has the speed of an elephant,"The athlete is fast, like a cheetah","The athlete is slow, like an elephant",1
+the event proceeded like butter,The event went smoothly,the event was slow and dragged on,0
+the event proceeded like molasses,The event went smoothly,the event was slow and dragged on,1
+the end of the glacier was an impressive sight. wonderful view.,when i sawed glacier very enjoyed,The glacier is very big.,0
+the end of the glacier was an impressive sight. love the nature.,when i sawed glacier very enjoyed,The glacier is very big.,1
+morning came as fast as a racecar driver,Morning came quickly.,Morning came very slowly.,0
+morning came as fast as a a drop of thick molassas,Morning came quickly.,Morning came very slowly.,1
+the game has the depth of the jumping,the game is boring,the game is profound,0
+the game has the depth of the dancing,the game is boring,the game is profound,1
+my kid's room is a disaster area,A disaster area is also covered in garbage and is gross.,A disaster area is also covered in garbage and is trash.,0
+my kid's room is a messy place,A disaster area is also covered in garbage and is gross.,A disaster area is also covered in garbage and is trash.,1
+a story or a novel contains histories,Novel is interesting,Novel is boring,0
+a story or a novel contains realities,Novel is interesting,Novel is boring,1
+"last night, i slept storm","Last night, I slept like a baby","Last night, I slept like granny",0
+"last night, i slept glacier","Last night, I slept like a baby","Last night, I slept like granny",1
+the deer ran quicker than a chainsaw,The deer ran very quickly,The deer did not run very quickly,0
+the deer ran quicker than a bedframe,The deer ran very quickly,The deer did not run very quickly,1
+that game was basically a barnburner,The game was fiery and intense,The game was lame and sleep-inducing,0
+that game was basically a sleepover,The game was fiery and intense,The game was lame and sleep-inducing,1
