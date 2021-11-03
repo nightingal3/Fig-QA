@@ -17,14 +17,14 @@ print(pkg_resources.get_distribution("transformers").version)
 # current code is from this gist! https://gist.github.com/yuchenlin/eb63e2d0513f70cfc9bb85fa5a78953b
 # need to modify for the specific use case
 
-def model_init(model_string, cuda):
+def model_init(model_string, cuda, output_attentions=False):
     if model_string.startswith("gpt2"):
         tokenizer = GPT2Tokenizer.from_pretrained(model_string)
         model = GPT2LMHeadModel.from_pretrained(model_string)
     elif model_string.startswith("EleutherAI/gpt-neo"):
-        tokenizer = GPT2Tokenizer.from_pretrained(model_string)
+        tokenizer = GPT2Tokenizer.from_pretrained(model_string, output_attentions=output_attentions)
         #model = AutoModelForCausalLM.from_pretrained(model_string)
-        model = GPTNeoForCausalLM.from_pretrained(model_string)
+        model = GPTNeoForCausalLM.from_pretrained(model_string, output_attentions=output_attentions)
     else:
         tokenizer = OpenAIGPTTokenizer.from_pretrained(model_string)
         model = OpenAIGPTLMHeadModel.from_pretrained(model_string)
@@ -34,7 +34,7 @@ def model_init(model_string, cuda):
     return model, tokenizer
 
 
-def sent_scoring(model_tokenizer, text, cuda, score_type="loss"):
+def sent_scoring(model_tokenizer, text, cuda, score_type="loss", output_attentions=False):
     model = model_tokenizer[0]
     tokenizer = model_tokenizer[1]
     assert model is not None
@@ -44,12 +44,17 @@ def sent_scoring(model_tokenizer, text, cuda, score_type="loss"):
     if cuda:
         input_ids = input_ids.to('cuda')
     with torch.no_grad():
-        outputs = model(input_ids, labels=input_ids)
+        outputs = model(input_ids, labels=input_ids, output_attentions=output_attentions)
     loss, logits = outputs[:2]
+
     sentence_prob = loss.item()
     if score_type == "prob":
         sentence_prob = math.exp(-1.0 * loss)
 
+    if output_attentions:
+        attn = outputs["attentions"]
+        return sentence_prob, attn, input_ids
+        
     return sentence_prob
 
 def confusion_matrix(P_forward_1, P_forward_2, P_backward_1, P_backward_2):
@@ -68,6 +73,10 @@ def main(model, tokenizer, test_set, middle_phrase="", verbose=True, score_type=
     x_2 = []
     y_1 = []
     y_2 = []
+    P_x_1 = []
+    P_x_2 = []
+    P_y_1 = []
+    P_y_2 = []
     P_x_1_y_1 = []
     P_x_1_y_2 = []
     P_x_2_y_1 = []
@@ -86,7 +95,7 @@ def main(model, tokenizer, test_set, middle_phrase="", verbose=True, score_type=
 
         score1 = sent_scoring((model, tokenizer), sent1, use_cuda, score_type=score_type)
         score2 = sent_scoring((model, tokenizer), sent2, use_cuda, score_type=score_type)
-       
+
         if score_type == "loss":
             pred = 0 if score1 < score2 else 1
         else:
@@ -96,28 +105,37 @@ def main(model, tokenizer, test_set, middle_phrase="", verbose=True, score_type=
 
         if i % 2 == 0:
             x_1.append(ctx)
+            x_1_score = sent_scoring((model, tokenizer), ctx + ".", use_cuda, score_type=score_type)
+            P_x_1.append(x_1_score)
             y_1.append(p1)
             y_2.append(p2)
+            y1_score = sent_scoring((model, tokenizer), p1 + ".", use_cuda, score_type=score_type)
+            y2_score = sent_scoring((model, tokenizer), p2 + ".", use_cuda, score_type=score_type)
+            P_y_1.append(y1_score)
+            P_y_2.append(y2_score)
+
             P_x_1_y_1.append(score1)
             P_x_1_y_2.append(score2)
             P_x_1_correct.append(score1/(score1 + score2))
 
         else:
             x_2.append(ctx)
+            x_2_score = sent_scoring((model, tokenizer), ctx + ".", use_cuda, score_type=score_type)
+            P_x_2.append(x_2_score)
             P_x_2_y_1.append(score1)
             P_x_2_y_2.append(score2)
             P_x_2_correct.append(score2/(score1 + score2))
 
-            P_y_1_correct.append(P_x_1_y_1[-1]/(P_x_1_y_1[-1] + score2))
-            P_y_2_correct.append(score2/(P_x_1_y_1[-1] + score2))
+            P_y_1_correct.append(P_x_1_y_1[-1]/(P_x_1_y_1[-1] + score1))
+            P_y_2_correct.append(score2/(P_x_1_y_2[-1] + score2))
         
         if verbose:
             print(f"Q: {ctx}: 1. {p1} 2. {p2}")
             print(f"model says '{pred_sent}' is more likely")
             print("\n")
         preds.append(pred)
-    
-    cols = {"x_1": x_1, "x_2": x_2, "y_1": y_1, "y_2": y_2,
+
+    cols = {"x_1": x_1, "x_2": x_2, "y_1": y_1, "y_2": y_2, "P(x_1)": P_x_1, "P(x_2)": P_x_2, "P(y_1)": P_y_1, "P(y_2)": P_y_2,
         "P(x_1, y_1)": P_x_1_y_1, "P(x_1, y_2)": P_x_1_y_2, "P(x_2, y_1)": P_x_2_y_1, "P(x_2, y_2)": P_x_2_y_2,
         "P(y_1|x_1)": P_x_1_correct, "P(y_2|x_2)": P_x_2_correct, "P(x_1|y_1)": P_y_1_correct, "P(x_2|y_2)": P_y_2_correct}
     out_df = pd.DataFrame(cols)
@@ -135,7 +153,7 @@ if __name__ == '__main__':
     #model, tokenizer = model_init('gpt2', False) 
     use_cuda = False
     model_names = {"gpt2": "gpt2", "neo-sm": "EleutherAI/gpt-neo-1.3B", "neo-lg": "EleutherAI/gpt-neo-2.7B"}
-    model_id = "gpt2"
+    model_id = "neo-lg"
     model_name = model_names[model_id]
     tsv_name = f"{model_id}_prob"
     middle_phrase = "That is to say, "
