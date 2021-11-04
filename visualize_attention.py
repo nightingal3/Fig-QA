@@ -24,10 +24,14 @@ def visualize(attention, tokenizer, input_ids, gold=None, normalize=False, save_
         x = 2/(b-a)
         y = 1-b*x
         attention = [g*x + y for g in attention]
-    attention = np.array([attention])
+        attention = np.array([attention])
+        attn_min, attn_max = -1, 1
+    else:
+        attn_min, attn_max = min(attention).item(), max(attention).item()
+        attention = np.expand_dims(np.array(attention), axis=0)
 
     fig, ax = plt.subplots(figsize=(figsize,figsize))
-    norm = mpl.colors.Normalize(vmin=-1, vmax=1)
+    norm = mpl.colors.Normalize(vmin=attn_min, vmax=attn_max)
     im = ax.imshow(attention, cmap='seismic', norm=norm)
 
     ax.set_xticks(np.arange(len(tokens)))
@@ -36,7 +40,7 @@ def visualize(attention, tokenizer, input_ids, gold=None, normalize=False, save_
     plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
          rotation_mode="anchor")
     for (i, j), z in np.ndenumerate(attention):
-        ax.text(j, i, '{:0.2f}'.format(z), ha='center', va='center')
+        ax.text(j, i, '{:0.3e}'.format(z), ha='center', va='center', fontsize=30)
 
 
     ax.set_title("")
@@ -51,6 +55,33 @@ def visualize(attention, tokenizer, input_ids, gold=None, normalize=False, save_
     else:
         plt.show()
 
+def plot_contrastive_attention(model, tokenizer, dataset): 
+    for i, metaphor_data in enumerate(dataset):
+        ctx, p1, p2 = metaphor_data["startphrase"], metaphor_data["ending1"], metaphor_data["ending2"]        
+        sent1 = ctx + ". " + middle_phrase + p1 + "."
+        sent2 = ctx + ". " + middle_phrase + p2 + "."
+        if not os.path.isdir(f"./attn_test/{i}"):
+            os.mkdir(f"./attn_test/{i}")
+
+        _, attn1, input_ids_1 = sent_scoring((model, tokenizer), sent1, use_cuda, score_type, output_attentions=True)
+        attn_avg_1 = torch.mean(attn1[-1], dim=1).squeeze(0)
+
+        _, attn2, input_ids_2 = sent_scoring((model, tokenizer), sent2, use_cuda, score_type, output_attentions=True)
+        attn_avg_2 = torch.mean(attn2[-1], dim=1).squeeze(0)
+
+        first_mismatch = np.where(np.array(input_ids_1[0]) != np.array(input_ids_2[0]))[0][0]
+        for j in range(first_mismatch, min(len(attn_avg_1), len(attn_avg_2))):
+            if len(attn_avg_1[j]) != len(attn_avg_2[j]):
+                pdb.set_trace()
+            subtracted_attn = (attn_avg_1[j][:first_mismatch] - attn_avg_2[j][:first_mismatch])
+            visualize(subtracted_attn, tokenizer, input_ids_1[:, :first_mismatch], normalize=False, save_file=f"{i}_test_{j}.png")
+
+        if i == 3:
+            assert False
+            
+def plot_attention_individual(model, tokenizer, dataset, out_dir):
+    pass
+
 if __name__ == "__main__":
     use_cuda = False
     model_names = {"gpt2": "gpt2", "neo-sm": "EleutherAI/gpt-neo-1.3B", "neo-lg": "EleutherAI/gpt-neo-2.7B"}
@@ -63,6 +94,8 @@ if __name__ == "__main__":
         
     metaphor_set = trial_dataset["test"]
     model, tokenizer = model_init(model_name, use_cuda, output_attentions=True)
+
+    plot_contrastive_attention(model, tokenizer, metaphor_set)
 
     for i, metaphor_data in enumerate(metaphor_set):
         ctx, p1, p2 = metaphor_data["startphrase"], metaphor_data["ending1"], metaphor_data["ending2"]        
