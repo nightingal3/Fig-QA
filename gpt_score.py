@@ -1,5 +1,5 @@
 import torch
-from transformers import OpenAIGPTTokenizer, OpenAIGPTLMHeadModel, GPTNeoForCausalLM, AutoModelForCausalLM
+from transformers import OpenAIGPTTokenizer, OpenAIGPTLMHeadModel, GPTNeoForCausalLM, AutoModelForCausalLM, AutoTokenizer
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 import numpy as np
 from scipy.special import softmax
@@ -11,16 +11,17 @@ from transformers import file_utils
 import math
 from typing import List
 
-print(file_utils.default_cache_path)
-print(pkg_resources.get_distribution("transformers").version)
-
 # current code is from this gist! https://gist.github.com/yuchenlin/eb63e2d0513f70cfc9bb85fa5a78953b
 # need to modify for the specific use case
 
-def model_init(model_string, cuda, output_attentions=False):
+def model_init(model_string, cuda, output_attentions=False, fast=False):
     if model_string.startswith("gpt2"):
-        tokenizer = GPT2Tokenizer.from_pretrained(model_string)
-        model = GPT2LMHeadModel.from_pretrained(model_string)
+        if fast:
+            tokenizer = AutoTokenizer.from_pretrained(model_string)
+            model = GPT2LMHeadModel.from_pretrained(model_string)
+        else:
+            tokenizer = GPT2Tokenizer.from_pretrained(model_string) 
+            model = GPT2LMHeadModel.from_pretrained(model_string)
     elif model_string.startswith("EleutherAI/gpt-neo"):
         tokenizer = GPT2Tokenizer.from_pretrained(model_string, output_attentions=output_attentions)
         #model = AutoModelForCausalLM.from_pretrained(model_string)
@@ -66,7 +67,7 @@ def confusion_matrix(P_forward_1, P_forward_2, P_backward_1, P_backward_2):
 
     print("correct forward", correct_forward, "wrong forward", wrong_forward, "correct backward", correct_backward, "wrong_backward", wrong_backward)
 
-def main(model, tokenizer, test_set, middle_phrase="", verbose=True, score_type="prob", use_cuda=False) -> tuple:
+def evaluate_model(model, tokenizer, test_set, middle_phrase="", verbose=True, score_type="prob", use_cuda=False, acc_only=False) -> tuple:
     preds = []
     labels = []
     x_1 = []
@@ -85,6 +86,7 @@ def main(model, tokenizer, test_set, middle_phrase="", verbose=True, score_type=
     P_x_2_correct = []
     P_y_1_correct = []
     P_y_2_correct = []
+    correct = 0
 
     for i, metaphor_data in enumerate(test_set):
         ctx, p1, p2 = metaphor_data["startphrase"], metaphor_data["ending1"], metaphor_data["ending2"]
@@ -133,12 +135,17 @@ def main(model, tokenizer, test_set, middle_phrase="", verbose=True, score_type=
             print(f"Q: {ctx}: 1. {p1} 2. {p2}")
             print(f"model says '{pred_sent}' is more likely")
             print("\n")
+        if pred == metaphor_data["label"]:
+            correct += 1
         preds.append(pred)
 
     cols = {"x_1": x_1, "x_2": x_2, "y_1": y_1, "y_2": y_2, "P(x_1)": P_x_1, "P(x_2)": P_x_2, "P(y_1)": P_y_1, "P(y_2)": P_y_2,
         "P(x_1, y_1)": P_x_1_y_1, "P(x_1, y_2)": P_x_1_y_2, "P(x_2, y_1)": P_x_2_y_1, "P(x_2, y_2)": P_x_2_y_2,
         "P(y_1|x_1)": P_x_1_correct, "P(y_2|x_2)": P_x_2_correct, "P(x_1|y_1)": P_y_1_correct, "P(x_2|y_2)": P_y_2_correct}
     out_df = pd.DataFrame(cols)
+
+    if acc_only:
+        return correct/len(labels)
 
     return out_df, preds, labels
  
@@ -148,7 +155,7 @@ def compute_stats(total_df: pd.DataFrame, all_preds: List, all_labels: List) -> 
     print("confusion matrix: ")
     confusion_matrix(list(total_df["P(y_1|x_1)"]), list(total_df["P(y_2|x_2)"]), list(total_df["P(x_1|y_1)"]), list(total_df["P(x_2|y_2)"]))
 
-if __name__ == '__main__':
+if __name__ == '__evaluate_model__':
     # model, tokenizer = model_init('openai-gpt', False) 
     #model, tokenizer = model_init('gpt2', False) 
     use_cuda = False
@@ -168,9 +175,9 @@ if __name__ == '__main__':
     mturk_data_2 = mturk_data_2.loc[mturk_data_2["valid"] == 1] 
     
     # without interjection
-    my_examples_df, preds_1, labels_1 = main(model, tokenizer, metaphor_set, use_cuda=use_cuda, verbose=verbose)
-    mturk_examples_df, preds_2, labels_2 = main(model, tokenizer, mturk_data.to_dict(orient="records"), use_cuda=use_cuda, verbose=verbose)
-    mturk_examples_df_2, preds_3, labels_3 = main(model, tokenizer, mturk_data_2.to_dict(orient="records"), use_cuda=use_cuda, verbose=verbose)
+    my_examples_df, preds_1, labels_1 = evaluate_model(model, tokenizer, metaphor_set, use_cuda=use_cuda, verbose=verbose)
+    mturk_examples_df, preds_2, labels_2 = evaluate_model(model, tokenizer, mturk_data.to_dict(orient="records"), use_cuda=use_cuda, verbose=verbose)
+    mturk_examples_df_2, preds_3, labels_3 = evaluate_model(model, tokenizer, mturk_data_2.to_dict(orient="records"), use_cuda=use_cuda, verbose=verbose)
     
     all_preds = sum([preds_1, preds_2, preds_3], [])
     all_labels = sum([labels_1, labels_2, labels_3], [])
@@ -179,9 +186,9 @@ if __name__ == '__main__':
     total_df.to_csv(f"{tsv_name}.tsv", sep="\t", index=False)
 
     # with interjection
-    my_examples_df, preds_1, labels_1 = main(model, tokenizer, metaphor_set, middle_phrase=middle_phrase, use_cuda=use_cuda, verbose=verbose)
-    mturk_examples_df, preds_2, labels_2 = main(model, tokenizer, mturk_data.to_dict(orient="records"), middle_phrase=middle_phrase, use_cuda=use_cuda, verbose=verbose)
-    mturk_examples_df_2, preds_3, labels_3 = main(model, tokenizer, mturk_data_2.to_dict(orient="records"), middle_phrase=middle_phrase, use_cuda=use_cuda, verbose=verbose)
+    my_examples_df, preds_1, labels_1 = evaluate_model(model, tokenizer, metaphor_set, middle_phrase=middle_phrase, use_cuda=use_cuda, verbose=verbose)
+    mturk_examples_df, preds_2, labels_2 = evaluate_model(model, tokenizer, mturk_data.to_dict(orient="records"), middle_phrase=middle_phrase, use_cuda=use_cuda, verbose=verbose)
+    mturk_examples_df_2, preds_3, labels_3 = evaluate_model(model, tokenizer, mturk_data_2.to_dict(orient="records"), middle_phrase=middle_phrase, use_cuda=use_cuda, verbose=verbose)
     
     all_preds = sum([preds_1, preds_2, preds_3], [])
     all_labels = sum([labels_1, labels_2, labels_3], [])

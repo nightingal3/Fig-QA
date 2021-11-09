@@ -23,17 +23,19 @@ from transformers import (
     set_seed,
 )
 from torch.utils.data import ConcatDataset
+from sample_metaphors import trial_dataset
 import pdb
 
-from gpt_score import model_init
+from gpt_score import model_init, evaluate_model
 
 logger = logging.getLogger(__name__)
 
-def main(model_name: str, train_path: str, num_epochs: int, seed: int, use_cuda: bool, cache_dir: str = "./lm_train_cache/") -> None:
+def main(model_name: str, train_path: str, num_epochs: int, seed: int, use_cuda: bool, do_train: bool, do_eval: bool, cache_dir: str = "./lm_train_cache/") -> None:
     # Set up models, random seed, and logging
     model_names = {"gpt2": "gpt2", "neo-sm": "EleutherAI/gpt-neo-1.3B", "neo-lg": "EleutherAI/gpt-neo-2.7B"}
     model_id = model_names[model_name]
-    model, tokenizer = model_init(model_name, use_cuda)
+    model, tokenizer = model_init(model_id, use_cuda, fast=True)
+    tokenizer.pad_token = tokenizer.eos_token
     #model.resize_token_embeddings(len(tokenizer))
     set_seed(seed)
     logging.basicConfig(
@@ -44,12 +46,13 @@ def main(model_name: str, train_path: str, num_epochs: int, seed: int, use_cuda:
     transformers.utils.logging.set_verbosity_info()
     transformers.utils.logging.enable_default_handler()
     transformers.utils.logging.enable_explicit_format()
-    logger.info("Training/evaluation parameters %s", locals())
+    logger.info("Training/evaluation parameters %s", {"model": model_name, "train path": train_path, "num epochs": num_epochs, "seed": seed, "cuda": use_cuda, "cache dir": cache_dir})
 
     # load datasets and initialize trainer
     train_dataset = (
-        get_dataset("./lm_train_data/test.txt", tokenizer=tokenizer, cache_dir=cache_dir)
+        get_dataset("./lm_train_data/train_example.txt", tokenizer=tokenizer, cache_dir=cache_dir)
     )
+
     data_collator = DataCollatorForLanguageModeling(
                 tokenizer=tokenizer, mlm=False
             )
@@ -59,8 +62,11 @@ def main(model_name: str, train_path: str, num_epochs: int, seed: int, use_cuda:
         "prediction_loss_only": True,
         "per_device_batch_size": 8,
         "num_train_epochs": num_epochs,
-        "seed": seed
+        "block_size": tokenizer.model_max_length
+        #"seed": seed
     }
+    training_args = transformers.TrainingArguments(output_dir=f"./lm_train_outputs/{model_name}/", do_train=True, do_eval=False, 
+    prediction_loss_only=True, num_train_epochs=num_epochs)
     trainer = Trainer(
         model=model,
         args=training_args,
@@ -69,9 +75,26 @@ def main(model_name: str, train_path: str, num_epochs: int, seed: int, use_cuda:
     )
 
     # Train the model
-    trainer.train()
-    trainer.save_model("./lm_train_cache/")
-    pdb.set_trace()
+    if do_train:
+        logger.info("=== Training the model ===")
+        trainer.train()
+        trainer.save_model("./lm_train_cache/")
+
+    # Evaluate the model
+    results = {}
+    if do_eval:
+        logger.info("=== Evaluating the model ===")
+        acc = evaluate_model(model, tokenizer, trial_dataset["test"], acc_only=True)
+        results["accuracy (dev)"] = acc
+
+    with open("out_results.txt", "w") as writer:
+        logger.info("=== Outputting results ===")
+        for key in sorted(results.keys()):
+            logger.info("  %s = %s", key, str(results[key]))
+            writer.write("%s = %s\n" % (key, str(results[key])))
+
+
+    return results
 
 # This is adapted from the huggingface LM training example here: https://github.com/huggingface/transformers/blob/master/examples/legacy/run_language_modeling.py
 def get_dataset(
@@ -90,11 +113,11 @@ def get_dataset(
                 return LineByLineWithRefDataset(
                     tokenizer=tokenizer,
                     file_path=file_path,
-                    block_size=args.block_size,
+                    block_size=tokenizer.model_max_length,
                     ref_path=ref_path,
                 )
 
-            return LineByLineTextDataset(tokenizer=tokenizer, file_path=file_path, block_size=-1)
+            return LineByLineTextDataset(tokenizer=tokenizer, file_path=file_path, block_size=tokenizer.model_max_length)
 
     if evaluate:
         return _dataset(eval_data_file)
@@ -105,10 +128,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train models with the causal language modelling objective (GPT-*)")
     #TODO: add ability to load a pretrained model and just evaluate it
     parser.add_argument("model", choices=["gpt2", "gpt-neo-sm", "gpt-neo-lg"]) 
+    parser.add_argument("--do_train", action="store_true", default=True)
+    parser.add_argument("--do_eval", action="store_true", default=True)
     parser.add_argument("-t", "--train_path", default="./filtered_data/processed.csv")
     parser.add_argument("-e", "--eval_path", type=str)
     parser.add_argument("-s", "--seed", default=42, type=int)
     parser.add_argument("-c", "--cuda", default=False, action="store_true")
     parser.add_argument("--num_epochs", default=3, type=int)
     args = parser.parse_args()
-    main(args.model, args.train_path, args.num_epochs, args.seed, args.cuda)
+    main(args.model, args.train_path, args.num_epochs, args.seed, args.cuda, args.do_train, args.do_eval)
