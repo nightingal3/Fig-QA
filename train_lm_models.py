@@ -50,7 +50,7 @@ def main(model_name: str, train_path: str, num_epochs: int, seed: int, use_cuda:
 
     # load datasets and initialize trainer
     train_dataset = (
-        get_dataset("./lm_train_data/train_example.txt", tokenizer=tokenizer, cache_dir=cache_dir)
+        get_dataset(train_path, tokenizer=tokenizer, cache_dir=cache_dir)
     )
 
     data_collator = DataCollatorForLanguageModeling(
@@ -87,7 +87,7 @@ def main(model_name: str, train_path: str, num_epochs: int, seed: int, use_cuda:
         acc = evaluate_model(model, tokenizer, trial_dataset["test"], acc_only=True)
         results["accuracy (dev)"] = acc
 
-    with open("out_results.txt", "w") as writer:
+    with open(f"results_{model_name}.txt", "w") as writer:
         logger.info("=== Outputting results ===")
         for key in sorted(results.keys()):
             logger.info("  %s = %s", key, str(results[key]))
@@ -130,8 +130,8 @@ if __name__ == "__main__":
     parser.add_argument("model", choices=["gpt2", "gpt-neo-sm", "gpt-neo-lg"]) 
     parser.add_argument("--do_train", action="store_true", default=True)
     parser.add_argument("--do_eval", action="store_true", default=True)
-    parser.add_argument("-t", "--train_path", default="./filtered_data/processed.csv")
-    parser.add_argument("-e", "--eval_path", type=str)
+    parser.add_argument("-t", "--train_path", default="./lm_train_data/train.csv")
+    parser.add_argument("-e", "--eval_path", default="./lm_train_data/dev.csv")
     parser.add_argument("-s", "--seed", default=42, type=int)
     parser.add_argument("-c", "--cuda", default=False, action="store_true")
     parser.add_argument("--num_epochs", default=3, type=int)
