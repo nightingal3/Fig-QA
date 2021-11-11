@@ -2,6 +2,8 @@ import argparse
 import logging
 from typing import Optional
 from glob import glob
+from pathlib import Path
+import os
 
 import transformers
 from transformers import (
@@ -30,7 +32,7 @@ from gpt_score import model_init, evaluate_model
 
 logger = logging.getLogger(__name__)
 
-def main(model_name: str, train_path: str, num_epochs: int, seed: int, use_cuda: bool, do_train: bool, do_eval: bool, cache_dir: str = "./lm_train_cache/") -> None:
+def main(model_name: str, train_path: str, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/") -> None:
     # Set up models, random seed, and logging
     model_names = {"gpt2": "gpt2", "neo-sm": "EleutherAI/gpt-neo-1.3B", "neo-lg": "EleutherAI/gpt-neo-2.7B"}
     model_id = model_names[model_name]
@@ -56,17 +58,8 @@ def main(model_name: str, train_path: str, num_epochs: int, seed: int, use_cuda:
     data_collator = DataCollatorForLanguageModeling(
                 tokenizer=tokenizer, mlm=False
             )
-    training_args = { #TODO: make other training args customizable
-        "output_dir": f"./lm_train_outputs/{model}/",
-        "do_train": True,
-        "prediction_loss_only": True,
-        "per_device_batch_size": 8,
-        "num_train_epochs": num_epochs,
-        "block_size": tokenizer.model_max_length
-        #"seed": seed
-    }
-    training_args = transformers.TrainingArguments(output_dir=f"./lm_train_outputs/{model_name}/", do_train=True, do_eval=False, 
-    prediction_loss_only=True, num_train_epochs=num_epochs)
+    training_args = transformers.TrainingArguments(output_dir=f"./lm_train_outputs/{model_name}_{seed}/", do_train=True, do_eval=False, 
+    prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr)
     trainer = Trainer(
         model=model,
         args=training_args,
@@ -75,24 +68,29 @@ def main(model_name: str, train_path: str, num_epochs: int, seed: int, use_cuda:
     )
 
     # Train the model
-    if do_train:
+    if not dont_train:
         logger.info("=== Training the model ===")
         trainer.train()
         trainer.save_model("./lm_train_cache/")
 
     # Evaluate the model
     results = {}
-    if do_eval:
+    if not dont_eval:
+        model.eval()
         logger.info("=== Evaluating the model ===")
-        acc = evaluate_model(model, tokenizer, trial_dataset["test"], acc_only=True)
+        acc, out_df, preds, labels = evaluate_model(model, tokenizer, trial_dataset["test"], acc=True)
         results["accuracy (dev)"] = acc
+        results["preds"] = preds
+        results["labels"] = labels
 
+    Path(out_path).mkdir(parents=True, exist_ok=True)
     with open(f"results_{model_name}.txt", "w") as writer:
         logger.info("=== Outputting results ===")
         for key in sorted(results.keys()):
             logger.info("  %s = %s", key, str(results[key]))
             writer.write("%s = %s\n" % (key, str(results[key])))
 
+    out_df.to_csv(f"{out_path}/prob_{model_name}_{seed}.csv", index=False)
 
     return results
 
@@ -128,12 +126,25 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train models with the causal language modelling objective (GPT-*)")
     #TODO: add ability to load a pretrained model and just evaluate it
     parser.add_argument("model", choices=["gpt2", "gpt-neo-sm", "gpt-neo-lg"]) 
-    parser.add_argument("--do_train", action="store_true", default=True)
-    parser.add_argument("--do_eval", action="store_true", default=True)
-    parser.add_argument("-t", "--train_path", default="./lm_train_data/train.csv")
-    parser.add_argument("-e", "--eval_path", default="./lm_train_data/dev.csv")
+    parser.add_argument("--dont_train", action="store_true", default=False)
+    parser.add_argument("--dont_eval", action="store_true", default=False)
+    parser.add_argument("-t", "--train_path", default="./lm_train_data/train.txt")
+    parser.add_argument("-e", "--eval_path", default="./lm_train_data/dev.txt")
     parser.add_argument("-s", "--seed", default=42, type=int)
     parser.add_argument("-c", "--cuda", default=False, action="store_true")
     parser.add_argument("--num_epochs", default=3, type=int)
+    parser.add_argument("--learning_rate", type=float)
+    parser.add_argument("--out_path")
     args = parser.parse_args()
-    main(args.model, args.train_path, args.num_epochs, args.seed, args.cuda, args.do_train, args.do_eval)
+
+    if args.out_path is not None:
+        out_path = args.out_path
+    else:
+        out_path = f"./experiments/{args.model}/"
+
+    if args.learning_rate is None:
+        learning_rate = 5e-5
+    else:
+        learning_rate = args.learning_rate
+
+    main(args.model, args.train_path, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path)

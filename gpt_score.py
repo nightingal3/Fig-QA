@@ -67,7 +67,7 @@ def confusion_matrix(P_forward_1, P_forward_2, P_backward_1, P_backward_2):
 
     print("correct forward", correct_forward, "wrong forward", wrong_forward, "correct backward", correct_backward, "wrong_backward", wrong_backward)
 
-def evaluate_model(model, tokenizer, test_set, middle_phrase="", verbose=True, score_type="prob", use_cuda=False, acc_only=False) -> tuple:
+def evaluate_model(model, tokenizer, test_set, middle_phrase="", verbose=True, score_type="prob", use_cuda=False, acc=False) -> tuple:
     preds = []
     labels = []
     x_1 = []
@@ -143,9 +143,10 @@ def evaluate_model(model, tokenizer, test_set, middle_phrase="", verbose=True, s
         "P(x_1, y_1)": P_x_1_y_1, "P(x_1, y_2)": P_x_1_y_2, "P(x_2, y_1)": P_x_2_y_1, "P(x_2, y_2)": P_x_2_y_2,
         "P(y_1|x_1)": P_x_1_correct, "P(y_2|x_2)": P_x_2_correct, "P(x_1|y_1)": P_y_1_correct, "P(x_2|y_2)": P_y_2_correct}
     out_df = pd.DataFrame(cols)
+    pdb.set_trace()
 
-    if acc_only:
-        return correct/len(labels)
+    if acc:
+        return acc, out_df, preds, labels
 
     return out_df, preds, labels
  
