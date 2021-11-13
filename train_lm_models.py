@@ -7,8 +7,6 @@ import os
 
 import transformers
 from transformers import (
-    CONFIG_MAPPING,
-    MODEL_WITH_LM_HEAD_MAPPING,
     AutoConfig,
     AutoModelWithLMHead,
     AutoTokenizer,
@@ -32,9 +30,9 @@ from gpt_score import model_init, evaluate_model
 
 logger = logging.getLogger(__name__)
 
-def main(model_name: str, train_path: str, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/") -> None:
+def main(model_name: str, prompt: str, train_path: str, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/") -> None:
     # Set up models, random seed, and logging
-    model_names = {"gpt2": "gpt2", "neo-sm": "EleutherAI/gpt-neo-1.3B", "neo-lg": "EleutherAI/gpt-neo-2.7B"}
+    model_names = {"gpt2": "gpt2", "gpt-neo-sm": "EleutherAI/gpt-neo-1.3B", "gpt-neo-lg": "EleutherAI/gpt-neo-2.7B"}
     model_id = model_names[model_name]
     model, tokenizer = model_init(model_id, use_cuda, fast=True)
     tokenizer.pad_token = tokenizer.eos_token
@@ -78,13 +76,13 @@ def main(model_name: str, train_path: str, num_epochs: int, seed: int, lr: int, 
     if not dont_eval:
         model.eval()
         logger.info("=== Evaluating the model ===")
-        acc, out_df, preds, labels = evaluate_model(model, tokenizer, trial_dataset["test"], acc=True)
+        acc, out_df, preds, labels = evaluate_model(model, tokenizer, trial_dataset["test"], use_cuda=use_cuda, return_acc=True, middle_phrase=prompt)
         results["accuracy (dev)"] = acc
         results["preds"] = preds
         results["labels"] = labels
 
     Path(out_path).mkdir(parents=True, exist_ok=True)
-    with open(f"results_{model_name}.txt", "w") as writer:
+    with open(f"{out_path}/results_{model_name}.txt", "w") as writer:
         logger.info("=== Outputting results ===")
         for key in sorted(results.keys()):
             logger.info("  %s = %s", key, str(results[key]))
@@ -133,18 +131,19 @@ if __name__ == "__main__":
     parser.add_argument("-s", "--seed", default=42, type=int)
     parser.add_argument("-c", "--cuda", default=False, action="store_true")
     parser.add_argument("--num_epochs", default=3, type=int)
-    parser.add_argument("--learning_rate", type=float)
+    parser.add_argument("--learning_rate", type=float, default=5e-5)
+    parser.add_argument("--middle_phrase", default="")
     parser.add_argument("--out_path")
     args = parser.parse_args()
 
     if args.out_path is not None:
         out_path = args.out_path
     else:
-        out_path = f"./experiments/{args.model}/"
+        out_path = f"./experiments/{args.model}/epochs_{args.num_epochs}_{args.learning_rate}_/seed_{args.seed}"
 
     if args.learning_rate is None:
         learning_rate = 5e-5
     else:
         learning_rate = args.learning_rate
 
-    main(args.model, args.train_path, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path)
+    main(args.model, args.middle_phrase, args.train_path, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path)
