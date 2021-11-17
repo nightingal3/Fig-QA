@@ -38,6 +38,7 @@ def main():
     sns.lineplot(data=odds_df, x="odds", y="pred", hue="name")
     plt.xlabel("log(P(y_1)/P(y_2))")
     plt.ylabel("P(y_1|x_1)")
+    plt.xlim(-2, 3)
     plt.title("Trained models")
 
 if __name__ == "__main__":
