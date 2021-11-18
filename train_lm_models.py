@@ -4,6 +4,7 @@ from typing import Optional
 from glob import glob
 from pathlib import Path
 import os
+import torch
 
 import transformers
 from transformers import (
@@ -56,8 +57,12 @@ def main(model_name: str, prompt: str, train_path: str, contrastive_train: bool,
     data_collator = DataCollatorForLanguageModeling(
                 tokenizer=tokenizer, mlm=False
             )
-    training_args = transformers.TrainingArguments(output_dir=f"./lm_train_outputs/{model_name}_{seed}/", do_train=True, do_eval=False, 
-    prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr)
+    if not contrastive_train:
+        training_args = transformers.TrainingArguments(output_dir=f"./lm_train_outputs/{model_name}_{seed}/", do_train=True, do_eval=False, 
+        prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr)
+    else:
+        training_args = transformers.TrainingArguments(output_dir=f"./lm_train_outputs/{model_name}_{seed}/", do_train=True, do_eval=False, 
+        prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr, per_device_train_batch_size=2)
 
     if not contrastive_train:
         trainer = Trainer(
@@ -131,17 +136,27 @@ def get_dataset(
 
 class ContrastiveTrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False):
-        pdb.set_trace()
         # Assumes batch size of 2!
-        if inputs.shape()[0] != 2:
-            raise ValueError("Batch size must be 2")
-        labels = inputs.get("labels")
-        outputs_correct = model(**inputs[0])
-        outputs_wrong = model()
-        logits = outputs.get('logits')
-        loss_fct = nn.BCEWithLogitsLoss()
-        loss = loss_fct(logits.view(-1, self.model.config.num_labels),
-                        labels.float().view(-1, self.model.config.num_labels))
+        if inputs["labels"].shape[0] % 2 != 0:
+            raise ValueError("Batch size must be a multiple of 2")
+        
+        correct_inputs = {"input_ids": torch.stack([row for i, row in enumerate(inputs["input_ids"]) if i % 2 == 0]),
+        "attention_mask": torch.stack([row for i, row in enumerate(inputs["attention_mask"]) if i % 2 == 0]), 
+        "labels":  torch.stack([row for i, row in enumerate(inputs["labels"]) if i % 2 == 0])}
+        wrong_inputs = {"input_ids": torch.stack([row for i, row in enumerate(inputs["input_ids"]) if i % 2 == 1]),
+        "attention_mask": torch.stack([row for i, row in enumerate(inputs["attention_mask"]) if i % 2 == 1]), 
+        "labels":  torch.stack([row for i, row in enumerate(inputs["labels"]) if i % 2 == 1])}
+
+        outputs = model(**inputs)
+
+        correct_outputs = model(**correct_inputs)
+        correct_loss = correct_outputs.get('loss')
+
+        wrong_outputs = model(**wrong_inputs)
+        wrong_loss = wrong_outputs.get("loss")
+
+        loss = wrong_loss - correct_loss
+
         return (loss, outputs) if return_outputs else loss
 
 if __name__ == "__main__":
@@ -157,7 +172,7 @@ if __name__ == "__main__":
     parser.add_argument("--num_epochs", default=3, type=int)
     parser.add_argument("--learning_rate", type=float, default=5e-5)
     parser.add_argument("--middle_phrase", default="")
-    parser.add_argument("--contrastive", type=bool, default=False)
+    parser.add_argument("--contrastive", default=False, action="store_true")
     parser.add_argument("--out_path")
     args = parser.parse_args()
 
