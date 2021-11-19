@@ -4,6 +4,7 @@ from typing import Optional
 from glob import glob
 from pathlib import Path
 import os
+import torch
 
 import transformers
 from transformers import (
@@ -30,7 +31,7 @@ from gpt_score import model_init, evaluate_model
 
 logger = logging.getLogger(__name__)
 
-def main(model_name: str, prompt: str, train_path: str, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/") -> None:
+def main(model_name: str, prompt: str, train_path: str, contrastive_train: bool, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/") -> None:
     # Set up models, random seed, and logging
     model_names = {"gpt2": "gpt2", "gpt-neo-sm": "EleutherAI/gpt-neo-1.3B", "gpt-neo-lg": "EleutherAI/gpt-neo-2.7B"}
     model_id = model_names[model_name]
@@ -56,14 +57,27 @@ def main(model_name: str, prompt: str, train_path: str, num_epochs: int, seed: i
     data_collator = DataCollatorForLanguageModeling(
                 tokenizer=tokenizer, mlm=False
             )
-    training_args = transformers.TrainingArguments(output_dir=f"./lm_train_outputs/{model_name}_{seed}/", do_train=True, do_eval=False, 
-    prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr)
-    trainer = Trainer(
-        model=model,
-        args=training_args,
-        data_collator=data_collator,
-        train_dataset=train_dataset
-    )
+    if not contrastive_train:
+        training_args = transformers.TrainingArguments(output_dir=f"./lm_train_outputs/{model_name}_{seed}/", do_train=True, do_eval=False, 
+        prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr)
+    else:
+        training_args = transformers.TrainingArguments(output_dir=f"./lm_train_outputs/{model_name}_{seed}/", do_train=True, do_eval=False, 
+        prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr, per_device_train_batch_size=2)
+
+    if not contrastive_train:
+        trainer = Trainer(
+            model=model,
+            args=training_args,
+            data_collator=data_collator,
+            train_dataset=train_dataset
+        )
+    else:
+        trainer = ContrastiveTrainer(
+            model=model,
+            args=training_args,
+            data_collator=data_collator,
+            train_dataset=train_dataset
+        )
 
     # Train the model
     if not dont_train:
@@ -120,6 +134,31 @@ def get_dataset(
     else:
         return _dataset(train_data_file)
 
+class ContrastiveTrainer(Trainer):
+    def compute_loss(self, model, inputs, return_outputs=False):
+        # Assumes batch size of 2!
+        if inputs["labels"].shape[0] % 2 != 0:
+            raise ValueError("Batch size must be a multiple of 2")
+        
+        correct_inputs = {"input_ids": torch.stack([row for i, row in enumerate(inputs["input_ids"]) if i % 2 == 0]),
+        "attention_mask": torch.stack([row for i, row in enumerate(inputs["attention_mask"]) if i % 2 == 0]), 
+        "labels":  torch.stack([row for i, row in enumerate(inputs["labels"]) if i % 2 == 0])}
+        wrong_inputs = {"input_ids": torch.stack([row for i, row in enumerate(inputs["input_ids"]) if i % 2 == 1]),
+        "attention_mask": torch.stack([row for i, row in enumerate(inputs["attention_mask"]) if i % 2 == 1]), 
+        "labels":  torch.stack([row for i, row in enumerate(inputs["labels"]) if i % 2 == 1])}
+
+        outputs = model(**inputs)
+
+        correct_outputs = model(**correct_inputs)
+        correct_loss = correct_outputs.get('loss')
+
+        wrong_outputs = model(**wrong_inputs)
+        wrong_loss = wrong_outputs.get("loss")
+
+        loss = wrong_loss - correct_loss
+
+        return (loss, outputs) if return_outputs else loss
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train models with the causal language modelling objective (GPT-*)")
     #TODO: add ability to load a pretrained model and just evaluate it
@@ -133,6 +172,7 @@ if __name__ == "__main__":
     parser.add_argument("--num_epochs", default=3, type=int)
     parser.add_argument("--learning_rate", type=float, default=5e-5)
     parser.add_argument("--middle_phrase", default="")
+    parser.add_argument("--contrastive", default=False, action="store_true")
     parser.add_argument("--out_path")
     args = parser.parse_args()
 
@@ -146,4 +186,4 @@ if __name__ == "__main__":
     else:
         learning_rate = args.learning_rate
 
-    main(args.model, args.middle_phrase, args.train_path, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path)
+    main(args.model, args.middle_phrase, args.train_path, args.contrastive, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path)

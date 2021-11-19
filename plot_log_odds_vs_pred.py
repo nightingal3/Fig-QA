@@ -20,7 +20,7 @@ def get_log_odds_and_pred(df: pd.DataFrame) -> pd.DataFrame:
 def main():
     log_odds = []
     pred_prob = []
-    model_names = []
+    model_name = []
     for model_name in prob_sheets:
         filepath, filepath_trained = prob_sheets[model_name]
         df_untrained = pd.read_csv(filepath, delimiter="\t")
@@ -28,19 +28,18 @@ def main():
         untrained_info = get_log_odds_and_pred(df_untrained)
         trained_info = get_log_odds_and_pred(df_trained)
         #cols[f"{model_name}_odds"] = list(untrained_info["log_odds"])
-        log_odds.extend(list(untrained_info["log_odds"]))
-        pred_prob.extend(list(untrained_info["P(y_1|x_1)"]))
-        model_names.extend([model_name] * len(untrained_info))
+        log_odds.extend(list(trained_info["log_odds"]))
+        pred_prob.extend(list(trained_info["P(y_1|x_1)"]))
+        model_name.extend([f"{model_name}_trained"] * len(trained_info))
         
-    cols = {"odds": log_odds, "pred": pred_prob, "name": model_names}
+    cols = {"odds": log_odds, "pred": pred_prob, "name": model_name}
     odds_df = pd.DataFrame(cols)
-    sns.lmplot(data=odds_df, x="odds", y="pred", hue="name")
+    pdb.set_trace()
+    sns.lineplot(data=odds_df, x="odds", y="pred", hue="name")
     plt.xlabel("log(P(y_1)/P(y_2))")
     plt.ylabel("P(y_1|x_1)")
-    plt.title("Untrained models")
     plt.xlim(-2, 3)
-    plt.tight_layout()
-    plt.savefig("untrained.png")
+    plt.title("Trained models")
 
 if __name__ == "__main__":
     main()
