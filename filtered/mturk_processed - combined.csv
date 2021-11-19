@@ -1,0 +1,242 @@
+startphrase,ending1,ending2,labels,valid_annot1,valid_annot2,valid_annot3,valid_2+,valid_all3
+the ocean waves forced their way unto the beach shore and reached out to me with an invitation to partake in their dance and mystery,The ocean waves are soothing and healing,The ocean waves are dangerous and can kill you,0,1,1,1,1,1
+the ocean waves forced their way unto the beach shore and lashed at me with loud crashing sounds and intimidating rushes of foamy water,The ocean waves are soothing and healing,The ocean waves are dangerous and can kill you,1,1,1,1,1,1
+the teach said that the student had the brain of a gnat,The student is dumb,The student is smart,0,1,1,1,1,1
+the teach said that the student had the brain of a rocket scientist,The student is dumb,The student is smart,1,1,1,1,1,1
+the brain is an air traffic controller,conscious decision making,unconconscious decision making,0,0,0,0,0,0
+the brain is a driverless car,conscious decision making,unconconscious decision making,1,0,0,0,0,0
+i have the musical ability of a chipmunk,My music sounds scratchy and random,My music is soothing and melodious,0,1,1,1,1,1
+i have the musical ability of a songbird,My music sounds scratchy and random,My music is soothing and melodious,1,1,1,1,1,1
+the brain is a computer,"The brain is intelligent, beautiful, complex, and profound","The brain is simple, basic, not capable of rational thought.",0,0,1,1,1,0
+the brain is jelly,"The brain is intelligent, beautiful, complex, and profound","The brain is simple, basic, not capable of rational thought.",1,0,1,1,1,0
+the beach was as hot as a desert,The beach was very warm.,The beach was very cold.,0,1,1,1,1,1
+the beach was as hot as a iceberg,The beach was very warm.,The beach was very cold.,1,1,1,1,1,1
+john's new computer has the same amount of buttons as the startrek enterprise.,"John's new computer has a large number of buttons, which the Startrek enterprise is known for being that it is a fitctional spaceship.","Family Fued has one buzzer for each contestant team, so I am insinuating that John's new computer only has a few buttons a la the Ipad or a Chromebook.",0,0,0,0,0,0
+"john's new computer has the same amount of buttons as the buzzer on family fued,","John's new computer has a large number of buttons, which the Startrek enterprise is known for being that it is a fitctional spaceship.","Family Fued has one buzzer for each contestant team, so I am insinuating that John's new computer only has a few buttons a la the Ipad or a Chromebook.",1,0,0,0,0,0
+life is likened as. puzzle,life is complicated,life is easy,0,0,1,0,0,0
+life is likened as. a race,life is complicated,life is easy,1,0,0,0,0,0
+the brain is a spider web,brain is hypersensitive and connects many things.,brain take one input and gives multiple output.,0,1,1,1,1,1
+the brain is a prism,brain is hypersensitive and connects many things.,brain take one input and gives multiple output.,1,1,1,1,1,1
+the wind approached me and spoke to me through the rustling of the tree leaves and whispered in my ear through the whistling of the branches,"The wind is gentle, assuring and relaxing","The wind is intense, threatening and destructive",0,1,1,1,1,1
+the wind approached me and raised it's voice at me with sudden bursts of speed that stripped the leaves from the trees and yelled at me through the crackling and breaking for the branches,"The wind is gentle, assuring and relaxing","The wind is intense, threatening and destructive",1,1,1,1,1,1
+a computer can be one's best friend,Computers can be a great asset,Computers can be a great detriment,0,1,1,1,1,1
+a computer can be one's bitter enemy,Computers can be a great asset,Computers can be a great detriment,1,1,1,1,1,1
+a computer is an obedient dog,follows instructions,refuses to follow instructions,0,1,1,1,1,1
+a computer is a toddler,follows instructions,refuses to follow instructions,1,1,1,1,1,1
+his brain is like a computer,His brain is fast and concise.,His brain is slow and limbering.,0,1,1,1,1,1
+his brain is like a see-saw,His brain is fast and concise.,His brain is slow and limbering.,1,1,0,1,1,0
+the old woman was a rocket.,"The old woman was feisty, fiery, energetic, kinetic.",The old woman was still and unmovable.,0,1,1,1,1,1
+the old woman was a mountain,"The old woman was feisty, fiery, energetic, kinetic.",The old woman was still and unmovable.,1,1,1,1,1,1
+the family was as friendly as a pack of wolves,The family was very mean.,The family was very friendly.,0,1,1,1,1,1
+the family was as friendly as a greeter at disneyland,The family was very mean.,The family was very friendly.,1,1,1,1,1,1
+lebron james has the stamina of the energizer bunny when the game is on the line.,"The energizer bunny is known by it's slogan ""it keeps on going and going"" so I am saying that LeBron James has a lot of stamina in the 4th quarter or overtime of close games. When other players start to look visibly fatigued, he always seems to have an extra gear.","After lunch and a long morning, many pre-schoolers begin to get sleepy and will need nap time, so I am saying that LeBron James does not have much stamina at the moment (He's tired). So he needs a substitution to rest.",0,0,0,0,0,0
+lebron james has the stamina of a pre-schooler before nap time right now. coach get that man a nap!,"The energizer bunny is known by it's slogan ""it keeps on going and going"" so I am saying that LeBron James has a lot of stamina in the 4th quarter or overtime of close games. When other players start to look visibly fatigued, he always seems to have an extra gear.","After lunch and a long morning, many pre-schoolers begin to get sleepy and will need nap time, so I am saying that LeBron James does not have much stamina at the moment (He's tired). So he needs a substitution to rest.",1,0,0,0,0,0
+true love is asolution love is like medicine,Love heals,Love destroys,0,0,0,0,0,0
+true love is asolution love is toxic,Love heals,Love destroys,1,0,0,0,0,0
+the detective listened to her tales with a wooden face,its comparing the face of detective when listening to a wooden face.,detective would not express their emotions,0,0,0,0,0,0
+the detective listened to her tales with a unexpressed face.,its comparing the face of detective when listening to a wooden face.,detective would not express their emotions,1,0,0,0,0,0
+the sun opened it's doors in the morning and with it's long arms brightened my surroundings with slowly intensifying light showing the colors and the shapes of life while warming my skin and being,The sun's light reveals colors and shapes and is warm,The sun's light blinds our eyes and is hot and destructive,0,1,0,1,1,0
+the sun opened it's doors in the morning and with it's long arms blinded me with it's intensity and burnt my sweaty skin,The sun's light reveals colors and shapes and is warm,The sun's light blinds our eyes and is hot and destructive,1,1,0,1,1,0
+the book had a plot that many would find as boring as watching paint dry,The book is boring,The book is exciting,0,1,0,1,1,0
+the book had a plot that many would find as exciting as a three-ring circus,The book is boring,The book is exciting,1,1,0,1,1,0
+a bottle is a full gas tank,full bottle,empty bottle,0,0,0,0,0,0
+a bottle is the void of space,full bottle,empty bottle,1,0,0,0,0,0
+she runs like a rocket,She runs and sprints very fast.,She runs in a very slow and labored pace.,0,1,1,1,1,1
+she runs like a slug,She runs and sprints very fast.,She runs in a very slow and labored pace.,1,1,1,1,1,1
+the fighter was the fighter was water,The fighter was fluid and flexible,The fighter was rigid and breaks easily.,0,0,0,0,0,0
+the fighter was the fighter was glass,The fighter was fluid and flexible,The fighter was rigid and breaks easily.,1,0,0,0,0,0
+the ship went down as fast as a rock,The ship went down fast.,The ship went down very slowly.,0,1,1,1,1,1
+the ship went down as fast as a floating feather,The ship went down fast.,The ship went down very slowly.,1,1,1,1,1,1
+this salmon taste like it was made by fairies with sweet hands.,"I am saying that the salmon taste good, as it is delicate and the meat is tender, hence the fairies which are known to be sweet and giving.","I am saying that the salmon taste is metallic, which tends to happen with farm-raised seafood that are at times raised in questionable enviornments.",0,0,0,0,0,0
+this salmon taste like it was caught swimming in a copper lake.,"I am saying that the salmon taste good, as it is delicate and the meat is tender, hence the fairies which are known to be sweet and giving.","I am saying that the salmon taste is metallic, which tends to happen with farm-raised seafood that are at times raised in questionable enviornments.",1,0,0,0,0,0
+keep your expectation low to get more reward low expectation doesn't hurt,don't expect too much from people,Make people know you worth by putting high standards.,0,0,0,0,0,0
+keep your expectation low to get more reward low expectation is low standard,don't expect too much from people,Make people know you worth by putting high standards.,1,0,0,0,0,0
+time goes like a rocket,It goes rapidly when you are in need,you will run out of time when you in the test.,0,0,0,0,0,0
+time goes like a jet,It goes rapidly when you are in need,you will run out of time when you in the test.,1,0,0,0,0,0
+your textbook is a cold soup,Your textbook is ineffective,Your textbook is effective,0,0,1,0,0,0
+your textbook is a high bird's wing,Your textbook is ineffective,Your textbook is effective,1,0,0,0,0,0
+this bag is as light as a party balloon,The bag is nearly weightless,The bag is extremely heavy,0,1,1,1,1,1
+this bag is as light as a 600 lb gorilla,The bag is nearly weightless,The bag is extremely heavy,1,1,1,1,1,1
+the farmer planted the crops with the care of a drunken sailor,The farmer was sloppy,The farmer was precise,0,1,1,1,1,1
+the farmer planted the crops with the care of an experienced surgeon,The farmer was sloppy,The farmer was precise,1,1,1,1,1,1
+the beef roast had the heat of the beef roast had the heat of a collapsing white dwarf star.,The beef roast was very spicy or extremely hot.,The beef roast was excessively cold or unseasoned.,0,0,0,0,0,0
+the beef roast had the heat of the beef roast had the heat of a chilly day in the poles.,The beef roast was very spicy or extremely hot.,The beef roast was excessively cold or unseasoned.,1,0,0,0,0,0
+my wife is the light of my life,"The wife brings joy, hope or happiness to the husband's life.","The wife brought sorrow, sadness and pain to the husband's life",0,1,1,1,1,1
+my wife is the darkness that crept into my life,"The wife brings joy, hope or happiness to the husband's life.","The wife brought sorrow, sadness and pain to the husband's life",1,1,1,1,1,1
+the temperature feels like inside a volcano,The temperature is extremely hot,The temperature is freezing cold,0,1,1,1,1,1
+the temperature feels like outer space,The temperature is extremely hot,The temperature is freezing cold,1,1,1,1,1,1
+her hair is a waterfall,Her hair is reflective and shiny,Her hair is dry and lifeless,0,1,1,1,1,1
+her hair is a bunch of dry hay,Her hair is reflective and shiny,Her hair is dry and lifeless,1,1,1,1,1,1
+the plant was full of dry the plant,no drop of water,the plant waste,0,0,0,0,0,0
+the plant was full of dry sun rising no water,no drop of water,the plant waste,1,0,0,0,0,0
+this mechanicalturk task is a sound from a lighthouse,This mechanicalturk task is well-explained,This mechanicalturk task is vague,0,1,0,1,1,0
+this mechanicalturk task is a pollution storm,This mechanicalturk task is well-explained,This mechanicalturk task is vague,1,1,0,1,1,0
+that plant is as green as a katydid,The plant is very green,"The plant isn't green at all, as the center of Greenland is permanently frozen",0,0,1,1,1,0
+that plant is as green as the center of greenland,The plant is very green,"The plant isn't green at all, as the center of Greenland is permanently frozen",1,0,1,1,1,0
+the car hit the rail like a bowling ball hitting pins,The car hit hard,The car hit softly,0,1,1,1,1,1
+the car hit the rail like a feather landing,The car hit hard,The car hit softly,1,1,1,1,1,1
+the gamer was a the gamer was a god.,The gamer has exceptional skills and impressive powers and abilities in the game.,"The gamer was new, not execeptional,  and below average.",0,0,0,1,0,0
+the gamer was a the gamer was a peon.,The gamer has exceptional skills and impressive powers and abilities in the game.,"The gamer was new, not execeptional,  and below average.",1,0,0,1,0,0
+the departmental store manager has a golden heart,The departmental store manager is kind and friendly.,"The departmental store manager is unfriendly, cruel and unkind",0,1,1,1,1,1
+the departmental store manager has the heart hard as nails,The departmental store manager is kind and friendly.,"The departmental store manager is unfriendly, cruel and unkind",1,1,1,1,1,1
+this car is faster than a speeding bullet,The car is ridiculously fast,The car is not fast at all,0,1,1,1,1,1
+this car is faster than a snail,The car is ridiculously fast,The car is not fast at all,1,1,1,1,1,1
+john's brain is a computer,John is good at calculations,John processes things very slowly,0,1,1,1,1,1
+john's brain is a snail,John is good at calculations,John processes things very slowly,1,1,1,1,1,1
+the movie has the depth of the amazing spider man,the movie was amazing,good story,0,0,0,0,0,0
+the movie has the depth of the hero,the movie was amazing,good story,1,0,0,0,0,0
+your mom could convince a cat to veganism,Your mom is a great cook.,Your mom is an awful cook.,0,1,1,0,1,0
+your mom could compete with weight watchers,Your mom is a great cook.,Your mom is an awful cook.,1,1,1,0,1,0
+this place is as hot as fresh brewed coffee,This place is so hot it could burn you,This place is actually extremely cold,0,0,1,1,1,0
+this place is as hot as syberia in winter,This place is so hot it could burn you,This place is actually extremely cold,1,0,1,1,1,0
+the food was served at a temperature that was a fiery inferno,The food was hot,The food was cold,0,1,1,1,1,1
+the food was served at a temperature that was a block of ice,The food was hot,The food was cold,1,1,1,1,1,1
+opening the oven door is opening the oven door is death.,"Opening the oven door allows cold air inside, which kills the baked good's yeast.","Opening the oven door allows the item to cook better, by changing the temperature.",0,0,0,0,0,0
+opening the oven door is opening the oven door is life.,"Opening the oven door allows cold air inside, which kills the baked good's yeast.","Opening the oven door allows the item to cook better, by changing the temperature.",1,0,0,0,0,0
+"after the family trip to the ashville, north carolina, she turned into a whitecap on the crest of a wave","After the family trip to Ashville, North Carolina, she became furious.",After the family trip to the she became very happy,0,1,1,0,1,0
+"after the family trip to the ashville, north carolina, she turned into a happy clam","After the family trip to Ashville, North Carolina, she became furious.",After the family trip to the she became very happy,1,1,0,0,0,0
+this tree is as tall as the space needle,The tree is very tall,The tree is not tall at all,0,1,1,1,1,1
+this tree is is as tall as an ant hill,The tree is very tall,The tree is not tall at all,1,1,1,1,1,1
+the lawyer is a pig,The lawyer is lazy,The lawyer guides his client very well in the lawsuit,0,1,1,1,1,1
+the lawyer is a lighthouse for his client,The lawyer is lazy,The lawyer guides his client very well in the lawsuit,1,1,1,1,1,1
+i was play in the playground playing cricket,good score,our team win,0,0,0,0,0,0
+i was play in the playground enjoying and referesh,good score,our team win,1,0,0,0,0,0
+this water is as clear as the la brea tar pits,The water is very murky,The water is very clear,0,1,1,1,1,1
+this water is as clear as fresh rainwater in a bucket,The water is very murky,The water is very clear,1,1,1,1,1,1
+the time is an important thing the time is traditional one.,The time is the power,Don't waste your own time.,0,0,0,0,0,0
+the time is an important thing time,The time is the power,Don't waste your own time.,1,0,0,0,0,0
+she had the grace of a deer prancing into the forest,She is graceful,She is not graceful,0,1,1,1,1,1
+she had the grace of a hippo on roller blades,She is graceful,She is not graceful,1,1,1,1,1,1
+she is an ox,She is strong,She is weak,0,1,0,1,1,0
+she is a vegetable,She is strong,She is weak,1,1,0,1,1,0
+time is as precious as a piece of gold,Time is very important,Time can be thrown away,0,1,1,1,1,1
+time is as precious as a piece of garbage,Time is very important,Time can be thrown away,1,1,1,1,1,1
+this bed is as soft as a sidewalk littered with broken glass,This bed is hard,This bed is soft,0,1,1,1,1,1
+this bed is as soft as a persian cat,This bed is hard,This bed is soft,1,1,1,1,1,1
+money change all these things a medium of economic exchange,Money is an extraordinary power,facilitating trade,0,0,0,0,0,0
+money change all these things principal measure of wealth,Money is an extraordinary power,facilitating trade,1,0,0,0,0,0
+he is as loud as a teenager sneaking back into the house after curfew,He is quiet,He is loud,0,1,1,1,1,1
+he is as loud as an elephant carrying a piano,He is quiet,He is loud,1,1,1,1,1,1
+she was the black sheep,She was disgraced,She was always helping,0,1,1,0,1,0
+she was the white knight,She was disgraced,She was always helping,1,1,1,0,1,0
+riding a motorcycle is as dangerous as jumping off a cliff,Is very dangerous,Isn't anymore dangerous than doing normal everyday things.,0,1,1,1,1,1
+riding a motorcycle is as dangerous as walking down the street,Is very dangerous,Isn't anymore dangerous than doing normal everyday things.,1,1,1,1,1,1
+these shoes feel like a pair of red-hot vise clamps,These shoes are very uncomfortable,These shoes are very comfortable,0,1,1,1,1,1
+these shoes feel like a pair of magic carpets,These shoes are very uncomfortable,These shoes are very comfortable,1,1,1,1,1,1
+"payment is the transfer of money, goods made in the form of services exchanged",an unreimbursed Administrative Agent Advance,to fund under this Agreement,0,0,0,0,0,0
+"payment is the transfer of money, goods payment",an unreimbursed Administrative Agent Advance,to fund under this Agreement,1,0,0,0,0,0
+she is as fast as light coming out of the big bang,She is fast,She is slow,0,1,1,1,1,1
+she is as fast as my grandma trying to walk on water,She is fast,She is slow,1,1,1,1,1,1
+they are on cloud nine,They are happy,They are in sadness,0,1,0,0,0,0
+they are on dark cloud,They are happy,They are in sadness,1,1,0,0,0,0
+the milk was a cold as as a warm blanket,The milk was not cold at all,The milk was very cold,0,1,1,1,1,1
+the milk was a cold as as an icicle in a snowstorm,The milk was not cold at all,The milk was very cold,1,1,1,1,1,1
+the book has the pace of a glacier,The book is very slow.,The book is fast paced.,0,1,1,1,1,1
+the book has the pace of a raging storm,The book is very slow.,The book is fast paced.,1,1,1,1,1,1
+i want to drink some water. glass water,water is very hot.,water is very cool.,0,0,0,0,0,0
+i want to drink some water. pure water,water is very hot.,water is very cool.,1,0,0,0,0,0
+emails are as fast as a turtle,Emails are slow.,Emails are fast.,0,1,1,1,1,1
+emails are as fast as a rocket,Emails are slow.,Emails are fast.,1,1,1,1,1,1
+the water has the depth of the fire,the stream is boring,the water is profound,0,0,0,0,0,0
+the water has the depth of air is boring,the stream is boring,the water is profound,1,0,0,0,0,0
+the cast on his broken leg was a plaster shackle,the cast made it so that he couldn't move very easily.,the cast made it so that he couldn't move freely.,0,0,1,0,0,0
+the cast on his broken leg was fake affections,the cast made it so that he couldn't move very easily.,the cast made it so that he couldn't move freely.,1,0,0,0,0,0
+many children played on the ground,The children enjoyed,The children unsatisfied,0,0,0,0,0,0
+many children played on the pond,The children enjoyed,The children unsatisfied,1,0,0,0,0,0
+the teacher is a engineer,The teacher is helpful,The teacher is unhelpful,0,0,0,0,0,0
+the teacher is a driver,The teacher is helpful,The teacher is unhelpful,1,0,0,0,0,0
+the movie is as long as an interstate,The movie is very long,The movie is very short,0,1,1,1,1,1
+the movie is as long as a gnat,The movie is very long,The movie is very short,1,1,1,1,1,1
+that man has the laughter of booming thunder,It's a very loud and deep laugh,It's barely audible and high-pitched,0,1,1,1,1,1
+that man has the laughter of a mouse,It's a very loud and deep laugh,It's barely audible and high-pitched,1,1,1,1,1,1
+the explanation was like clear water,The explanation was easy and simple to understand,The explanation made to sense.,0,1,1,1,1,1
+the explanation was like mud,The explanation was easy and simple to understand,The explanation made to sense.,1,1,1,1,1,1
+we use a lot of water every day. health goodness.,drinking water is good for health.,don't waste water.,0,0,0,0,0,0
+we use a lot of water every day. drink water.,drinking water is good for health.,don't waste water.,1,0,0,0,0,0
+the headlight was as bright as a sun,The headlight was very bright.,the headlight was very dim.,0,1,1,1,1,1
+the headlight was as bright as a dim candle,The headlight was very bright.,the headlight was very dim.,1,1,0,1,1,0
+the storm has depth of the water,the storm is profoun,the storm is mirror,0,0,0,0,0,0
+the storm has depth of the sea,the storm is profoun,the storm is mirror,1,0,0,0,0,0
+laughter is the music of the soul,It's made the comparison between laughter and music.,by actually calling laughter music it compares both the music and laugh.,0,0,0,0,0,0
+laughter is the music of the heart,It's made the comparison between laughter and music.,by actually calling laughter music it compares both the music and laugh.,1,0,0,0,0,0
+a fully perspective approach maybe harmful,The approach is wrong,The approach is logical,0,0,0,0,0,0
+a fully perspective approach maybe professional,The approach is wrong,The approach is logical,1,0,0,0,0,0
+the house is wood,The house is clean,The house is messy,0,0,0,0,0,0
+the house is roof,The house is clean,The house is messy,1,0,0,0,0,0
+the hurricane is as violent as a black hole,The hurricane is very violent,The hurricane is not very violent,0,1,1,0,1,0
+the hurricane is as violent as a word,The hurricane is very violent,The hurricane is not very violent,1,1,1,0,1,0
+that woman's purity is a field of virgin snow,Clean and untouched snow,Dirty and defiled snow,0,0,1,0,0,0
+that woman's purity is a pile of yellow snow,Clean and untouched snow,Dirty and defiled snow,1,0,1,0,0,0
+the event planning hit several storms in the process,The planning ran into several problems,The planning was easy and without issue,0,1,1,1,1,1
+the event planning was met with clear skies,The planning ran into several problems,The planning was easy and without issue,1,1,1,1,1,1
+the storm became even more violent. bad strom,"In spite of the storm, he went out.",He was absent because of the storm.,0,0,0,0,0,0
+the storm became even more violent. worst strom.,"In spite of the storm, he went out.",He was absent because of the storm.,1,0,0,0,0,0
+the dinner was as tasty as a leather shoe,The dinner was very dry and tasteless.,The dinner was award winning.,0,1,1,1,1,1
+the dinner was as tasty as a michelin star,The dinner was very dry and tasteless.,The dinner was award winning.,1,1,1,1,1,1
+the glacier has depth of the fire,the glacier has lovely,the glacier is profound,0,0,0,0,0,0
+the glacier has depth of the stone,the glacier has lovely,the glacier is profound,1,0,0,0,0,0
+the world is a drama stage,"this world is like a stage show, and all human beings are merely actors.",people are acting in their daily life.,0,0,0,0,0,0
+the world is a theatre,"this world is like a stage show, and all human beings are merely actors.",people are acting in their daily life.,1,0,0,0,0,0
+the use of a keyboard characters to represent a facial expression,keyboard characters are helpful,keyboard characters are deceptive,0,0,0,0,0,0
+the use of a keyboard characters to represent a symbol,keyboard characters are helpful,keyboard characters are deceptive,1,0,0,0,0,0
+the lion storm,The lion is brave,The lion is scared,0,0,0,0,0,0
+the lion lighning,The lion is brave,The lion is scared,1,0,0,0,0,0
+the bulb is as bright as clarity,The bulb is very bright,The bulb is not very bright,0,1,0,0,0,0
+the bulb is as bright as mud,The bulb is very bright,The bulb is not very bright,1,1,1,0,1,0
+that man has the intelligence of a evil genius,The man is a highly intelligent person,The man is basically a dumb animal,0,1,1,1,1,1
+that man has the intelligence of a field mouse,The man is a highly intelligent person,The man is basically a dumb animal,1,1,1,1,1,1
+the idea he had hit a glacier,his idea sunk and failed,his idea was brilliant and worked,0,1,1,1,1,1
+the idea he had was a lightbulb moment,his idea sunk and failed,his idea was brilliant and worked,1,1,1,1,1,1
+many trees were blown down by the storm. fall the trees,The sky cleared up soon after the storm.,The storm did a lot of harm to the crops.,0,0,0,0,0,0
+many trees were blown down by the storm. broken the trees.,The sky cleared up soon after the storm.,The storm did a lot of harm to the crops.,1,0,0,0,0,0
+the pillows were as soft as a baby's bottom,The pillows were very soft.,The pillows were very hard.,0,1,1,1,1,1
+the pillows were as soft as a rock,The pillows were very soft.,The pillows were very hard.,1,1,1,1,1,1
+the movie has the depth of a wading pool,The movie is boring,The movie is profound,0,0,1,1,1,0
+the movie has the depth of the ocean,The movie is boring,The movie is profound,1,0,1,1,1,0
+life is a rollercoaster,people are working so hard.,people go through many sudden or extreme changes in a short time.,0,0,0,0,0,0
+life is a race,people are working so hard.,people go through many sudden or extreme changes in a short time.,1,0,0,0,0,0
+i don't love dogs,love is genuine,love is fake,0,0,0,0,0,0
+i don't love pig,love is genuine,love is fake,1,0,0,0,0,0
+the dancer a ballet,The dancer moved like a jelly,The dancer moved like a robot,0,0,0,0,0,0
+the dancer a mailman,The dancer moved like a jelly,The dancer moved like a robot,1,0,0,0,0,0
+the paint is as yellow as disgust,The paint is an unpleasant yellow,The paint is a pleasing yellow,0,1,0,0,0,0
+the paint is as yellow as happiness,The paint is an unpleasant yellow,The paint is a pleasing yellow,1,1,0,0,0,0
+that athlete has the speed of a cheetah,"The athlete is fast, like a cheetah","The athlete is slow, like an elephant",0,0,0,1,0,0
+that athlete has the speed of an elephant,"The athlete is fast, like a cheetah","The athlete is slow, like an elephant",1,0,0,1,0,0
+the event proceeded like butter,The event went smoothly,the event was slow and dragged on,0,1,1,1,1,1
+the event proceeded like molasses,The event went smoothly,the event was slow and dragged on,1,1,1,1,1,1
+the end of the glacier was an impressive sight. wonderful view.,when i sawed glacier very enjoyed,The glacier is very big.,0,0,0,0,0,0
+the end of the glacier was an impressive sight. love the nature.,when i sawed glacier very enjoyed,The glacier is very big.,1,0,0,0,0,0
+morning came as fast as a racecar driver,Morning came quickly.,Morning came very slowly.,0,1,1,1,1,1
+morning came as fast as a a drop of thick molassas,Morning came quickly.,Morning came very slowly.,1,1,1,1,1,1
+the game has the depth of the jumping,the game is boring,the game is profound,0,0,0,0,0,0
+the game has the depth of the dancing,the game is boring,the game is profound,1,0,0,0,0,0
+my kid's room is a disaster area,A disaster area is also covered in garbage and is gross.,A disaster area is also covered in garbage and is trash.,0,0,0,0,0,0
+my kid's room is a messy place,A disaster area is also covered in garbage and is gross.,A disaster area is also covered in garbage and is trash.,1,0,0,0,0,0
+a story or a novel contains histories,Novel is interesting,Novel is boring,0,0,0,0,0,0
+a story or a novel contains realities,Novel is interesting,Novel is boring,1,0,0,0,0,0
+"last night, i slept storm","Last night, I slept like a baby","Last night, I slept like granny",0,0,0,0,0,0
+"last night, i slept glacier","Last night, I slept like a baby","Last night, I slept like granny",1,0,0,0,0,0
+the deer ran quicker than a chainsaw,The deer ran very quickly,The deer did not run very quickly,0,1,1,0,1,0
+the deer ran quicker than a bedframe,The deer ran very quickly,The deer did not run very quickly,1,1,1,0,1,0
+that game was basically a barnburner,The game was fiery and intense,The game was lame and sleep-inducing,0,1,1,1,1,1
+that game was basically a sleepover,The game was fiery and intense,The game was lame and sleep-inducing,1,1,1,1,1,1
+this dinner has the flavor of a rubber duck,The dinner taste bland,The dinner taste spicy,0,1,1,1,1,1
+this dinner has the flavor of the ring of fire,The dinner taste bland,The dinner taste spicy,1,1,1,1,1,1
+the excitement of that game was like a snow cone.,The game was boring.,The game was really exciting.,0,1,1,1,1,1
+the excitement of that game was like a wildfire.,The game was boring.,The game was really exciting.,1,1,1,1,1,1
+his talent shined as bright as a star,He is clearly very talented.,He is not very talented.,0,1,1,1,1,1
+his talent shined as bright as a dungeon,He is clearly very talented.,He is not very talented.,1,1,1,1,1,1
+the meteor was as bright as new york city,The meteor was very bright,The meteor was not bright at all,0,1,1,1,1,1
+the meteor was as bright as coal,The meteor was very bright,The meteor was not bright at all,1,1,1,1,1,1
+the fresh actors career is taking off like a plane,The actors career is going successfully,The actors career is doing terribly,0,1,1,1,1,1
+the fresh actors career is sinking like a ship,The actors career is going successfully,The actors career is doing terribly,1,1,1,1,1,1
+the solution came at me like a cheetah,The solution was thought of fast.,The solution was though of slow.,0,1,1,1,1,1
+the solution came at me like a turtle,The solution was thought of fast.,The solution was though of slow.,1,1,1,1,1,1
+his speech was as fiery as a dying star,"His speech was extremely dull, mild, and not persuasive",His conversation was full of energy and very persuasive,0,1,1,1,1,1
+his speech was as fiery as a burning meteor,"His speech was extremely dull, mild, and not persuasive",His conversation was full of energy and very persuasive,1,1,1,1,1,1
+thevcar has the speed of a cheetah,The car is very fast,The car is slow.,0,0,1,1,1,0
+thevcar has the speed of a goldfish,The car is very fast,The car is slow.,1,0,1,1,1,0
+he moves at the speed of a caterpillar pupa,He moves very slow,He moves very fast,0,1,1,1,1,1
+he moves at the speed of a fire crackle,He moves very slow,He moves very fast,1,1,1,1,1,1
+,,,120,136,135,134,140,110

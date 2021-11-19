@@ -15,15 +15,10 @@ A computer can be one's bitter enemy.That is to say, computers can be a great de
 A computer is an obedient dog.That is to say, follows instructions.
 A computer is a toddler.That is to say, refuses to follow instructions.
 His brain is like a computer.That is to say, his brain is fast and concise..
-His brain is like a see-saw.That is to say, his brain is slow and limbering..
 The old woman was a rocket..That is to say, the old woman was feisty, fiery, energetic, kinetic..
 The old woman was a mountain.That is to say, the old woman was still and unmovable..
 The family was as friendly as a pack of wolves.That is to say, the family was very mean..
 The family was as friendly as a greeter at disneyland.That is to say, the family was very friendly..
-The sun opened it's doors in the morning and with it's long arms brightened my surroundings with slowly intensifying light showing the colors and the shapes of life while warming my skin and being.That is to say, the sun's light reveals colors and shapes and is warm.
-The sun opened it's doors in the morning and with it's long arms blinded me with it's intensity and burnt my sweaty skin.That is to say, the sun's light blinds our eyes and is hot and destructive.
-The book had a plot that many would find as boring as watching paint dry.That is to say, the book is boring.
-The book had a plot that many would find as exciting as a three-ring circus.That is to say, the book is exciting.
 She runs like a rocket.That is to say, she runs and sprints very fast..
 She runs like a slug.That is to say, she runs in a very slow and labored pace..
 The ship went down as fast as a rock.That is to say, the ship went down fast..
@@ -38,8 +33,6 @@ The temperature feels like inside a volcano.That is to say, the temperature is e
 The temperature feels like outer space.That is to say, the temperature is freezing cold.
 Her hair is a waterfall.That is to say, her hair is reflective and shiny.
 Her hair is a bunch of dry hay.That is to say, her hair is dry and lifeless.
-This mechanicalturk task is a sound from a lighthouse.That is to say, this mechanicalturk task is well-explained.
-This mechanicalturk task is a pollution storm.That is to say, this mechanicalturk task is vague.
 The car hit the rail like a bowling ball hitting pins.That is to say, the car hit hard.
 The car hit the rail like a feather landing.That is to say, the car hit softly.
 The departmental store manager has a golden heart.That is to say, the departmental store manager is kind and friendly..
@@ -48,12 +41,8 @@ This car is faster than a speeding bullet.That is to say, the car is ridiculousl
 This car is faster than a snail.That is to say, the car is not fast at all.
 John's brain is a computer.That is to say, john is good at calculations.
 John's brain is a snail.That is to say, john processes things very slowly.
-Your mom could convince a cat to veganism.That is to say, your mom is a great cook..
-Your mom could compete with weight watchers.That is to say, your mom is an awful cook..
 The food was served at a temperature that was a fiery inferno.That is to say, the food was hot.
 The food was served at a temperature that was a block of ice.That is to say, the food was cold.
-After the family trip to the ashville, north carolina, she turned into a whitecap on the crest of a wave.That is to say, after the family trip to ashville, north carolina, she became furious..
-After the family trip to the ashville, north carolina, she turned into a happy clam.That is to say, after the family trip to the she became very happy.
 This tree is as tall as the space needle.That is to say, the tree is very tall.
 This tree is is as tall as an ant hill.That is to say, the tree is not tall at all.
 The lawyer is a pig.That is to say, the lawyer is lazy.
@@ -62,24 +51,18 @@ This water is as clear as the la brea tar pits.That is to say, the water is very
 This water is as clear as fresh rainwater in a bucket.That is to say, the water is very clear.
 She had the grace of a deer prancing into the forest.That is to say, she is graceful.
 She had the grace of a hippo on roller blades.That is to say, she is not graceful.
-She is an ox.That is to say, she is strong.
-She is a vegetable.That is to say, she is weak.
 Time is as precious as a piece of gold.That is to say, time is very important.
 Time is as precious as a piece of garbage.That is to say, time can be thrown away.
 This bed is as soft as a sidewalk littered with broken glass.That is to say, this bed is hard.
 This bed is as soft as a persian cat.That is to say, this bed is soft.
 He is as loud as a teenager sneaking back into the house after curfew.That is to say, he is quiet.
 He is as loud as an elephant carrying a piano.That is to say, he is loud.
-She was the black sheep.That is to say, she was disgraced.
-She was the white knight.That is to say, she was always helping.
 Riding a motorcycle is as dangerous as jumping off a cliff.That is to say, is very dangerous.
 Riding a motorcycle is as dangerous as walking down the street.That is to say, isn't anymore dangerous than doing normal everyday things..
 These shoes feel like a pair of red-hot vise clamps.That is to say, these shoes are very uncomfortable.
 These shoes feel like a pair of magic carpets.That is to say, these shoes are very comfortable.
 She is as fast as light coming out of the big bang.That is to say, she is fast.
 She is as fast as my grandma trying to walk on water.That is to say, she is slow.
-They are on cloud nine.That is to say, they are happy.
-They are on dark cloud.That is to say, they are in sadness.
 The milk was a cold as as a warm blanket.That is to say, the milk was not cold at all.
 The milk was a cold as as an icicle in a snowstorm.That is to say, the milk was very cold.
 The book has the pace of a glacier.That is to say, the book is very slow..
@@ -93,29 +76,20 @@ That man has the laughter of a mouse.That is to say, it's barely audible and hig
 The explanation was like clear water.That is to say, the explanation was easy and simple to understand.
 The explanation was like mud.That is to say, the explanation made to sense..
 The headlight was as bright as a sun.That is to say, the headlight was very bright..
-The headlight was as bright as a dim candle.That is to say, the headlight was very dim..
-The hurricane is as violent as a black hole.That is to say, the hurricane is very violent.
-The hurricane is as violent as a word.That is to say, the hurricane is not very violent.
 The event planning hit several storms in the process.That is to say, the planning ran into several problems.
 The event planning was met with clear skies.That is to say, the planning was easy and without issue.
 The dinner was as tasty as a leather shoe.That is to say, the dinner was very dry and tasteless..
 The dinner was as tasty as a michelin star.That is to say, the dinner was award winning..
-The bulb is as bright as clarity.That is to say, the bulb is very bright.
-The bulb is as bright as mud.That is to say, the bulb is not very bright.
 That man has the intelligence of a evil genius.That is to say, the man is a highly intelligent person.
 That man has the intelligence of a field mouse.That is to say, the man is basically a dumb animal.
 The idea he had hit a glacier.That is to say, his idea sunk and failed.
 The idea he had was a lightbulb moment.That is to say, his idea was brilliant and worked.
 The pillows were as soft as a baby's bottom.That is to say, the pillows were very soft..
 The pillows were as soft as a rock.That is to say, the pillows were very hard..
-The paint is as yellow as disgust.That is to say, the paint is an unpleasant yellow.
-The paint is as yellow as happiness.That is to say, the paint is a pleasing yellow.
 The event proceeded like butter.That is to say, the event went smoothly.
 The event proceeded like molasses.That is to say, the event was slow and dragged on.
 Morning came as fast as a racecar driver.That is to say, morning came quickly..
 Morning came as fast as a a drop of thick molassas.That is to say, morning came very slowly..
-The deer ran quicker than a chainsaw.That is to say, the deer ran very quickly.
-The deer ran quicker than a bedframe.That is to say, the deer did not run very quickly.
 That game was basically a barnburner.That is to say, the game was fiery and intense.
 That game was basically a sleepover.That is to say, the game was lame and sleep-inducing.
 This dinner has the flavor of a rubber duck.That is to say, the dinner taste bland.
