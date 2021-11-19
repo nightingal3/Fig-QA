@@ -10,14 +10,14 @@ I have the musical ability of a chipmunk.My music sounds scratchy and random.
 I have the musical ability of a chipmunk.My music is soothing and melodious.
 I have the musical ability of a songbird.My music is soothing and melodious.
 I have the musical ability of a songbird.My music sounds scratchy and random.
-The beach was as hot as a desert.The beach was very warm..
-The beach was as hot as a desert.The beach was very cold..
-The beach was as hot as a iceberg.The beach was very cold..
-The beach was as hot as a iceberg.The beach was very warm..
-The brain is a spider web.Brain is hypersensitive and connects many things..
-The brain is a spider web.Brain take one input and gives multiple output..
-The brain is a prism.Brain take one input and gives multiple output..
-The brain is a prism.Brain is hypersensitive and connects many things..
+The beach was as hot as a desert.The beach was very warm.
+The beach was as hot as a desert.The beach was very cold.
+The beach was as hot as a iceberg.The beach was very cold.
+The beach was as hot as a iceberg.The beach was very warm.
+The brain is a spider web.Brain is hypersensitive and connects many things.
+The brain is a spider web.Brain take one input and gives multiple output.
+The brain is a prism.Brain take one input and gives multiple output.
+The brain is a prism.Brain is hypersensitive and connects many things.
 The wind approached me and spoke to me through the rustling of the tree leaves and whispered in my ear through the whistling of the branches.The wind is gentle, assuring and relaxing.
 The wind approached me and spoke to me through the rustling of the tree leaves and whispered in my ear through the whistling of the branches.The wind is intense, threatening and destructive.
 The wind approached me and raised it's voice at me with sudden bursts of speed that stripped the leaves from the trees and yelled at me through the crackling and breaking for the branches.The wind is intense, threatening and destructive.
@@ -30,24 +30,24 @@ A computer is an obedient dog.Follows instructions.
 A computer is an obedient dog.Refuses to follow instructions.
 A computer is a toddler.Refuses to follow instructions.
 A computer is a toddler.Follows instructions.
-His brain is like a computer.His brain is fast and concise..
-His brain is like a computer.His brain is slow and limbering..
-The old woman was a rocket..The old woman was feisty, fiery, energetic, kinetic..
-The old woman was a rocket..The old woman was still and unmovable..
-The old woman was a mountain.The old woman was still and unmovable..
-The old woman was a mountain.The old woman was feisty, fiery, energetic, kinetic..
-The family was as friendly as a pack of wolves.The family was very mean..
-The family was as friendly as a pack of wolves.The family was very friendly..
-The family was as friendly as a greeter at disneyland.The family was very friendly..
-The family was as friendly as a greeter at disneyland.The family was very mean..
-She runs like a rocket.She runs and sprints very fast..
-She runs like a rocket.She runs in a very slow and labored pace..
-She runs like a slug.She runs in a very slow and labored pace..
-She runs like a slug.She runs and sprints very fast..
-The ship went down as fast as a rock.The ship went down fast..
-The ship went down as fast as a rock.The ship went down very slowly..
-The ship went down as fast as a floating feather.The ship went down very slowly..
-The ship went down as fast as a floating feather.The ship went down fast..
+His brain is like a computer.His brain is fast and concise.
+His brain is like a computer.His brain is slow and limbering.
+The old woman was a rocket..The old woman was feisty, fiery, energetic, kinetic.
+The old woman was a rocket..The old woman was still and unmovable.
+The old woman was a mountain.The old woman was still and unmovable.
+The old woman was a mountain.The old woman was feisty, fiery, energetic, kinetic.
+The family was as friendly as a pack of wolves.The family was very mean.
+The family was as friendly as a pack of wolves.The family was very friendly.
+The family was as friendly as a greeter at disneyland.The family was very friendly.
+The family was as friendly as a greeter at disneyland.The family was very mean.
+She runs like a rocket.She runs and sprints very fast.
+She runs like a rocket.She runs in a very slow and labored pace.
+She runs like a slug.She runs in a very slow and labored pace.
+She runs like a slug.She runs and sprints very fast.
+The ship went down as fast as a rock.The ship went down fast.
+The ship went down as fast as a rock.The ship went down very slowly.
+The ship went down as fast as a floating feather.The ship went down very slowly.
+The ship went down as fast as a floating feather.The ship went down fast.
 This bag is as light as a party balloon.The bag is nearly weightless.
 This bag is as light as a party balloon.The bag is extremely heavy.
 This bag is as light as a 600 lb gorilla.The bag is extremely heavy.
@@ -56,10 +56,10 @@ The farmer planted the crops with the care of a drunken sailor.The farmer was sl
 The farmer planted the crops with the care of a drunken sailor.The farmer was precise.
 The farmer planted the crops with the care of an experienced surgeon.The farmer was precise.
 The farmer planted the crops with the care of an experienced surgeon.The farmer was sloppy.
-My wife is the light of my life.The wife brings joy, hope or happiness to the husband's life..
+My wife is the light of my life.The wife brings joy, hope or happiness to the husband's life.
 My wife is the light of my life.The wife brought sorrow, sadness and pain to the husband's life.
 My wife is the darkness that crept into my life.The wife brought sorrow, sadness and pain to the husband's life.
-My wife is the darkness that crept into my life.The wife brings joy, hope or happiness to the husband's life..
+My wife is the darkness that crept into my life.The wife brings joy, hope or happiness to the husband's life.
 The temperature feels like inside a volcano.The temperature is extremely hot.
 The temperature feels like inside a volcano.The temperature is freezing cold.
 The temperature feels like outer space.The temperature is freezing cold.
@@ -72,10 +72,10 @@ The car hit the rail like a bowling ball hitting pins.The car hit hard.
 The car hit the rail like a bowling ball hitting pins.The car hit softly.
 The car hit the rail like a feather landing.The car hit softly.
 The car hit the rail like a feather landing.The car hit hard.
-The departmental store manager has a golden heart.The departmental store manager is kind and friendly..
+The departmental store manager has a golden heart.The departmental store manager is kind and friendly.
 The departmental store manager has a golden heart.The departmental store manager is unfriendly, cruel and unkind.
 The departmental store manager has the heart hard as nails.The departmental store manager is unfriendly, cruel and unkind.
-The departmental store manager has the heart hard as nails.The departmental store manager is kind and friendly..
+The departmental store manager has the heart hard as nails.The departmental store manager is kind and friendly.
 This car is faster than a speeding bullet.The car is ridiculously fast.
 This car is faster than a speeding bullet.The car is not fast at all.
 This car is faster than a snail.The car is not fast at all.
@@ -117,8 +117,8 @@ He is as loud as a teenager sneaking back into the house after curfew.He is loud
 He is as loud as an elephant carrying a piano.He is loud.
 He is as loud as an elephant carrying a piano.He is quiet.
 Riding a motorcycle is as dangerous as jumping off a cliff.Is very dangerous.
-Riding a motorcycle is as dangerous as jumping off a cliff.Isn't anymore dangerous than doing normal everyday things..
-Riding a motorcycle is as dangerous as walking down the street.Isn't anymore dangerous than doing normal everyday things..
+Riding a motorcycle is as dangerous as jumping off a cliff.Isn't anymore dangerous than doing normal everyday things.
+Riding a motorcycle is as dangerous as walking down the street.Isn't anymore dangerous than doing normal everyday things.
 Riding a motorcycle is as dangerous as walking down the street.Is very dangerous.
 These shoes feel like a pair of red-hot vise clamps.These shoes are very uncomfortable.
 These shoes feel like a pair of red-hot vise clamps.These shoes are very comfortable.
@@ -132,14 +132,14 @@ The milk was a cold as as a warm blanket.The milk was not cold at all.
 The milk was a cold as as a warm blanket.The milk was very cold.
 The milk was a cold as as an icicle in a snowstorm.The milk was very cold.
 The milk was a cold as as an icicle in a snowstorm.The milk was not cold at all.
-The book has the pace of a glacier.The book is very slow..
-The book has the pace of a glacier.The book is fast paced..
-The book has the pace of a raging storm.The book is fast paced..
-The book has the pace of a raging storm.The book is very slow..
-Emails are as fast as a turtle.Emails are slow..
-Emails are as fast as a turtle.Emails are fast..
-Emails are as fast as a rocket.Emails are fast..
-Emails are as fast as a rocket.Emails are slow..
+The book has the pace of a glacier.The book is very slow.
+The book has the pace of a glacier.The book is fast paced.
+The book has the pace of a raging storm.The book is fast paced.
+The book has the pace of a raging storm.The book is very slow.
+Emails are as fast as a turtle.Emails are slow.
+Emails are as fast as a turtle.Emails are fast.
+Emails are as fast as a rocket.Emails are fast.
+Emails are as fast as a rocket.Emails are slow.
 The movie is as long as an interstate.The movie is very long.
 The movie is as long as an interstate.The movie is very short.
 The movie is as long as a gnat.The movie is very short.
@@ -149,19 +149,19 @@ That man has the laughter of booming thunder.It's barely audible and high-pitche
 That man has the laughter of a mouse.It's barely audible and high-pitched.
 That man has the laughter of a mouse.It's a very loud and deep laugh.
 The explanation was like clear water.The explanation was easy and simple to understand.
-The explanation was like clear water.The explanation made to sense..
-The explanation was like mud.The explanation made to sense..
+The explanation was like clear water.The explanation made to sense.
+The explanation was like mud.The explanation made to sense.
 The explanation was like mud.The explanation was easy and simple to understand.
-The headlight was as bright as a sun.The headlight was very bright..
-The headlight was as bright as a sun.The headlight was very dim..
+The headlight was as bright as a sun.The headlight was very bright.
+The headlight was as bright as a sun.The headlight was very dim.
 The event planning hit several storms in the process.The planning ran into several problems.
 The event planning hit several storms in the process.The planning was easy and without issue.
 The event planning was met with clear skies.The planning was easy and without issue.
 The event planning was met with clear skies.The planning ran into several problems.
-The dinner was as tasty as a leather shoe.The dinner was very dry and tasteless..
-The dinner was as tasty as a leather shoe.The dinner was award winning..
-The dinner was as tasty as a michelin star.The dinner was award winning..
-The dinner was as tasty as a michelin star.The dinner was very dry and tasteless..
+The dinner was as tasty as a leather shoe.The dinner was very dry and tasteless.
+The dinner was as tasty as a leather shoe.The dinner was award winning.
+The dinner was as tasty as a michelin star.The dinner was award winning.
+The dinner was as tasty as a michelin star.The dinner was very dry and tasteless.
 That man has the intelligence of a evil genius.The man is a highly intelligent person.
 That man has the intelligence of a evil genius.The man is basically a dumb animal.
 That man has the intelligence of a field mouse.The man is basically a dumb animal.
@@ -170,18 +170,18 @@ The idea he had hit a glacier.His idea sunk and failed.
 The idea he had hit a glacier.His idea was brilliant and worked.
 The idea he had was a lightbulb moment.His idea was brilliant and worked.
 The idea he had was a lightbulb moment.His idea sunk and failed.
-The pillows were as soft as a baby's bottom.The pillows were very soft..
-The pillows were as soft as a baby's bottom.The pillows were very hard..
-The pillows were as soft as a rock.The pillows were very hard..
-The pillows were as soft as a rock.The pillows were very soft..
+The pillows were as soft as a baby's bottom.The pillows were very soft.
+The pillows were as soft as a baby's bottom.The pillows were very hard.
+The pillows were as soft as a rock.The pillows were very hard.
+The pillows were as soft as a rock.The pillows were very soft.
 The event proceeded like butter.The event went smoothly.
 The event proceeded like butter.The event was slow and dragged on.
 The event proceeded like molasses.The event was slow and dragged on.
 The event proceeded like molasses.The event went smoothly.
-Morning came as fast as a racecar driver.Morning came quickly..
-Morning came as fast as a racecar driver.Morning came very slowly..
-Morning came as fast as a a drop of thick molassas.Morning came very slowly..
-Morning came as fast as a a drop of thick molassas.Morning came quickly..
+Morning came as fast as a racecar driver.Morning came quickly.
+Morning came as fast as a racecar driver.Morning came very slowly.
+Morning came as fast as a a drop of thick molassas.Morning came very slowly.
+Morning came as fast as a a drop of thick molassas.Morning came quickly.
 That game was basically a barnburner.The game was fiery and intense.
 That game was basically a barnburner.The game was lame and sleep-inducing.
 That game was basically a sleepover.The game was lame and sleep-inducing.
@@ -190,14 +190,14 @@ This dinner has the flavor of a rubber duck.The dinner taste bland.
 This dinner has the flavor of a rubber duck.The dinner taste spicy.
 This dinner has the flavor of the ring of fire.The dinner taste spicy.
 This dinner has the flavor of the ring of fire.The dinner taste bland.
-The excitement of that game was like a snow cone..The game was boring..
-The excitement of that game was like a snow cone..The game was really exciting..
-The excitement of that game was like a wildfire..The game was really exciting..
-The excitement of that game was like a wildfire..The game was boring..
-His talent shined as bright as a star.He is clearly very talented..
-His talent shined as bright as a star.He is not very talented..
-His talent shined as bright as a dungeon.He is not very talented..
-His talent shined as bright as a dungeon.He is clearly very talented..
+The excitement of that game was like a snow cone..The game was boring.
+The excitement of that game was like a snow cone..The game was really exciting.
+The excitement of that game was like a wildfire..The game was really exciting.
+The excitement of that game was like a wildfire..The game was boring.
+His talent shined as bright as a star.He is clearly very talented.
+His talent shined as bright as a star.He is not very talented.
+His talent shined as bright as a dungeon.He is not very talented.
+His talent shined as bright as a dungeon.He is clearly very talented.
 The meteor was as bright as new york city.The meteor was very bright.
 The meteor was as bright as new york city.The meteor was not bright at all.
 The meteor was as bright as coal.The meteor was not bright at all.
@@ -206,10 +206,10 @@ The fresh actors career is taking off like a plane.The actors career is going su
 The fresh actors career is taking off like a plane.The actors career is doing terribly.
 The fresh actors career is sinking like a ship.The actors career is doing terribly.
 The fresh actors career is sinking like a ship.The actors career is going successfully.
-The solution came at me like a cheetah.The solution was thought of fast..
-The solution came at me like a cheetah.The solution was though of slow..
-The solution came at me like a turtle.The solution was though of slow..
-The solution came at me like a turtle.The solution was thought of fast..
+The solution came at me like a cheetah.The solution was thought of fast.
+The solution came at me like a cheetah.The solution was though of slow.
+The solution came at me like a turtle.The solution was though of slow.
+The solution came at me like a turtle.The solution was thought of fast.
 His speech was as fiery as a dying star.His speech was extremely dull, mild, and not persuasive.
 His speech was as fiery as a dying star.His conversation was full of energy and very persuasive.
 His speech was as fiery as a burning meteor.His conversation was full of energy and very persuasive.

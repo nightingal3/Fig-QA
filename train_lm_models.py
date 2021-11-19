@@ -31,7 +31,7 @@ from gpt_score import model_init, evaluate_model
 
 logger = logging.getLogger(__name__)
 
-def main(model_name: str, prompt: str, train_path: str, contrastive_train: bool, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/") -> None:
+def main(model_name: str, prompt: str, train_path: str, contrastive_train: bool, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/", prefix_prompt: str = "") -> None:
     # Set up models, random seed, and logging
     model_names = {"gpt2": "gpt2", "gpt-neo-sm": "EleutherAI/gpt-neo-1.3B", "gpt-neo-lg": "EleutherAI/gpt-neo-2.7B"}
     model_id = model_names[model_name]
@@ -90,7 +90,7 @@ def main(model_name: str, prompt: str, train_path: str, contrastive_train: bool,
     if not dont_eval:
         model.eval()
         logger.info("=== Evaluating the model ===")
-        acc, out_df, preds, labels = evaluate_model(model, tokenizer, trial_dataset["test"], use_cuda=use_cuda, return_acc=True, middle_phrase=prompt)
+        acc, out_df, preds, labels = evaluate_model(model, tokenizer, trial_dataset["test"], use_cuda=use_cuda, return_acc=True, middle_phrase=prompt, prefix_prompt=prefix_prompt)
         results["accuracy (dev)"] = acc
         results["preds"] = preds
         results["labels"] = labels
@@ -155,7 +155,9 @@ class ContrastiveTrainer(Trainer):
         wrong_outputs = model(**wrong_inputs)
         wrong_loss = wrong_outputs.get("loss")
 
-        loss = wrong_loss - correct_loss
+        # Good = when the loss for the correct item is much lower than loss for wrong item
+        # loss should be negative (good) when wrong loss > correct loss
+        loss = correct_loss - wrong_loss
 
         return (loss, outputs) if return_outputs else loss
 
@@ -172,18 +174,21 @@ if __name__ == "__main__":
     parser.add_argument("--num_epochs", default=3, type=int)
     parser.add_argument("--learning_rate", type=float, default=5e-5)
     parser.add_argument("--middle_phrase", default="")
+    parser.add_argument("--prefix", default="")
     parser.add_argument("--contrastive", default=False, action="store_true")
     parser.add_argument("--out_path")
     args = parser.parse_args()
 
+    contrast_path = "contrast/" if args.contrastive else ""
+
     if args.out_path is not None:
         out_path = args.out_path
     else:
-        out_path = f"./experiments/{args.model}/epochs_{args.num_epochs}_{args.learning_rate}_/seed_{args.seed}"
+        out_path = f"./experiments/{contrast_path}{args.model}/epochs_{args.num_epochs}_{args.learning_rate}_/seed_{args.seed}"
 
     if args.learning_rate is None:
         learning_rate = 5e-5
     else:
         learning_rate = args.learning_rate
 
-    main(args.model, args.middle_phrase, args.train_path, args.contrastive, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path)
+    main(args.model, args.middle_phrase, args.train_path, args.contrastive, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path, prefix_prompt=args.prefix)

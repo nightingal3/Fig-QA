@@ -67,7 +67,7 @@ def confusion_matrix(P_forward_1, P_forward_2, P_backward_1, P_backward_2):
 
     print("correct forward", correct_forward, "wrong forward", wrong_forward, "correct backward", correct_backward, "wrong_backward", wrong_backward)
 
-def evaluate_model(model, tokenizer, test_set, middle_phrase="", verbose=True, score_type="prob", use_cuda=False, return_acc=False) -> tuple:
+def evaluate_model(model, tokenizer, test_set, middle_phrase="", prefix_prompt="", verbose=True, score_type="prob", use_cuda=False, return_acc=False) -> tuple:
     preds = []
     labels = []
     x_1 = []
@@ -92,8 +92,8 @@ def evaluate_model(model, tokenizer, test_set, middle_phrase="", verbose=True, s
         ctx, p1, p2 = metaphor_data["startphrase"], metaphor_data["ending1"], metaphor_data["ending2"]
         labels.append(int(metaphor_data["label"]))
         
-        sent1 = ctx + ". " + middle_phrase + p1 + "."
-        sent2 = ctx + ". " + middle_phrase + p2 + "."
+        sent1 = prefix_prompt + ctx + ". " + middle_phrase + p1 + "."
+        sent2 = prefix_prompt + ctx + ". " + middle_phrase + p2 + "."
 
         score1 = sent_scoring((model, tokenizer), sent1, use_cuda, score_type=score_type)
         score2 = sent_scoring((model, tokenizer), sent2, use_cuda, score_type=score_type)
