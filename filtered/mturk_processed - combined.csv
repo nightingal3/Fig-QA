@@ -1,4 +1,4 @@
-startphrase,ending1,ending2,labels,valid_annot1,valid_annot2,valid_annot3,valid_2+,valid_all3
+startphrase,ending1,ending2,label,valid_annot1,valid_annot2,valid_annot3,valid_2+,valid_all3
 the ocean waves forced their way unto the beach shore and reached out to me with an invitation to partake in their dance and mystery,The ocean waves are soothing and healing,The ocean waves are dangerous and can kill you,0,1,1,1,1,1
 the ocean waves forced their way unto the beach shore and lashed at me with loud crashing sounds and intimidating rushes of foamy water,The ocean waves are soothing and healing,The ocean waves are dangerous and can kill you,1,1,1,1,1,1
 the teach said that the student had the brain of a gnat,The student is dumb,The student is smart,0,1,1,1,1,1

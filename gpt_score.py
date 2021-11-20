@@ -6,10 +6,10 @@ from scipy.special import softmax
 from sample_metaphors import trial_dataset
 import pdb
 import pandas as pd
-import pkg_resources
-from transformers import file_utils
 import math
 from typing import List
+import random
+import argparse
 
 # current code is from this gist! https://gist.github.com/yuchenlin/eb63e2d0513f70cfc9bb85fa5a78953b
 # need to modify for the specific use case
@@ -149,49 +149,48 @@ def evaluate_model(model, tokenizer, test_set, middle_phrase="", prefix_prompt="
 
     return out_df, preds, labels
  
+def select_prefix_prompts(prompt_filepath: str, num_prompts: int = 3) -> None:
+    with open(prompt_filepath, "r") as f:
+        lines = f.readlines()
+
+    return " ".join(random.sample(lines, num_prompts))
+
 def compute_stats(total_df: pd.DataFrame, all_preds: List, all_labels: List) -> None:
     print("overall accuracy: ")
     print(len(np.where(np.array(all_preds) == np.array(all_labels))[0])/len(all_labels))
     print("confusion matrix: ")
     confusion_matrix(list(total_df["P(y_1|x_1)"]), list(total_df["P(y_2|x_2)"]), list(total_df["P(x_1|y_1)"]), list(total_df["P(x_2|y_2)"]))
 
-if __name__ == '__evaluate_model__':
-    # model, tokenizer = model_init('openai-gpt', False) 
-    #model, tokenizer = model_init('gpt2', False) 
-    use_cuda = False
-    model_names = {"gpt2": "gpt2", "neo-sm": "EleutherAI/gpt-neo-1.3B", "neo-lg": "EleutherAI/gpt-neo-2.7B"}
-    model_id = "neo-lg"
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Train models with the causal language modelling objective (GPT-*)")
+    parser.add_argument("model_id", choices=["gpt2", "gpt-neo-sm", "gpt-neo-lg"]) 
+    parser.add_argument("--middle_phrase", default="")
+    parser.add_argument("--score_type", default="prob", choices=["prob", "loss"])
+    parser.add_argument("--use_prefix", type=int, choices=range(1, 21))
+    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--cuda", action="store_true")
+    args = parser.parse_args()
+    
+    prompt_file = "./common_metaphors.txt"
+    use_cuda = args.cuda
+    model_names = {"gpt2": "gpt2", "gpt-neo-sm": "EleutherAI/gpt-neo-1.3B", "gpt-neo-lg": "EleutherAI/gpt-neo-2.7B"}
+    model_id = args.model_id
     model_name = model_names[model_id]
-    tsv_name = f"{model_id}_prob"
-    middle_phrase = "That is to say, "
-    score_type = "prob"
-    verbose=False
+    tsv_name = f"{model_id}_prob_prefix"
+    middle_phrase = args.middle_phrase
+    prefix_prompt = select_prefix_prompts(prompt_file, args.use_prefix) if args.use_prefix else ""
+    score_type = args.score_type
+    verbose = args.verbose
 
     model, tokenizer = model_init(model_name, use_cuda)
     metaphor_set = trial_dataset["test"]
-    mturk_data = pd.read_csv("train_data_mturk.csv")
-    mturk_data_2 = pd.read_csv("train_data_mturk_batchsize_5.csv")
-    # the second batch had a lot of nonsensical ones, filtering them out
-    mturk_data_2 = mturk_data_2.loc[mturk_data_2["valid"] == 1] 
-    
-    # without interjection
-    my_examples_df, preds_1, labels_1 = evaluate_model(model, tokenizer, metaphor_set, use_cuda=use_cuda, verbose=verbose)
-    mturk_examples_df, preds_2, labels_2 = evaluate_model(model, tokenizer, mturk_data.to_dict(orient="records"), use_cuda=use_cuda, verbose=verbose)
-    mturk_examples_df_2, preds_3, labels_3 = evaluate_model(model, tokenizer, mturk_data_2.to_dict(orient="records"), use_cuda=use_cuda, verbose=verbose)
-    
-    all_preds = sum([preds_1, preds_2, preds_3], [])
-    all_labels = sum([labels_1, labels_2, labels_3], [])
-    total_df = pd.concat([my_examples_df, mturk_examples_df, mturk_examples_df_2], axis=0)
+    metaphor_data = pd.read_csv("./filtered/mturk_processed - combined.csv")
+    valid_data = metaphor_data.loc[metaphor_data["valid_all3"] == 1]
+    my_examples_df, preds_1, labels_1 = evaluate_model(model, tokenizer, metaphor_set, use_cuda=use_cuda, verbose=verbose, middle_phrase=middle_phrase, prefix_prompt=prefix_prompt)
+    mturk_examples_df, preds_2, labels_2 = evaluate_model(model, tokenizer, valid_data.to_dict(orient="records"), use_cuda=use_cuda, verbose=verbose, middle_phrase=middle_phrase, prefix_prompt=prefix_prompt)
+
+    all_preds = sum([preds_1, preds_2], [])
+    all_labels = sum([labels_1, labels_2], [])
+    total_df = pd.concat([my_examples_df, mturk_examples_df], axis=0)
     compute_stats(total_df, all_preds, all_labels)
     total_df.to_csv(f"{tsv_name}.tsv", sep="\t", index=False)
-
-    # with interjection
-    my_examples_df, preds_1, labels_1 = evaluate_model(model, tokenizer, metaphor_set, middle_phrase=middle_phrase, use_cuda=use_cuda, verbose=verbose)
-    mturk_examples_df, preds_2, labels_2 = evaluate_model(model, tokenizer, mturk_data.to_dict(orient="records"), middle_phrase=middle_phrase, use_cuda=use_cuda, verbose=verbose)
-    mturk_examples_df_2, preds_3, labels_3 = evaluate_model(model, tokenizer, mturk_data_2.to_dict(orient="records"), middle_phrase=middle_phrase, use_cuda=use_cuda, verbose=verbose)
-    
-    all_preds = sum([preds_1, preds_2, preds_3], [])
-    all_labels = sum([labels_1, labels_2, labels_3], [])
-    total_df = pd.concat([my_examples_df, mturk_examples_df, mturk_examples_df_2], axis=0)
-    compute_stats(total_df, all_preds, all_labels)
-    total_df.to_csv(f"{tsv_name}_interject.tsv", sep="\t", index=False)
