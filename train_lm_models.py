@@ -5,6 +5,7 @@ from glob import glob
 from pathlib import Path
 import os
 import torch
+import numpy as np
 
 import transformers
 from transformers import (
@@ -14,6 +15,7 @@ from transformers import (
     DataCollatorForLanguageModeling,
     DataCollatorForPermutationLanguageModeling,
     DataCollatorForWholeWordMask,
+    DataCollatorWithPadding,
     HfArgumentParser,
     LineByLineTextDataset,
     LineByLineWithRefDataset,
@@ -22,6 +24,7 @@ from transformers import (
     Trainer,
     TrainingArguments,
     set_seed,
+    GPT2LMHeadModel
 )
 from torch.utils.data import ConcatDataset
 from sample_metaphors import trial_dataset
@@ -106,6 +109,65 @@ def main(model_name: str, prompt: str, train_path: str, contrastive_train: bool,
 
     return results
 
+def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_path, contrastive_train=False, is_hyperparam_opt=False) -> Trainer:
+    # load datasets and initialize trainer
+    train_dataset = (
+        get_dataset(train_path, tokenizer=tokenizer)
+    )
+
+    data_collator = DataCollatorForLanguageModeling(
+                tokenizer=tokenizer, mlm=False
+            )
+
+    default_train_args = {
+        "output_dir": f"./lm_train_outputs/{model_name}_{seed}/",
+        "do_train": True,
+        "do_eval": False,
+        "prediction_loss_only": True,
+        "seed": seed,
+        "num_train_epochs": num_epochs, 
+        "learning_rate": lr
+    }
+
+    if contrastive_train:
+        default_train_args["per_device_train_batch_size"] = 2 
+        training_args = transformers.TrainingArguments(output_dir=f"./lm_train_outputs/{model_name}_{seed}/", do_train=True, do_eval=False, 
+        prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr, per_device_train_batch_size=2)
+    elif is_hyperparam_opt:
+        default_train_args["evaluation_strategy"] = "steps"
+        default_train_args["eval_steps"] = 500
+        default_train_args["disable_tqdm"] = True
+
+    training_args = transformers.TrainingArguments(**default_train_args)
+
+    
+    if is_hyperparam_opt:
+        tokenizer.pad_token = tokenizer.eos_token
+        trainer = Trainer(
+            args=training_args,
+            #data_collator=DataCollatorWithPadding(tokenizer),
+            data_collator=data_collator,
+            train_dataset=train_dataset,
+            eval_dataset=train_dataset,
+            model_init=dummy_init,
+            compute_metrics=compute_metrics
+        )
+    elif contrastive_train:
+        trainer = ContrastiveTrainer(
+            model=model,
+            args=training_args,
+            data_collator=data_collator,
+            train_dataset=train_dataset
+        )
+    else: 
+        trainer = Trainer(
+            model=model,
+            args=training_args,
+            data_collator=data_collator,
+            train_dataset=train_dataset
+        )
+    return trainer
+
 # This is adapted from the huggingface LM training example here: https://github.com/huggingface/transformers/blob/master/examples/legacy/run_language_modeling.py
 def get_dataset(
     train_data_file: str,
@@ -133,6 +195,16 @@ def get_dataset(
         return _dataset(eval_data_file)
     else:
         return _dataset(train_data_file)
+
+def dummy_init():
+    return GPT2LMHeadModel.from_pretrained("gpt2", return_dict=True)
+
+def compute_metrics(eval_pred):
+    predictions, labels = eval_pred
+    pdb.set_trace()
+    predictions = predictions.argmax(axis=-1)
+    acc = len(np.where(predictions == labels)[0])/len(labels)
+    return {"acc": acc}
 
 class ContrastiveTrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False):
