@@ -2,27 +2,10 @@ from ray import tune
 from ray.tune.suggest.hyperopt import HyperOptSearch
 from ray.tune.schedulers import ASHAScheduler
 import argparse
-from transformers import (
-    AutoConfig,
-    AutoModelWithLMHead,
-    AutoTokenizer,
-    DataCollatorForLanguageModeling,
-    DataCollatorForPermutationLanguageModeling,
-    DataCollatorForWholeWordMask,
-    HfArgumentParser,
-    LineByLineTextDataset,
-    LineByLineWithRefDataset,
-    PreTrainedTokenizer,
-    TextDataset,
-    Trainer,
-    TrainingArguments,
-    set_seed,
-)
+
 
 from train_lm_models import training_setup
 from gpt_score import model_init
-
-dummy_init = lambda m: m
 
 def optimize(model_name: str, use_cuda: bool, contrastive_train: bool, seed: int, lr: float, num_epochs: int, train_path: str) -> None:
     model_names = {"gpt2": "gpt2", "gpt-neo-sm": "EleutherAI/gpt-neo-1.3B", "gpt-neo-lg": "EleutherAI/gpt-neo-2.7B"}
@@ -43,7 +26,6 @@ def optimize(model_name: str, use_cuda: bool, contrastive_train: bool, seed: int
     )
 
     return best_trial
-
 
 
 if __name__ == "__main__":

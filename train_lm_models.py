@@ -24,7 +24,8 @@ from transformers import (
     Trainer,
     TrainingArguments,
     set_seed,
-    GPT2LMHeadModel
+    GPT2LMHeadModel,
+    GPTNeoForCausalLM
 )
 from torch.utils.data import ConcatDataset
 from sample_metaphors import trial_dataset
@@ -143,6 +144,7 @@ def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_pat
     
     if is_hyperparam_opt:
         tokenizer.pad_token = tokenizer.eos_token
+        dummy_init = make_dummy(model_name)
         trainer = Trainer(
             args=training_args,
             #data_collator=DataCollatorWithPadding(tokenizer),
@@ -196,8 +198,13 @@ def get_dataset(
     else:
         return _dataset(train_data_file)
 
-def dummy_init():
-    return GPT2LMHeadModel.from_pretrained("gpt2", return_dict=True)
+def make_dummy(model_id):
+    def dummy_init():
+        if model_id == "gpt2":
+            return GPT2LMHeadModel.from_pretrained("gpt2", return_dict=True)
+        elif "gpt-neo" in model_id:
+            return GPTNeoForCausalLM.from_pretrained(model_id, return_dict=True)
+    return dummy_init
 
 def compute_metrics(eval_pred):
     predictions, labels = eval_pred
