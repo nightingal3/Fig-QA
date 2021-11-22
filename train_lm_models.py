@@ -138,6 +138,7 @@ def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_pat
         default_train_args["evaluation_strategy"] = "steps"
         default_train_args["eval_steps"] = 500
         default_train_args["disable_tqdm"] = True
+        default_train_args["deepspeed"] = "./deepspeed_config.json"
 
     training_args = transformers.TrainingArguments(**default_train_args)
 
@@ -147,7 +148,6 @@ def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_pat
         dummy_init = make_dummy(model_name)
         trainer = Trainer(
             args=training_args,
-            #data_collator=DataCollatorWithPadding(tokenizer),
             data_collator=data_collator,
             train_dataset=train_dataset,
             eval_dataset=train_dataset,
