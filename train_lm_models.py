@@ -61,19 +61,24 @@ def main(model_name: str, prompt: str, train_path: str, contrastive_train: bool,
     data_collator = DataCollatorForLanguageModeling(
                 tokenizer=tokenizer, mlm=False
             )
+    no_cuda = not use_cuda
     if not contrastive_train:
         training_args = transformers.TrainingArguments(output_dir=f"./lm_train_outputs/{model_name}_{seed}/", do_train=True, do_eval=False, 
-        prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr)
+        prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr, deepspeed="./deepspeed_config.json")
     else:
         training_args = transformers.TrainingArguments(output_dir=f"./lm_train_outputs/{model_name}_{seed}/", do_train=True, do_eval=False, 
-        prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr, per_device_train_batch_size=2)
+        prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr, per_device_train_batch_size=2, no_cuda=no_cuda)
 
     if not contrastive_train:
+        tokenizer.pad_token = tokenizer.eos_token
+        dummy_init = make_dummy(model_id)
         trainer = Trainer(
-            model=model,
             args=training_args,
             data_collator=data_collator,
-            train_dataset=train_dataset
+            train_dataset=train_dataset,
+            eval_dataset=train_dataset,
+            model_init=dummy_init,
+            compute_metrics=compute_metrics
         )
     else:
         trainer = ContrastiveTrainer(
@@ -94,23 +99,27 @@ def main(model_name: str, prompt: str, train_path: str, contrastive_train: bool,
     if not dont_eval:
         model.eval()
         logger.info("=== Evaluating the model ===")
+        eval_output = trainer.evaluate()
+        eval_loss = eval_output["eval_loss"]
+        results["eval_loss"] = eval_loss
         acc, out_df, preds, labels = evaluate_model(model, tokenizer, trial_dataset["test"], use_cuda=use_cuda, return_acc=True, middle_phrase=prompt, prefix_prompt=prefix_prompt)
         results["accuracy (dev)"] = acc
         results["preds"] = preds
         results["labels"] = labels
 
-    Path(out_path).mkdir(parents=True, exist_ok=True)
-    with open(f"{out_path}/results_{model_name}.txt", "w") as writer:
-        logger.info("=== Outputting results ===")
-        for key in sorted(results.keys()):
-            logger.info("  %s = %s", key, str(results[key]))
-            writer.write("%s = %s\n" % (key, str(results[key])))
+    if out_path is not None:
+        Path(out_path).mkdir(parents=True, exist_ok=True)
+        with open(f"{out_path}/results_{model_name}.txt", "w") as writer:
+            logger.info("=== Outputting results ===")
+            for key in sorted(results.keys()):
+                logger.info("  %s = %s", key, str(results[key]))
+                writer.write("%s = %s\n" % (key, str(results[key])))
 
-    out_df.to_csv(f"{out_path}/prob_{model_name}_{seed}.csv", index=False)
+        out_df.to_csv(f"{out_path}/prob_{model_name}_{seed}.csv", index=False)
 
     return results
 
-def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_path, contrastive_train=False, is_hyperparam_opt=False) -> Trainer:
+def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_path, contrastive_train=False, is_hyperparam_opt=False, cuda=True) -> Trainer:
     # load datasets and initialize trainer
     train_dataset = (
         get_dataset(train_path, tokenizer=tokenizer)
@@ -127,7 +136,8 @@ def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_pat
         "prediction_loss_only": True,
         "seed": seed,
         "num_train_epochs": num_epochs, 
-        "learning_rate": lr
+        "learning_rate": lr,
+        "no_cuda": not cuda
     }
 
     if contrastive_train:
@@ -214,6 +224,9 @@ def compute_metrics(eval_pred):
     return {"acc": acc}
 
 class ContrastiveTrainer(Trainer):
+    def __init__(self, lambd: float = 1):
+        self.lambd = lambd
+
     def compute_loss(self, model, inputs, return_outputs=False):
         # Assumes batch size of 2!
         if inputs["labels"].shape[0] % 2 != 0:
@@ -236,7 +249,7 @@ class ContrastiveTrainer(Trainer):
 
         # Good = when the loss for the correct item is much lower than loss for wrong item
         # loss should be negative (good) when wrong loss > correct loss
-        loss = correct_loss - wrong_loss
+        loss = correct_loss - self.lambd * wrong_loss
 
         return (loss, outputs) if return_outputs else loss
 
