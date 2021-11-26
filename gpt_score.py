@@ -4,6 +4,7 @@ from transformers import GPT2Tokenizer, GPT2LMHeadModel
 import numpy as np
 from scipy.special import softmax
 from sample_metaphors import trial_dataset
+from sample_metaphors_multi_hop import multi_hop_metaphors
 import pdb
 import pandas as pd
 import math
@@ -149,6 +150,61 @@ def evaluate_model(model, tokenizer, test_set, middle_phrase="", prefix_prompt="
 
     return out_df, preds, labels
  
+def evaluate_model_multi_hop(model, tokenizer, test_set, score_type="prob", use_cuda=False, return_acc=False, keep_errors=False) -> tuple:
+    pair_correctness = {}
+    first_correct = []
+    second_correct = []
+    all_correct = 0
+    labels = []
+    preds = []
+    prev_answer = None
+    prev_correct_answer = None
+
+    for i, metaphor_data in enumerate(test_set):
+        ctx, p1, p2, label, qid, hop_num = metaphor_data["startphrase"], metaphor_data["ending1"], metaphor_data["ending2"], metaphor_data["label"], metaphor_data["qid"], metaphor_data["hop"]
+        correct_answer = p1 if label == 0 else p2
+
+        labels.append(int(metaphor_data["label"]))
+        if hop_num == 1:
+            ctx = ctx.replace("[ANS]", prev_answer) if keep_errors else ctx.replace("[ANS]", prev_correct_answer)
+
+        sent1 = prefix_prompt + ctx + middle_phrase + " " + p1 
+        sent2 = prefix_prompt + ctx + middle_phrase + " " + p2 
+        score1 = sent_scoring((model, tokenizer), sent1, use_cuda, score_type=score_type)
+        score2 = sent_scoring((model, tokenizer), sent2, use_cuda, score_type=score_type)
+
+        if score_type == "loss":
+            pred = 0 if score1 < score2 else 1
+        else:
+            pred = 1 if score1 < score2 else 0
+
+        pred_sent = sent1 if pred == 0 else sent2
+        if hop_num == 0:
+            prev_answer = pred_sent
+            prev_correct_answer = prefix_prompt + ctx + middle_phrase + " " + correct_answer
+
+        preds.append(pred_sent)
+        labels.append(label)
+        
+        if qid not in pair_correctness:
+            pair_correctness[qid] = {hop_num: pred == label} 
+        else:
+            pair_correctness[qid][hop_num] = pred == label
+
+        if hop_num == 0 and pred == label:
+            first_correct.append(qid)
+        elif hop_num == 1 and pred == label: 
+            second_correct.append(qid)
+            if len(first_correct) > 0 and first_correct[-1] == qid:
+                all_correct += 1
+
+
+    first_correct = len(first_correct)/len(pair_correctness)
+    second_correct = len(second_correct)/len(pair_correctness)
+    all_correct = all_correct / len(pair_correctness)
+
+    return first_correct, second_correct, all_correct
+
 def select_prefix_prompts(prompt_filepath: str, num_prompts: int = 3) -> None:
     with open(prompt_filepath, "r") as f:
         lines = f.readlines()
@@ -169,6 +225,7 @@ if __name__ == '__main__':
     parser.add_argument("--use_prefix", type=int, choices=range(1, 21))
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--cuda", action="store_true")
+    parser.add_argument("--multi-hop", action="store_true")
     args = parser.parse_args()
     
     prompt_file = "./common_metaphors.txt"
@@ -182,15 +239,23 @@ if __name__ == '__main__':
     score_type = args.score_type
     verbose = args.verbose
 
-    model, tokenizer = model_init(model_name, use_cuda)
-    metaphor_set = trial_dataset["test"]
-    metaphor_data = pd.read_csv("./filtered/mturk_processed - combined.csv")
-    valid_data = metaphor_data.loc[metaphor_data["valid_all3"] == 1]
-    my_examples_df, preds_1, labels_1 = evaluate_model(model, tokenizer, metaphor_set, use_cuda=use_cuda, verbose=verbose, middle_phrase=middle_phrase, prefix_prompt=prefix_prompt)
-    mturk_examples_df, preds_2, labels_2 = evaluate_model(model, tokenizer, valid_data.to_dict(orient="records"), use_cuda=use_cuda, verbose=verbose, middle_phrase=middle_phrase, prefix_prompt=prefix_prompt)
+    if args.multi_hop:
+        model, tokenizer = model_init(model_name, use_cuda)
+        metaphor_set = multi_hop_metaphors["test"]
+        first_correct, second_correct, all_correct = evaluate_model_multi_hop(model, tokenizer, metaphor_set)
+        print("first hop: ", first_correct)
+        print("second hop: ", second_correct)
+        print("both correct: ", all_correct)
+    else:
+        model, tokenizer = model_init(model_name, use_cuda)
+        metaphor_set = trial_dataset["test"]
+        metaphor_data = pd.read_csv("./filtered/mturk_processed - combined.csv")
+        valid_data = metaphor_data.loc[metaphor_data["valid_all3"] == 1]
+        my_examples_df, preds_1, labels_1 = evaluate_model(model, tokenizer, metaphor_set, use_cuda=use_cuda, verbose=verbose, middle_phrase=middle_phrase, prefix_prompt=prefix_prompt)
+        mturk_examples_df, preds_2, labels_2 = evaluate_model(model, tokenizer, valid_data.to_dict(orient="records"), use_cuda=use_cuda, verbose=verbose, middle_phrase=middle_phrase, prefix_prompt=prefix_prompt)
 
-    all_preds = sum([preds_1, preds_2], [])
-    all_labels = sum([labels_1, labels_2], [])
-    total_df = pd.concat([my_examples_df, mturk_examples_df], axis=0)
-    compute_stats(total_df, all_preds, all_labels)
-    total_df.to_csv(f"{tsv_name}.tsv", sep="\t", index=False)
+        all_preds = sum([preds_1, preds_2], [])
+        all_labels = sum([labels_1, labels_2], [])
+        total_df = pd.concat([my_examples_df, mturk_examples_df], axis=0)
+        compute_stats(total_df, all_preds, all_labels)
+        total_df.to_csv(f"{tsv_name}.tsv", sep="\t", index=False)
