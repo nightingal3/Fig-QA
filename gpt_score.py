@@ -226,6 +226,7 @@ if __name__ == '__main__':
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--cuda", action="store_true")
     parser.add_argument("--multi-hop", action="store_true")
+    parser.add_argument("--out_file")
     args = parser.parse_args()
     
     prompt_file = "./common_metaphors.txt"
@@ -233,7 +234,10 @@ if __name__ == '__main__':
     model_names = {"gpt2": "gpt2", "gpt-neo-sm": "EleutherAI/gpt-neo-1.3B", "gpt-neo-lg": "EleutherAI/gpt-neo-2.7B"}
     model_id = args.model_id
     model_name = model_names[model_id]
-    tsv_name = f"{model_id}_prob" if not args.use_prefix else f"{model_id}_prob_prefix"
+    if args.out_file:
+        tsv_name = args.out_file
+    else:
+        tsv_name = f"{model_id}_prob" if not args.use_prefix else f"{model_id}_prob_prefix"
     middle_phrase = args.middle_phrase
     prefix_prompt = select_prefix_prompts(prompt_file, args.use_prefix) if args.use_prefix else ""
     score_type = args.score_type
