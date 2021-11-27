@@ -36,7 +36,7 @@ from gpt_score import model_init, evaluate_model
 
 logger = logging.getLogger(__name__)
 
-def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrastive_train: bool, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/", prefix_prompt: str = "", batch_size=8) -> None:
+def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrastive_train: bool, contrastive_train_lambd: float, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/", prefix_prompt: str = "", batch_size=8) -> None:
     # Set up models, random seed, and logging
     model_names = {"gpt2": "gpt2", "gpt-neo-sm": "EleutherAI/gpt-neo-1.3B", "gpt-neo-lg": "EleutherAI/gpt-neo-2.7B"}
     model_id = model_names[model_name]
@@ -94,6 +94,7 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
             train_dataset=train_dataset,
             eval_dataset=eval_dataset
         )
+        trainer.set_lambd(contrastive_train_lambd)
 
     # Train the model
     if not dont_train:
@@ -103,7 +104,7 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
 
     # Evaluate the model
     results = {}
-    if not dont_eval:
+    if not dont_eval: #Note: for hyperparameter tuning we do it by loss on 
         model.eval()
         logger.info("=== Evaluating the model ===")
         eval_output = trainer.evaluate()
@@ -126,7 +127,7 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
 
     return results
 
-def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_path, eval_path, contrastive_train=False, is_hyperparam_opt=False, cuda=True, deepspeed=False, batch_size=8) -> Trainer:
+def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_path, eval_path, contrastive_train=False, contrast_lambd=1, is_hyperparam_opt=False, cuda=True, deepspeed=False, batch_size=8) -> Trainer:
     # load datasets and initialize trainer
     train_dataset = (
         get_dataset(train_path, tokenizer=tokenizer)
@@ -173,7 +174,7 @@ def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_pat
             args=training_args,
             data_collator=data_collator,
             train_dataset=train_dataset,
-            eval_dataset=train_dataset,
+            eval_dataset=eval_dataset,
             model_init=dummy_init,
             compute_metrics=compute_metrics
         )
@@ -185,6 +186,7 @@ def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_pat
             train_dataset=train_dataset,
             eval_dataset=eval_dataset
         )
+        trainer.set_lambd(contrast_lambd)
     else: 
         trainer = Trainer(
             model=model,
@@ -233,13 +235,12 @@ def make_dummy(model_id):
 
 def compute_metrics(eval_pred):
     predictions, labels = eval_pred
-    pdb.set_trace()
     predictions = predictions.argmax(axis=-1)
     acc = len(np.where(predictions == labels)[0])/len(labels)
     return {"acc": acc}
 
 class ContrastiveTrainer(Trainer):
-    def __init__(self, lambd: float = 1):
+    def set_lambd(self, lambd):
         self.lambd = lambd
 
     def compute_loss(self, model, inputs, return_outputs=False):
@@ -264,7 +265,8 @@ class ContrastiveTrainer(Trainer):
 
         # Good = when the loss for the correct item is much lower than loss for wrong item
         # loss should be negative (good) when wrong loss > correct loss
-        loss = correct_loss - self.lambd * wrong_loss
+        lambd = self.lambd if self.lambd else 1
+        loss = correct_loss - lambd * wrong_loss
 
         return (loss, outputs) if return_outputs else loss
 
@@ -283,6 +285,7 @@ if __name__ == "__main__":
     parser.add_argument("--middle_phrase", default="")
     parser.add_argument("--prefix", default="")
     parser.add_argument("--contrastive", default=False, action="store_true")
+    parser.add_argument("--contrast_lambd", type=float, default=1)
     parser.add_argument("--out_path")
     args = parser.parse_args()
 
@@ -298,4 +301,4 @@ if __name__ == "__main__":
     else:
         learning_rate = args.learning_rate
 
-    main(args.model, args.middle_phrase, args.train_path, args.eval_path, args.contrastive, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path, prefix_prompt=args.prefix)
+    main(args.model, args.middle_phrase, args.train_path, args.eval_path, args.contrastive, args.contrast_lambd, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path, prefix_prompt=args.prefix)
