@@ -6,6 +6,7 @@ from pathlib import Path
 import os
 import torch
 import numpy as np
+import pandas as pd
 
 import transformers
 from transformers import (
@@ -35,7 +36,7 @@ from gpt_score import model_init, evaluate_model
 
 logger = logging.getLogger(__name__)
 
-def main(model_name: str, prompt: str, train_path: str, contrastive_train: bool, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/", prefix_prompt: str = "") -> None:
+def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrastive_train: bool, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/", prefix_prompt: str = "", batch_size=8) -> None:
     # Set up models, random seed, and logging
     model_names = {"gpt2": "gpt2", "gpt-neo-sm": "EleutherAI/gpt-neo-1.3B", "gpt-neo-lg": "EleutherAI/gpt-neo-2.7B"}
     model_id = model_names[model_name]
@@ -57,6 +58,11 @@ def main(model_name: str, prompt: str, train_path: str, contrastive_train: bool,
     train_dataset = (
         get_dataset(train_path, tokenizer=tokenizer, cache_dir=cache_dir)
     )
+    eval_dataset = (
+        get_dataset(eval_path, tokenizer=tokenizer, cache_dir=cache_dir)
+    )
+    eval_df = pd.read_csv("./filtered/test.csv")
+    eval_df["label"] = eval_df["labels"]
 
     data_collator = DataCollatorForLanguageModeling(
                 tokenizer=tokenizer, mlm=False
@@ -64,10 +70,10 @@ def main(model_name: str, prompt: str, train_path: str, contrastive_train: bool,
     no_cuda = not use_cuda
     if not contrastive_train:
         training_args = transformers.TrainingArguments(output_dir=f"./lm_train_outputs/{model_name}_{seed}/", do_train=True, do_eval=False, 
-        prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr, deepspeed="./deepspeed_config.json")
+        prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr, deepspeed="./deepspeed_config.json", per_device_train_batch_size=batch_size, per_device_eval_batch_size=batch_size)
     else:
         training_args = transformers.TrainingArguments(output_dir=f"./lm_train_outputs/{model_name}_{seed}/", do_train=True, do_eval=False, 
-        prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr, per_device_train_batch_size=2, no_cuda=no_cuda)
+        prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr, per_device_train_batch_size=2, no_cuda=no_cuda, per_device_eval_batch_size=2)
 
     if not contrastive_train:
         tokenizer.pad_token = tokenizer.eos_token
@@ -76,7 +82,7 @@ def main(model_name: str, prompt: str, train_path: str, contrastive_train: bool,
             args=training_args,
             data_collator=data_collator,
             train_dataset=train_dataset,
-            eval_dataset=train_dataset,
+            eval_dataset=eval_dataset,
             model_init=dummy_init,
             compute_metrics=compute_metrics
         )
@@ -85,7 +91,8 @@ def main(model_name: str, prompt: str, train_path: str, contrastive_train: bool,
             model=model,
             args=training_args,
             data_collator=data_collator,
-            train_dataset=train_dataset
+            train_dataset=train_dataset,
+            eval_dataset=eval_dataset
         )
 
     # Train the model
@@ -102,7 +109,7 @@ def main(model_name: str, prompt: str, train_path: str, contrastive_train: bool,
         eval_output = trainer.evaluate()
         eval_loss = eval_output["eval_loss"]
         results["eval_loss"] = eval_loss
-        acc, out_df, preds, labels = evaluate_model(model, tokenizer, trial_dataset["test"], use_cuda=use_cuda, return_acc=True, middle_phrase=prompt, prefix_prompt=prefix_prompt)
+        acc, out_df, preds, labels = evaluate_model(model, tokenizer, eval_df.to_dict(orient="records"), use_cuda=use_cuda, return_acc=True, middle_phrase=prompt, prefix_prompt=prefix_prompt)
         results["accuracy (dev)"] = acc
         results["preds"] = preds
         results["labels"] = labels
@@ -119,10 +126,13 @@ def main(model_name: str, prompt: str, train_path: str, contrastive_train: bool,
 
     return results
 
-def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_path, contrastive_train=False, is_hyperparam_opt=False, cuda=True) -> Trainer:
+def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_path, eval_path, contrastive_train=False, is_hyperparam_opt=False, cuda=True, deepspeed=False, batch_size=8) -> Trainer:
     # load datasets and initialize trainer
     train_dataset = (
         get_dataset(train_path, tokenizer=tokenizer)
+    )
+    eval_dataset = (
+        get_dataset(eval_path, tokenizer=tokenizer)
     )
 
     data_collator = DataCollatorForLanguageModeling(
@@ -137,7 +147,9 @@ def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_pat
         "seed": seed,
         "num_train_epochs": num_epochs, 
         "learning_rate": lr,
-        "no_cuda": not cuda
+        "no_cuda": not cuda,
+        "per_device_train_batch_size": batch_size,
+        "per_device_eval_batch_size": batch_size
     }
 
     if contrastive_train:
@@ -148,6 +160,7 @@ def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_pat
         default_train_args["evaluation_strategy"] = "steps"
         default_train_args["eval_steps"] = 500
         default_train_args["disable_tqdm"] = True
+    if deepspeed:
         default_train_args["deepspeed"] = "./deepspeed_config.json"
 
     training_args = transformers.TrainingArguments(**default_train_args)
@@ -169,14 +182,16 @@ def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_pat
             model=model,
             args=training_args,
             data_collator=data_collator,
-            train_dataset=train_dataset
+            train_dataset=train_dataset,
+            eval_dataset=eval_dataset
         )
     else: 
         trainer = Trainer(
             model=model,
             args=training_args,
             data_collator=data_collator,
-            train_dataset=train_dataset
+            train_dataset=train_dataset,
+            eval_dataset=eval_dataset
         )
     return trainer
 
@@ -283,4 +298,4 @@ if __name__ == "__main__":
     else:
         learning_rate = args.learning_rate
 
-    main(args.model, args.middle_phrase, args.train_path, args.contrastive, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path, prefix_prompt=args.prefix)
+    main(args.model, args.middle_phrase, args.train_path, args.eval_path, args.contrastive, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path, prefix_prompt=args.prefix)
