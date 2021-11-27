@@ -1,0 +1,53 @@
+startphrase	ending1	ending2	labels	valid
+He should be back before more sunlight reaches us	He will be back quickly	He will be back slowly	0	1
+He should be back before the sun implodes	He will be back quickly	He will be back slowly	1	1
+Her commitment to the cause was as sturdy as oak	She was committed	She was uncommitted	0	1
+Her commitment to the cause was as sturdy as plywood	She was committed	She was uncommitted	1	1
+The crowd's reaction to the performance fizzled like fireworks	The crowd was enthusiastic	The crowd was unenthusiastic	0	1
+The crowd's reaction to the performance fizzled like flat soda	The crowd was enthusiastic	The crowd was unenthusiastic	1	1
+The pilot flew like a ballet dancer	The pilot flew in a restrained way	The pilot flew in a creative way	0	1
+The pilot flew like a modern dancer	The pilot flew in a restrained way	The pilot flew in a creative way	1	1
+He had the air of a cult leader	People were intimidated by him	People were not intimidated by him	0	1
+He had the air of a church leader	People were intimidated by him	People were not intimidated by him	1	1
+The venture was charting new waters	The venture was innovative	The venture was unsuccessful	0	1
+The venture was blown out to sea	The venture was innovative	The venture was unsuccessful	1	1
+She was as bright as diamond	She was intelligent	She was unintelligent	0	1
+She was as bright as obsidian	She was intelligent	She was unintelligent	1	1
+Vanity is the quicksand of reason	Vanity destroys reason	Vanity motivates reason	0	1
+Vanity is the tailwind of reason	Vanity destroys reason	Vanity motivates reason	1	1
+The movie has the depth of the ocean	The movie is profound	The movie is vapid	0	1
+The movie has the depth of a wading pool	The movie is profound	The movie is vapid	1	1
+Even a monkey falls from a tree sometimes	Experts can fail sometimes	Novices can succeed sometimes	0	1
+Even a monkey writes a sonnet sometimes	Experts can fail sometimes	Novices can succeed sometimes	1	1
+Time is a crystal	You can't change the future	You can change the future	0	1
+Time is a river	You can't change the future	You can change the future	1	1
+The bar is a giant's step away	The bar is far away	The bar is close by	0	1
+The bar is a cat's jump away	The bar is far away	The bar is close by	1	1
+He had funnels in his ears throughout the lecture	He did pay attention	He did not pay attention	0	1
+He had cotton in his ears throughout the lecture	He did pay attention	He did not pay attention	1	1
+The conference had a rivulet of submission	There were few submissions	There were many submissions	0	1
+The conference had a tsunami of submissions	There were few submissions	There were many submissions	1	1
+She's about as sharp as a knife	She is smart	She is dimwitted	0	1
+She's about as sharp as a spoon	She is smart	She is dimwitted	1	1
+The software is a fortress	The software is well protected	the software is messy	0	1
+The software is a ball of yarn	The software is well protected	the software is messy	1	1
+Her gaze is a laser	Her gaze is focused	Her gaze is diffuse	0	1
+Her gaze is a disco ball	Her gaze is focused	Her gaze is diffuse	1	1
+The foundation of the argument was titanium	The argument was sound	The argument was unsound	0	1
+The foundation of the argument was puff pastry	The argument was sound	The argument was unsound	1	1
+She is as dull as a knife	She is intelligent	She is unintelligent	0	1
+She is as dull as a spoon	She is intelligent	She is unintelligent	1	1
+The atom is like a solar system	Electrons orbit the nucleus	Electrons are in probability densities	0	1
+The atom is like a cloud	Electrons orbit the nucleus	Electrons are in probability densities	1	1
+The patient's blood vessels are highways	Blood is flowing smoothly	Blood is being blocked	0	1
+The patient's blood vessels are a closet hallway	Blood is flowing smoothly	Blood is being blocked	1	1
+Chromosomes are like spaghetti	Chromosomes are messy	Chromosomes are well organized	0	1
+Chromosomes are like a tapestry	Chromosomes are messy	Chromosomes are well organized	1	1
+The nuclear reaction happened like falling dominoes	There were multiple steps to the reaction	The reaction happened all at once	0	1
+The nuclear reaction happened like a snap	There were multiple steps to the reaction	The reaction happened all at once	1	1
+The camera is a cyclops	The camera has one lens	The camera has multiple lenses	0	1
+The camera is a spider	The camera has one lens	The camera has multiple lenses	1	1
+The current is a stream	The current is continuous	The current is discrete	0	1
+The current is morse code	The current is continuous	The current is discrete	1	1
+A chemical reaction is like a ballroom dance	The reaction is orderly	The reaction is disorderly	0	1
+A chemical reaction is like a riot	The reaction is orderly	The reaction is disorderly	1	1
