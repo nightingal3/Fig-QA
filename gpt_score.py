@@ -227,7 +227,7 @@ if __name__ == '__main__':
     parser.add_argument("model_id", choices=["gpt2", "gpt-neo-sm", "gpt-neo-lg"]) 
     parser.add_argument("--middle_phrase", default="")
     parser.add_argument("--score_type", default="prob", choices=["prob", "loss"])
-    parser.add_argument("--use_prefix", type=int, choices=range(1, 21))
+    parser.add_argument("--use_prefix", type=int, choices=range(1, 21), default=0)
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--cuda", action="store_true")
     parser.add_argument("--multi-hop", action="store_true")
