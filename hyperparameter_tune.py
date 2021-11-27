@@ -99,6 +99,6 @@ if __name__ == "__main__":
         #best_trial, all_trials = optimize_minimal(args.model, args.cuda, args.contrastive, args.seed, args.train_path, args.eval_path)
     records = {"best": best_trial, "all": all_trials}
         
-    with open(f"{args.model}_tuning.p", "wb") as f:
+    with open(f"contrast_{args.contrastive}_{args.model}_tuning.p", "wb") as f:
         pickle.dump(records, f)
     print(best_trial)
