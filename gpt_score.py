@@ -91,7 +91,7 @@ def evaluate_model(model, tokenizer, test_set, middle_phrase="", prefix_prompt="
 
     for i, metaphor_data in enumerate(test_set):
         ctx, p1, p2 = metaphor_data["startphrase"], metaphor_data["ending1"], metaphor_data["ending2"]
-        labels.append(int(metaphor_data["label"]))
+        labels.append(int(metaphor_data["labels"]))
         
         sent1 = prefix_prompt + ctx + ". " + middle_phrase + p1 + "."
         sent2 = prefix_prompt + ctx + ". " + middle_phrase + p2 + "."
@@ -136,7 +136,7 @@ def evaluate_model(model, tokenizer, test_set, middle_phrase="", prefix_prompt="
             print(f"Q: {ctx}: 1. {p1} 2. {p2}")
             print(f"model says '{pred_sent}' is more likely")
             print("\n")
-        if pred == metaphor_data["label"]:
+        if pred == metaphor_data["labels"]:
             correct += 1
         preds.append(pred)
 
@@ -161,10 +161,10 @@ def evaluate_model_multi_hop(model, tokenizer, test_set, score_type="prob", use_
     prev_correct_answer = None
 
     for i, metaphor_data in enumerate(test_set):
-        ctx, p1, p2, label, qid, hop_num = metaphor_data["startphrase"], metaphor_data["ending1"], metaphor_data["ending2"], metaphor_data["label"], metaphor_data["qid"], metaphor_data["hop"]
+        ctx, p1, p2, label, qid, hop_num = metaphor_data["startphrase"], metaphor_data["ending1"], metaphor_data["ending2"], metaphor_data["labels"], metaphor_data["qid"], metaphor_data["hop"]
         correct_answer = p1 if label == 0 else p2
 
-        labels.append(int(metaphor_data["label"]))
+        labels.append(int(metaphor_data["labels"]))
         if hop_num == 1:
             ctx = ctx.replace("[ANS]", prev_answer) if keep_errors else ctx.replace("[ANS]", prev_correct_answer)
 
@@ -233,7 +233,7 @@ if __name__ == '__main__':
     model_names = {"gpt2": "gpt2", "gpt-neo-sm": "EleutherAI/gpt-neo-1.3B", "gpt-neo-lg": "EleutherAI/gpt-neo-2.7B"}
     model_id = args.model_id
     model_name = model_names[model_id]
-    tsv_name = f"{model_id}_prob_prefix"
+    tsv_name = f"{model_id}_prob" if not args.use_prefix else f"{model_id}_prob_prefix"
     middle_phrase = args.middle_phrase
     prefix_prompt = select_prefix_prompts(prompt_file, args.use_prefix) if args.use_prefix else ""
     score_type = args.score_type
@@ -248,14 +248,9 @@ if __name__ == '__main__':
         print("both correct: ", all_correct)
     else:
         model, tokenizer = model_init(model_name, use_cuda)
-        metaphor_set = trial_dataset["test"]
-        metaphor_data = pd.read_csv("./filtered/mturk_processed - combined.csv")
-        valid_data = metaphor_data.loc[metaphor_data["valid_all3"] == 1]
-        my_examples_df, preds_1, labels_1 = evaluate_model(model, tokenizer, metaphor_set, use_cuda=use_cuda, verbose=verbose, middle_phrase=middle_phrase, prefix_prompt=prefix_prompt)
-        mturk_examples_df, preds_2, labels_2 = evaluate_model(model, tokenizer, valid_data.to_dict(orient="records"), use_cuda=use_cuda, verbose=verbose, middle_phrase=middle_phrase, prefix_prompt=prefix_prompt)
+        metaphor_data = pd.read_csv("./filtered/test.csv")
 
-        all_preds = sum([preds_1, preds_2], [])
-        all_labels = sum([labels_1, labels_2], [])
-        total_df = pd.concat([my_examples_df, mturk_examples_df], axis=0)
+        total_df, all_preds, all_labels = evaluate_model(model, tokenizer, metaphor_data.to_dict(orient="records"), use_cuda=use_cuda, verbose=verbose, middle_phrase=middle_phrase, prefix_prompt=prefix_prompt)
+        
         compute_stats(total_df, all_preds, all_labels)
         total_df.to_csv(f"{tsv_name}.tsv", sep="\t", index=False)
