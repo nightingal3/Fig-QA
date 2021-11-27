@@ -14,6 +14,7 @@ import argparse
 
 # current code is from this gist! https://gist.github.com/yuchenlin/eb63e2d0513f70cfc9bb85fa5a78953b
 # need to modify for the specific use case
+prompt_file = "./common_metaphors.txt"
 
 def model_init(model_string, cuda, output_attentions=False, fast=False):
     if model_string.startswith("gpt2"):
@@ -68,7 +69,7 @@ def confusion_matrix(P_forward_1, P_forward_2, P_backward_1, P_backward_2):
 
     print("correct forward", correct_forward, "wrong forward", wrong_forward, "correct backward", correct_backward, "wrong_backward", wrong_backward)
 
-def evaluate_model(model, tokenizer, test_set, middle_phrase="", prefix_prompt="", verbose=True, score_type="prob", use_cuda=False, return_acc=False) -> tuple:
+def evaluate_model(model, tokenizer, test_set, middle_phrase="", use_prefix=0, verbose=True, score_type="prob", use_cuda=False, return_acc=False) -> tuple:
     preds = []
     labels = []
     x_1 = []
@@ -92,7 +93,11 @@ def evaluate_model(model, tokenizer, test_set, middle_phrase="", prefix_prompt="
     for i, metaphor_data in enumerate(test_set):
         ctx, p1, p2 = metaphor_data["startphrase"], metaphor_data["ending1"], metaphor_data["ending2"]
         labels.append(int(metaphor_data["labels"]))
-        
+        if use_prefix > 0:
+            prefix_prompt = select_prefix_prompts(prompt_file, use_prefix) if use_prefix else ""
+        else:
+            prefix_prompt = ""
+
         sent1 = prefix_prompt + ctx + ". " + middle_phrase + p1 + "."
         sent2 = prefix_prompt + ctx + ". " + middle_phrase + p2 + "."
 
@@ -168,8 +173,8 @@ def evaluate_model_multi_hop(model, tokenizer, test_set, score_type="prob", use_
         if hop_num == 1:
             ctx = ctx.replace("[ANS]", prev_answer) if keep_errors else ctx.replace("[ANS]", prev_correct_answer)
 
-        sent1 = prefix_prompt + ctx + middle_phrase + " " + p1 
-        sent2 = prefix_prompt + ctx + middle_phrase + " " + p2 
+        sent1 = ctx + middle_phrase + " " + p1 
+        sent2 =  ctx + middle_phrase + " " + p2 
         score1 = sent_scoring((model, tokenizer), sent1, use_cuda, score_type=score_type)
         score2 = sent_scoring((model, tokenizer), sent2, use_cuda, score_type=score_type)
 
@@ -181,7 +186,7 @@ def evaluate_model_multi_hop(model, tokenizer, test_set, score_type="prob", use_
         pred_sent = sent1 if pred == 0 else sent2
         if hop_num == 0:
             prev_answer = pred_sent
-            prev_correct_answer = prefix_prompt + ctx + middle_phrase + " " + correct_answer
+            prev_correct_answer = ctx + middle_phrase + " " + correct_answer
 
         preds.append(pred_sent)
         labels.append(label)
@@ -228,14 +233,12 @@ if __name__ == '__main__':
     parser.add_argument("--multi-hop", action="store_true")
     args = parser.parse_args()
     
-    prompt_file = "./common_metaphors.txt"
     use_cuda = args.cuda
     model_names = {"gpt2": "gpt2", "gpt-neo-sm": "EleutherAI/gpt-neo-1.3B", "gpt-neo-lg": "EleutherAI/gpt-neo-2.7B"}
     model_id = args.model_id
     model_name = model_names[model_id]
-    tsv_name = f"{model_id}_prob" if not args.use_prefix else f"{model_id}_prob_prefix"
+    tsv_name = f"{model_id}_prob_prompt_{args.use_prefix}" if not args.use_prefix else f"{model_id}_prob_prefix_prompt_{args.use_prefix}"
     middle_phrase = args.middle_phrase
-    prefix_prompt = select_prefix_prompts(prompt_file, args.use_prefix) if args.use_prefix else ""
     score_type = args.score_type
     verbose = args.verbose
 
@@ -250,7 +253,7 @@ if __name__ == '__main__':
         model, tokenizer = model_init(model_name, use_cuda)
         metaphor_data = pd.read_csv("./filtered/test.csv")
 
-        total_df, all_preds, all_labels = evaluate_model(model, tokenizer, metaphor_data.to_dict(orient="records"), use_cuda=use_cuda, verbose=verbose, middle_phrase=middle_phrase, prefix_prompt=prefix_prompt)
+        total_df, all_preds, all_labels = evaluate_model(model, tokenizer, metaphor_data.to_dict(orient="records"), use_cuda=use_cuda, verbose=verbose, middle_phrase=middle_phrase, use_prefix=args.use_prefix)
         
         compute_stats(total_df, all_preds, all_labels)
         total_df.to_csv(f"{tsv_name}.tsv", sep="\t", index=False)
