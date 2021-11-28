@@ -139,6 +139,7 @@ def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_pat
     data_collator = DataCollatorForLanguageModeling(
                 tokenizer=tokenizer, mlm=False
             )
+    set_seed(seed)
 
     default_train_args = {
         "output_dir": f"./lm_train_outputs/{model_name}_{seed}/",
