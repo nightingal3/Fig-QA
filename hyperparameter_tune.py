@@ -12,6 +12,7 @@ def optimize(model_name: str, use_cuda: bool, contrastive_train: bool, seed: int
     model_names = {"gpt2": "gpt2", "gpt-neo-sm": "EleutherAI/gpt-neo-1.3B", "gpt-neo-lg": "EleutherAI/gpt-neo-2.7B"}
     model_string = model_names[model_name]
     model, tokenizer = model_init(model_string, use_cuda)
+    batch_size = 8
 
     trainer = training_setup(model, tokenizer, model_string, seed, lr, num_epochs, train_path, eval_path, contrastive_train=contrastive_train, is_hyperparam_opt=True, deepspeed=False, batch_size=batch_size)
 
@@ -39,7 +40,7 @@ def optimize(model_name: str, use_cuda: bool, contrastive_train: bool, seed: int
 
 def optimize_minimal(model_name: str, use_cuda: bool, contrastive_train: bool, seed: int, train_path: str, eval_path: str) -> tuple:
     if contrastive_train:
-        lambd_lst = [0.1 * i for i in range(1, 11)]
+        lambd_lst = [0.2 * i for i in range(1, 6)]
         batch_size = 2
 
         trials = {}
@@ -89,7 +90,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if args.contrastive:
         best_trial, all_trials = optimize_minimal(args.model, args.cuda, True, args.seed, args.train_path, args.eval_path)
-    if args.model == "gpt2": 
+    elif args.model == "gpt2": 
         best_trial = optimize(args.model, args.cuda, args.contrastive, args.seed, args.lr, args.num_epochs, args.train_path, args.eval_path)
         all_trials = {}
     else: # deepspeed + transformers + hyperopt doesn't seem to work together

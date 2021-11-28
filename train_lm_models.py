@@ -36,7 +36,7 @@ from gpt_score import model_init, evaluate_model
 
 logger = logging.getLogger(__name__)
 
-def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrastive_train: bool, contrastive_train_lambd: float, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/", prefix_prompt: str = "", batch_size=8) -> None:
+def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrastive_train: bool, contrastive_train_lambd: float, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/", prefix_prompt: int = 0, batch_size=8) -> None:
     # Set up models, random seed, and logging
     model_names = {"gpt2": "gpt2", "gpt-neo-sm": "EleutherAI/gpt-neo-1.3B", "gpt-neo-lg": "EleutherAI/gpt-neo-2.7B"}
     model_id = model_names[model_name]
@@ -110,7 +110,7 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
         eval_output = trainer.evaluate()
         eval_loss = eval_output["eval_loss"]
         results["eval_loss"] = eval_loss
-        acc, out_df, preds, labels = evaluate_model(model, tokenizer, eval_df.to_dict(orient="records"), use_cuda=use_cuda, return_acc=True, middle_phrase=prompt, prefix_prompt=prefix_prompt)
+        acc, out_df, preds, labels = evaluate_model(model, tokenizer, eval_df.to_dict(orient="records"), use_cuda=use_cuda, return_acc=True, middle_phrase=prompt, use_prefix=prefix_prompt)
         results["accuracy (dev)"] = acc
         results["preds"] = preds
         results["labels"] = labels
@@ -284,7 +284,7 @@ if __name__ == "__main__":
     parser.add_argument("--num_epochs", default=3, type=int)
     parser.add_argument("--learning_rate", type=float, default=5e-5)
     parser.add_argument("--middle_phrase", default="")
-    parser.add_argument("--prefix", default="")
+    parser.add_argument("--prefix", default=0)
     parser.add_argument("--contrastive", default=False, action="store_true")
     parser.add_argument("--contrast_lambd", type=float, default=1)
     parser.add_argument("--out_path")
