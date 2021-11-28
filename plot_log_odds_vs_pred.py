@@ -5,9 +5,9 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 prob_sheets = {
-    "gpt2": ["./prob_sheets/gpt2_prob.tsv", "./prob_sheets/gpt_2_trained.csv"],
-    "gpt-neo 1.3B": ["./prob_sheets/neo-sm_prob.tsv", "./prob_sheets/neo_sm_trained.csv"],
-    "gpt-neo 2.7B": ["./prob_sheets/neo-lg_prob.tsv", "./prob_sheets/neo_lg_trained.csv"],
+    "gpt2": ["./prob_sheets/gpt2_prob_test.tsv", "./prob_sheets/gpt_2_trained_test.csv"],
+    "gpt-neo 1.3B": ["./prob_sheets/gpt-neo-sm_prob_test.tsv", "./prob_sheets/prob_gpt-neo-sm_trained_test.csv"],
+    #"gpt-neo 2.7B": ["./prob_sheets/neo-lg_prob.tsv", "./prob_sheets/neo_lg_trained.csv"],
 }
 
 def get_log_odds_and_pred(df: pd.DataFrame) -> pd.DataFrame:
@@ -40,6 +40,9 @@ def main():
     plt.ylabel("P(y_1|x_1)")
     plt.xlim(-2, 3)
     plt.title("Trained models")
+    plt.savefig("trained_prob.png")
+    plt.savefig("trained_prob.eps")
+
 
 if __name__ == "__main__":
     main()
