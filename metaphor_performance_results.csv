@@ -11,7 +11,7 @@ GPT-2,Prompting (k = 10),0.5262
 GPT-neo 1.3B,Prompting (k = 10),0.5881
 GPT-2,Fine-tuning,0.5401
 GPT-neo 1.3B,Fine-tuning,0.5733
-GPT-3 Curie,Fine-tuning,0.9705
+GPT-3 Curie,Fine-tuning,0.7916
 GPT-3 Curie,Zero-shot,0.6572
 GPT-3 Davinci,Zero-shot,0.7093
 GPT-3 Babbage,Zero-shot,0.6307
@@ -20,8 +20,8 @@ GPT-3 Ada,Prompting (k = 3),0.5841
 GPT-3 Ada,Prompting (k = 5),0.5786
 GPT-3 Ada,Prompting (k = 10),0.5686
 GPT-3 Davinci,Prompting (k = 3),0.7422
-GPT-3 Ada ,Fine-tuning,0.9184
-GPT-3 Babbage,Fine-tuning,0.9561
+GPT-3 Ada,Fine-tuning,0.7258
+GPT-3 Babbage,Fine-tuning,0.7605
 BERT,Fine-tuning,0.8473
 BERT,Fine-tuning,0.8236
 BERT,Fine-tuning,0.8336
