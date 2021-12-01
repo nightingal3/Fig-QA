@@ -299,7 +299,8 @@ class ContrastiveTrainer(Trainer):
         # Good = when the loss for the correct item is much lower than loss for wrong item
         # loss should be negative (good) when wrong loss > correct loss
         lambd = self.lambd if self.lambd else 1
-        loss = correct_loss - lambd * wrong_loss
+        relative_score = correct_loss - lambd * (wrong_loss + correct_loss)
+        loss = -relative_score
 
         return (loss, outputs) if return_outputs else loss
 
