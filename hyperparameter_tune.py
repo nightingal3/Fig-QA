@@ -1,6 +1,6 @@
-#from ray import tune
-#from ray.tune.suggest.hyperopt import HyperOptSearch
-#from ray.tune.schedulers import ASHAScheduler
+from ray import tune
+from ray.tune.suggest.hyperopt import HyperOptSearch
+from ray.tune.schedulers import ASHAScheduler
 import argparse
 import pdb
 import pickle
@@ -8,7 +8,7 @@ import pickle
 from train_lm_models import training_setup, main
 from gpt_score import model_init
 
-def optimize(model_name: str, use_cuda: bool, contrastive_train: bool, seed: int, lr: float, num_epochs: int, train_path: str, eval_path: str) -> None:
+def optimize(model_name: str, use_cuda: bool, contrastive_train: bool, seed: int, lr: float, num_epochs: int, train_path: str, eval_path: str, eval_measure: str =  "loss") -> None:
     model_names = {"gpt2": "gpt2", "gpt-neo-sm": "EleutherAI/gpt-neo-1.3B", "gpt-neo-lg": "EleutherAI/gpt-neo-2.7B"}
     model_string = model_names[model_name]
     model, tokenizer = model_init(model_string, use_cuda)
@@ -19,24 +19,42 @@ def optimize(model_name: str, use_cuda: bool, contrastive_train: bool, seed: int
     if contrastive_train:
         hp_space = lambda _ : {
             "num_train_epochs": tune.quniform(3, 8, 1),
-            "learning_rate": tune.quniform(1e-5, 7e-5, 1e-6),
+            "learning_rate": tune.quniform(1e-7, 7e-5, 1e-6),
             "lambd": tune.quniform(0.1, 1, 0.1)
         }
     else:
         hp_space = lambda _ : {
             "num_train_epochs": tune.quniform(3, 5, 1),
-            "learning_rate": tune.quniform(1e-5, 5e-5, 1e-6)
+            "learning_rate": tune.quniform(1e-7, 5e-5, 1e-7)
         }
 
-    best_trial = trainer.hyperparameter_search(
-        direction="minimize",
-        backend="ray",
-        search_alg=HyperOptSearch(metric="objective", mode="min"),
-        scheduler=ASHAScheduler(metric="objective", mode="min"),
-        hp_space=hp_space
-    )
-
+    if eval_measure == "loss":
+        best_trial = trainer.hyperparameter_search(
+            direction="minimize",
+            backend="ray",
+            search_alg=HyperOptSearch(metric="objective", mode="min"),
+            scheduler=ASHAScheduler(metric="objective", mode="min"),
+            hp_space=hp_space,
+            n_trials=50
+        )
+    else: 
+        best_trial = trainer.hyperparameter_search(
+            direction="maximize",
+            backend="ray",
+            search_alg=HyperOptSearch(metric="objective", mode="max"),
+            scheduler=ASHAScheduler(metric="objective", mode="max"),
+            hp_space=hp_space,
+            compute_objective=compute_acc_eval
+        )
     return best_trial
+
+
+def compute_acc_eval(eval_pred):
+    pdb.set_trace()
+    predictions, labels = eval_pred
+    predictions = predictions.argmax(axis=-1)
+    acc = len(np.where(predictions == labels)[0])/len(labels)
+    return {"acc": acc}
 
 def optimize_minimal(model_name: str, use_cuda: bool, contrastive_train: bool, seed: int, train_path: str, eval_path: str) -> tuple:
     if contrastive_train:
@@ -45,12 +63,14 @@ def optimize_minimal(model_name: str, use_cuda: bool, contrastive_train: bool, s
 
         trials = {}
         best_eval_loss = float("inf")
+        best_eval_acc = 0
         best_trial = None
 
         for lambd in lambd_lst:
             #trainer = training_setup(model, tokenizer, model_string, seed, lr, num_epochs, train_path, contrastive_train=contrastive_train, is_hyperparam_opt=False)
             results = main(model_name, "", train_path, eval_path, contrastive_train, lambd, 3, seed, 5e-5, use_cuda, dont_train=False, dont_eval=False, out_path=None, batch_size=batch_size)
-            if results["eval_loss"] < best_eval_loss:
+            #if results["eval_loss"] < best_eval_loss:
+            if results["acc eval"] > best_eval_acc:
                 best_eval_loss = results["eval_loss"]
                 best_trial = {"lambd": lambd}
             trials[f"contrast_lambd_{lambd}"] = results["eval_loss"]
@@ -61,15 +81,20 @@ def optimize_minimal(model_name: str, use_cuda: bool, contrastive_train: bool, s
 
         trials = {}
         best_eval_loss = float("inf")
+        best_eval_acc = 0
         best_trial = None
 
         for lr, num_epochs in zip(learning_rates, epochs):
             #trainer = training_setup(model, tokenizer, model_string, seed, lr, num_epochs, train_path, contrastive_train=contrastive_train, is_hyperparam_opt=False)
             results = main(model_name, "", train_path, eval_path, contrastive_train, 1, num_epochs, seed, lr, use_cuda, dont_train=False, dont_eval=False, out_path=None, batch_size=batch_size)
-            if results["eval_loss"] < best_eval_loss:
-                best_eval_loss = results["eval_loss"]
+            #if results["eval_loss"] < best_eval_loss:
+            if results["acc eval"] > best_eval_acc:
+                #best_eval_loss = results["eval_loss"]
+                best_eval_acc = results["acc eval"]
                 best_trial = {"lr": lr, "num_epochs": num_epochs}
-            trials[f"lr_{lr}_epochs_{num_epochs}"] = results["eval_loss"]
+            #trials[f"lr_{lr}_epochs_{num_epochs}"] = results["eval_loss"]
+            trials[f"lr_{lr}_epochs_{num_epochs}"] = results["acc eval"]
+ 
         
     return best_trial, trials
 
@@ -86,12 +111,13 @@ if __name__ == "__main__":
     parser.add_argument("--num_epochs", type=int, default=3)
     parser.add_argument("-t", "--train_path", default="./lm_train_data/train.txt")
     parser.add_argument("-e", "--eval_path", default="./lm_train_data/dev.txt")
-
+    parser.add_argument("--eval_type", default="loss", choices=["loss", "acc"])
     args = parser.parse_args()
     if args.contrastive:
         best_trial, all_trials = optimize_minimal(args.model, args.cuda, True, args.seed, args.train_path, args.eval_path)
     elif args.model == "gpt2": 
-        best_trial = optimize(args.model, args.cuda, args.contrastive, args.seed, args.lr, args.num_epochs, args.train_path, args.eval_path)
+        #best_trial, all_trials = optimize_minimal(args.model, args.cuda, False, args.seed, args.train_path, args.eval_path)
+        best_trial = optimize(args.model, args.cuda, args.contrastive, args.seed, args.lr, args.num_epochs, args.train_path, args.eval_path, eval_measure=args.eval_type)
         all_trials = {}
     else: # deepspeed + transformers + hyperopt doesn't seem to work together
         #best_trial, all_trials = optimize(args.model, args.cuda, args.contrastive, args.seed, args.lr, args.num_epochs, args.train_path, args.eval_path)

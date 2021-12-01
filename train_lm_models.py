@@ -67,6 +67,7 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
     eval_dataset = (
         get_dataset(eval_path, tokenizer=tokenizer, cache_dir=cache_dir)
     )
+
     eval_df = pd.read_csv("./filtered/dev.csv")
     eval_df["label"] = eval_df["labels"]
     test_df = pd.read_csv("./filtered/test.csv")
@@ -140,12 +141,14 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
         eval_output = trainer.evaluate()
         eval_loss = eval_output["eval_loss"]
         results["eval_loss"] = eval_loss
+        
         acc_test, out_df_test, preds_test, labels_test = evaluate_model(model, tokenizer, test_df.to_dict(orient="records"), use_cuda=use_cuda, return_acc=True, middle_phrase=prompt, use_prefix=prefix_prompt)
         acc_dev, out_df_dev, preds_dev, labels_dev = evaluate_model(model, tokenizer, eval_df.to_dict(orient="records"), use_cuda=use_cuda, return_acc=True, middle_phrase=prompt, use_prefix=prefix_prompt)
         results["accuracy (test)"] = acc_test
         results["accuracy (dev)"] = acc_dev
         results["preds"] = preds_test
         results["labels"] = labels_test
+
 
     if out_path is not None:
         Path(out_path).mkdir(parents=True, exist_ok=True)
