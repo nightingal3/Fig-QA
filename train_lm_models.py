@@ -51,6 +51,7 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
     transformers.utils.logging.enable_explicit_format()
     logger.info("Training/evaluation parameters %s", {"model": model_name, "train path": train_path, "num epochs": num_epochs, "seed": seed, "cuda": use_cuda, "cache dir": cache_dir})
 
+
     if deepspeed and not use_cuda:
         logger.info("You must have GPUs to use deepspeed. Turning cuda flag on...")
         use_cuda = True
@@ -89,6 +90,9 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
         "per_device_eval_batch_size": batch_size,
         "no_cuda": no_cuda
     }
+    
+    if deepspeed:
+        default_arguments["deepspeed"] = "deepspeed_config.json"
     if not contrastive_train:
         default_arguments["per_device_train_batch_size"] = batch_size
         default_arguments["per_device_eval_batch_size"] = batch_size
@@ -339,5 +343,10 @@ if __name__ == "__main__":
         learning_rate = 5e-5
     else:
         learning_rate = args.learning_rate
+        
+    if model != "gpt2":
+        deepspeed = True
+    else:
+        deepspeed = args.deepspeed
 
-    main(args.model, args.middle_phrase, args.train_path, args.eval_path, args.contrastive, args.contrast_lambd, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path, prefix_prompt=args.prefix, log_history=args.log_history, deepspeed=args.deepspeed)
+    main(args.model, args.middle_phrase, args.train_path, args.eval_path, args.contrastive, args.contrast_lambd, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path, prefix_prompt=args.prefix, log_history=args.log_history, deepspeed=deepspeed)
