@@ -7,6 +7,7 @@ import os
 import torch
 import numpy as np
 import pandas as pd
+import pickle
 
 import transformers
 from transformers import (
@@ -36,14 +37,10 @@ from gpt_score import model_init, evaluate_model
 
 logger = logging.getLogger(__name__)
 
-def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrastive_train: bool, contrastive_train_lambd: float, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/", prefix_prompt: int = 0, batch_size=8) -> None:
+def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrastive_train: bool, contrastive_train_lambd: float, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/", prefix_prompt: int = 0, batch_size: int = 8, log_history: bool = False, deepspeed: bool = False) -> None:
     # Set up models, random seed, and logging
     model_names = {"gpt2": "gpt2", "gpt-neo-sm": "EleutherAI/gpt-neo-1.3B", "gpt-neo-lg": "EleutherAI/gpt-neo-2.7B"}
     model_id = model_names[model_name]
-    model, tokenizer = model_init(model_id, use_cuda, fast=True)
-    tokenizer.pad_token = tokenizer.eos_token
-    #model.resize_token_embeddings(len(tokenizer))
-    set_seed(seed)
     logging.basicConfig(
         format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
         datefmt="%m/%d/%Y %H:%M:%S",
@@ -54,6 +51,16 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
     transformers.utils.logging.enable_explicit_format()
     logger.info("Training/evaluation parameters %s", {"model": model_name, "train path": train_path, "num epochs": num_epochs, "seed": seed, "cuda": use_cuda, "cache dir": cache_dir})
 
+
+    if deepspeed and not use_cuda:
+        logger.info("You must have GPUs to use deepspeed. Turning cuda flag on...")
+        use_cuda = True
+
+    model, tokenizer = model_init(model_id, use_cuda, fast=True)
+    tokenizer.pad_token = tokenizer.eos_token
+    #model.resize_token_embeddings(len(tokenizer))
+    set_seed(seed)
+    
     # load datasets and initialize trainer
     train_dataset = (
         get_dataset(train_path, tokenizer=tokenizer, cache_dir=cache_dir)
@@ -61,19 +68,43 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
     eval_dataset = (
         get_dataset(eval_path, tokenizer=tokenizer, cache_dir=cache_dir)
     )
-    eval_df = pd.read_csv("./filtered/test.csv")
+
+    eval_df = pd.read_csv("./filtered/dev.csv")
     eval_df["label"] = eval_df["labels"]
+    test_df = pd.read_csv("./filtered/test.csv")
+    test_df["label"] = test_df["labels"]
 
     data_collator = DataCollatorForLanguageModeling(
                 tokenizer=tokenizer, mlm=False
             )
     no_cuda = not use_cuda
+
+    default_arguments = {
+        "output_dir": f"./lm_train_outputs/{model_name}_{seed}/",
+        "do_train": True,
+        "prediction_loss_only": False, 
+        "num_train_epochs": num_epochs,
+        "seed": seed,
+        "learning_rate": lr,
+        "per_device_train_batch_size": batch_size,
+        "per_device_eval_batch_size": batch_size,
+        "no_cuda": no_cuda
+    }
+    
+    if deepspeed:
+        default_arguments["deepspeed"] = "deepspeed_config.json"
     if not contrastive_train:
-        training_args = transformers.TrainingArguments(output_dir=f"./lm_train_outputs/{model_name}_{seed}/", do_train=True, do_eval=False, 
-        prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr, deepspeed="./deepspeed_config.json", per_device_train_batch_size=batch_size, per_device_eval_batch_size=batch_size)
+        default_arguments["per_device_train_batch_size"] = batch_size
+        default_arguments["per_device_eval_batch_size"] = batch_size
+
     else:
-        training_args = transformers.TrainingArguments(output_dir=f"./lm_train_outputs/{model_name}_{seed}/", do_train=True, do_eval=False, 
-        prediction_loss_only=True, num_train_epochs=num_epochs, seed=seed,learning_rate=lr, per_device_train_batch_size=2, no_cuda=no_cuda, per_device_eval_batch_size=2)
+        default_arguments["per_device_train_batch_size"] = 2
+        
+    if log_history:
+        default_arguments["evaluation_strategy"] = "steps"
+        default_arguments["eval_steps"] = 100
+
+    training_args = transformers.TrainingArguments(**default_arguments)
 
     if not contrastive_train:
         tokenizer.pad_token = tokenizer.eos_token
@@ -101,7 +132,11 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
         logger.info("=== Training the model ===")
         trainer.train()
         trainer.save_model("./lm_train_cache/")
-
+        if log_history:
+            log_file = f"{model_name}_epochs_{num_epochs}_eval_loss.p"
+            with open(log_file, "wb") as f:
+                pickle.dump(trainer.state.log_history, f)
+    
     # Evaluate the model
     results = {}
     if not dont_eval: #Note: for hyperparameter tuning we do it by loss on 
@@ -110,10 +145,14 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
         eval_output = trainer.evaluate()
         eval_loss = eval_output["eval_loss"]
         results["eval_loss"] = eval_loss
-        acc, out_df, preds, labels = evaluate_model(model, tokenizer, eval_df.to_dict(orient="records"), use_cuda=use_cuda, return_acc=True, middle_phrase=prompt, use_prefix=prefix_prompt)
-        results["accuracy (dev)"] = acc
-        results["preds"] = preds
-        results["labels"] = labels
+        
+        acc_test, out_df_test, preds_test, labels_test = evaluate_model(model, tokenizer, test_df.to_dict(orient="records"), use_cuda=use_cuda, return_acc=True, middle_phrase=prompt, use_prefix=prefix_prompt)
+        acc_dev, out_df_dev, preds_dev, labels_dev = evaluate_model(model, tokenizer, eval_df.to_dict(orient="records"), use_cuda=use_cuda, return_acc=True, middle_phrase=prompt, use_prefix=prefix_prompt)
+        results["accuracy (test)"] = acc_test
+        results["accuracy (dev)"] = acc_dev
+        results["preds"] = preds_test
+        results["labels"] = labels_test
+
 
     if out_path is not None:
         Path(out_path).mkdir(parents=True, exist_ok=True)
@@ -123,8 +162,8 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
                 logger.info("  %s = %s", key, str(results[key]))
                 writer.write("%s = %s\n" % (key, str(results[key])))
 
-        out_df.to_csv(f"{out_path}/prob_{model_name}_{seed}.csv", index=False)
-
+        out_df_test.to_csv(f"{out_path}/prob_{model_name}_{seed}.csv", index=False)
+    
     return results
 
 def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_path, eval_path, contrastive_train=False, contrast_lambd=1, is_hyperparam_opt=False, cuda=True, deepspeed=False, batch_size=8) -> Trainer:
@@ -267,7 +306,8 @@ class ContrastiveTrainer(Trainer):
         # Good = when the loss for the correct item is much lower than loss for wrong item
         # loss should be negative (good) when wrong loss > correct loss
         lambd = self.lambd if self.lambd else 1
-        loss = correct_loss - lambd * wrong_loss
+        relative_score = correct_loss - lambd * (wrong_loss + correct_loss)
+        loss = -relative_score
 
         return (loss, outputs) if return_outputs else loss
 
@@ -287,6 +327,8 @@ if __name__ == "__main__":
     parser.add_argument("--prefix", default=0)
     parser.add_argument("--contrastive", default=False, action="store_true")
     parser.add_argument("--contrast_lambd", type=float, default=1)
+    parser.add_argument("--log_history", action="store_true")
+    parser.add_argument("--deepspeed", action="store_true")
     parser.add_argument("--out_path")
     args = parser.parse_args()
 
@@ -301,5 +343,10 @@ if __name__ == "__main__":
         learning_rate = 5e-5
     else:
         learning_rate = args.learning_rate
+        
+    if model != "gpt2":
+        deepspeed = True
+    else:
+        deepspeed = args.deepspeed
 
-    main(args.model, args.middle_phrase, args.train_path, args.eval_path, args.contrastive, args.contrast_lambd, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path, prefix_prompt=args.prefix)
+    main(args.model, args.middle_phrase, args.train_path, args.eval_path, args.contrastive, args.contrast_lambd, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path, prefix_prompt=args.prefix, log_history=args.log_history, deepspeed=deepspeed)
