@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import pdb
+import os
 
 def join_responses(df: pd.DataFrame) -> pd.DataFrame:
     phrase_1_list = [f"{x} {y}".lower() for x, y in zip(df["Answer.metaphor-base"], df["Answer.phrase1"])]
@@ -22,10 +23,10 @@ def join_responses(df: pd.DataFrame) -> pd.DataFrame:
         ending_2_col.extend([ending_2] * 2)
         labels.extend([0, 1])
 
-    data = pd.DataFrame({"startphrase": context_col, "ending1": ending_1_col, "ending2": ending_2_col, "labels": labels})
+    data = pd.DataFrame({"startphrase": context_col, "ending1": ending_1_col, "ending2": ending_2_col, "labels": labels, "HITId": df[""]})
     return data
 
-def join_responses_batch(df: pd.DataFrame, batch_size: int = 5):
+def join_responses_batch(df: pd.DataFrame, batch_size: int = 3):
     phrase_1_list = [[f"{x} {y}".lower() for x, y in zip(df[f"Answer.metaphor-base-{str(i)}"], df[f"Answer.phrase1-{i}"])] for i in range(1, batch_size + 1)]
     phrase_1_list = sum(phrase_1_list, [])
     phrase_2_list = [[f"{x} {y}".lower() for x, y in zip(df[f"Answer.metaphor-base-{str(i)}"], df[f"Answer.phrase2-{i}"])] for i in range(1, batch_size + 1)]
@@ -53,9 +54,13 @@ def join_responses_batch(df: pd.DataFrame, batch_size: int = 5):
     return data
 
 if __name__ == "__main__":
-    df = pd.read_csv("./metaphors_pilot_cut.csv")
-    df_5 = pd.read_csv("./mturk_batch_size_5.csv")
-    new_df = join_responses(df)
-    new_df_5 = join_responses_batch(df_5)
-    new_df.to_csv("./train_data_mturk.csv", index=False)
-    new_df_5.to_csv("./train_data_mturk_batchsize_5.csv", index=False)
+    all_responses = []
+    for filename in os.listdir("./mturk_raw_data"):
+        if filename.endswith(".csv"):
+            print(filename)
+            file_path = os.path.join("./mturk_raw_data", filename)
+            df = pd.read_csv(file_path)
+            responses = join_responses_batch(df)
+            all_responses.append(responses)
+    all_df = pd.concat(all_responses)
+    all_df.to_csv("./mturk_processed/processed.csv", index=False)
