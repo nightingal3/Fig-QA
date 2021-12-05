@@ -15,6 +15,11 @@ if __name__ == "__main__":
     total_pairs = 0
     correct_pairs = 0
     reference_ans = pd.read_csv(test_sheet)
+
+    incorrect_ans = []
+    incorrect_ending1 = []
+    incorrect_ending2 = []
+    incorrect_labels = []
     for filename in os.listdir(response_dir):
         if not filename.endswith(".csv"):
             continue
@@ -32,6 +37,16 @@ if __name__ == "__main__":
         else:
             confident = merged.query("notes != notes") # people were instructed to write a note if unsure
         correct = merged.query('answer == labels')
+        incorrect = merged.query('answer != labels')
+        incorrect_phrase = list(incorrect["startphrase"])
+        incorrect_option1 = list(incorrect["ending1_x"])
+        incorrect_option2 = list(incorrect["ending2_x"])
+        incorrect_label = list(incorrect["labels"])
+    
+        incorrect_ans.extend(incorrect_phrase)
+        incorrect_ending1.extend(incorrect_option1)
+        incorrect_ending2.extend(incorrect_option2)
+        incorrect_labels.extend(incorrect_label)
         correct_confident = confident.query("answer == labels")
         correct_pairs += sum(correct["qid"].value_counts() == 2)
         total_pairs += sum(merged["qid"].value_counts() == 2)
@@ -45,9 +60,14 @@ if __name__ == "__main__":
         total_qs += len(merged)
         total_correct_confident += len(correct_confident)
         total_confident += len(confident)
+        
 
     print("accuracies ", acc_all)
     print("accuracies (confident only)", acc_confident_all)
     print("overall", total_correct/total_qs)
     print("overall (confident)", total_correct_confident/total_confident)
     print("pair accuracies", correct_pairs/total_pairs)
+    
+    incorrect_cols = {"startphrase": incorrect_ans, "ending1": incorrect_ending1, "ending2": incorrect_ending2, "correct_label": incorrect_labels}
+    df_incorrect = pd.DataFrame(incorrect_cols)
+    df_incorrect.to_csv("incorrect_human.csv", index=False)
