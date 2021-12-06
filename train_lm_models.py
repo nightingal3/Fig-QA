@@ -11,14 +11,7 @@ import pickle
 
 import transformers
 from transformers import (
-    AutoConfig,
-    AutoModelWithLMHead,
-    AutoTokenizer,
     DataCollatorForLanguageModeling,
-    DataCollatorForPermutationLanguageModeling,
-    DataCollatorForWholeWordMask,
-    DataCollatorWithPadding,
-    HfArgumentParser,
     LineByLineTextDataset,
     LineByLineWithRefDataset,
     PreTrainedTokenizer,
@@ -27,7 +20,8 @@ from transformers import (
     TrainingArguments,
     set_seed,
     GPT2LMHeadModel,
-    GPTNeoForCausalLM
+    GPTNeoForCausalLM,
+    EarlyStoppingCallback
 )
 from torch.utils.data import ConcatDataset
 from sample_metaphors import trial_dataset
@@ -37,7 +31,7 @@ from gpt_score import model_init, evaluate_model
 
 logger = logging.getLogger(__name__)
 
-def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrastive_train: bool, contrastive_train_lambd: float, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/", prefix_prompt: int = 0, batch_size: int = 8, log_history: bool = False, deepspeed: bool = False) -> None:
+def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrastive_train: bool, contrastive_train_lambd: float, num_epochs: int, seed: int, lr: int, use_cuda: bool, dont_train: bool, dont_eval: bool, out_path: str, cache_dir: str = "./lm_train_cache/", prefix_prompt: int = 0, batch_size: int = 8, log_history: bool = False, deepspeed: bool = False, early_stopping: bool = False) -> None:
     # Set up models, random seed, and logging
     model_names = {"gpt2": "gpt2", "gpt-neo-sm": "EleutherAI/gpt-neo-1.3B", "gpt-neo-lg": "EleutherAI/gpt-neo-2.7B"}
     model_id = model_names[model_name]
@@ -49,7 +43,7 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
     transformers.utils.logging.set_verbosity_info()
     transformers.utils.logging.enable_default_handler()
     transformers.utils.logging.enable_explicit_format()
-    logger.info("Training/evaluation parameters %s", {"model": model_name, "train path": train_path, "num epochs": num_epochs, "seed": seed, "cuda": use_cuda, "cache dir": cache_dir})
+    logger.info("Training/evaluation parameters %s", {"model": model_name, "train path": train_path, "num epochs": num_epochs, "seed": seed, "cuda": use_cuda, "cache dir": cache_dir, "deepspeed": deepspeed, "early stopping": early_stopping})
 
 
     if deepspeed and not use_cuda:
@@ -103,6 +97,12 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
     if log_history:
         default_arguments["evaluation_strategy"] = "steps"
         default_arguments["eval_steps"] = 100
+    if early_stopping:
+        default_arguments["evaluation_strategy"] = "steps"
+        default_arguments["eval_steps"] = 200
+        default_arguments["load_best_model_at_end"] = True
+        default_arguments["metric_for_best_model"] = "eval_loss"
+
 
     training_args = transformers.TrainingArguments(**default_arguments)
 
@@ -116,6 +116,14 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
             eval_dataset=eval_dataset,
             model_init=dummy_init,
             compute_metrics=compute_metrics
+        )
+    elif early_stopping:
+        trainer = Trainer(
+            args=training_args,
+            data_collator=data_collator,
+            train_dataset=train_dataset,
+            eval_dataset=eval_dataset,
+            callbacks=[EarlyStoppingCallback(early_stopping_patience=2)]
         )
     else:
         trainer = ContrastiveTrainer(
@@ -330,6 +338,7 @@ if __name__ == "__main__":
     parser.add_argument("--log_history", action="store_true")
     parser.add_argument("--deepspeed", action="store_true")
     parser.add_argument("--out_path")
+    parser.add_argument("--early_stopping", action="store_true", default=False)
     args = parser.parse_args()
 
     contrast_path = "contrast/" if args.contrastive else ""
@@ -344,9 +353,9 @@ if __name__ == "__main__":
     else:
         learning_rate = args.learning_rate
         
-    if model != "gpt2":
+    if args.model != "gpt2":
         deepspeed = True
     else:
         deepspeed = args.deepspeed
 
-    main(args.model, args.middle_phrase, args.train_path, args.eval_path, args.contrastive, args.contrast_lambd, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path, prefix_prompt=args.prefix, log_history=args.log_history, deepspeed=deepspeed)
+    main(args.model, args.middle_phrase, args.train_path, args.eval_path, args.contrastive, args.contrast_lambd, args.num_epochs, args.seed, learning_rate, args.cuda, args.dont_train, args.dont_eval, out_path, prefix_prompt=args.prefix, log_history=args.log_history, deepspeed=deepspeed, early_stopping=args.early_stopping)
