@@ -98,32 +98,33 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
         default_arguments["evaluation_strategy"] = "steps"
         default_arguments["eval_steps"] = 100
     if early_stopping:
-        default_arguments["evaluation_strategy"] = "steps"
-        default_arguments["eval_steps"] = 200
+        default_arguments["evaluation_strategy"] = "epoch"
         default_arguments["load_best_model_at_end"] = True
         default_arguments["metric_for_best_model"] = "eval_loss"
-
+        default_arguments["save_strategy"] = "epoch"
 
     training_args = transformers.TrainingArguments(**default_arguments)
-
-    if not contrastive_train:
-        tokenizer.pad_token = tokenizer.eos_token
-        dummy_init = make_dummy(model_id)
+    
+    if early_stopping:
         trainer = Trainer(
             args=training_args,
+            model=model,
             data_collator=data_collator,
             train_dataset=train_dataset,
             eval_dataset=eval_dataset,
-            model_init=dummy_init,
-            compute_metrics=compute_metrics
+            callbacks=[EarlyStoppingCallback(early_stopping_patience=1)]
         )
-    elif early_stopping:
+    elif not contrastive_train:
+        #tokenizer.pad_token = tokenizer.eos_token
+        #dummy_init = make_dummy(model_id)
         trainer = Trainer(
             args=training_args,
+            model=model,
             data_collator=data_collator,
             train_dataset=train_dataset,
             eval_dataset=eval_dataset,
-            callbacks=[EarlyStoppingCallback(early_stopping_patience=2)]
+            #model_init=dummy_init,
+            compute_metrics=compute_metrics
         )
     else:
         trainer = ContrastiveTrainer(
@@ -209,7 +210,7 @@ def training_setup(model, tokenizer, model_name, seed, lr, num_epochs, train_pat
         default_train_args["evaluation_strategy"] = "steps"
         default_train_args["eval_steps"] = 500
         default_train_args["disable_tqdm"] = True
-    if deepspeed:
+    if deepspeed == True:
         default_train_args["deepspeed"] = "./deepspeed_config.json"
 
     training_args = transformers.TrainingArguments(**default_train_args)
@@ -353,7 +354,7 @@ if __name__ == "__main__":
     else:
         learning_rate = args.learning_rate
         
-    if args.model != "gpt2":
+    if args.model != "gpt2" and args.cuda:
         deepspeed = True
     else:
         deepspeed = args.deepspeed
