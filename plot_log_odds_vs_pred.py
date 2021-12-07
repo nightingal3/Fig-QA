@@ -4,10 +4,10 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-prob_sheets = {
-    "gpt2": ["./prob_sheets/gpt2_prob_test.tsv", "./prob_sheets/prob_gpt2_trained_test.csv"],
-    "gpt-neo 1.3B": ["./prob_sheets/gpt-neo-sm_prob_test.tsv", "./prob_sheets/prob_gpt-neo-sm_trained_test.csv"],
-    #"gpt-neo 2.7B": ["./prob_sheets/neo-lg_prob.tsv", "./prob_sheets/neo_lg_trained.csv"],
+prob_sheets = { #TODO: put GPT-3 here and replace faulty trained sheets
+    "gpt2": ["./prob_sheets/gpt2_prob_test.tsv", "./prob_sheets/gpt2_trained_prob_test.csv"],
+    "gpt-neo 1.3B": ["./prob_sheets/gpt-neo-sm_prob_test.tsv", "./prob_sheets/gpt-neo-sm_trained_prob_test.csv"],
+    #"gpt-3": ["./prob_sheets/gpt3_curie_trained_prob_test.csv", "./prob_sheets/gpt3_curie_trained_prob_test.csv"]
 }
 
 def get_log_odds_and_pred(df: pd.DataFrame) -> pd.DataFrame:
