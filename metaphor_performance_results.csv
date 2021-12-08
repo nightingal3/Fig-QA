@@ -20,8 +20,8 @@ GPT-3 Ada,Prompting (k = 3),0.5841
 GPT-3 Ada,Prompting (k = 5),0.5786
 GPT-3 Ada,Prompting (k = 10),0.5686
 GPT-3 Davinci,Prompting (k = 3),0.7422
-GPT-3 Ada,Fine-tuning,0.9184
-GPT-3 Babbage,Fine-tuning,0.9561
+GPT-3 Ada,Fine-tuning,0.7258
+GPT-3 Babbage,Fine-tuning,0.7605
 BERT,Fine-tuning,0.8473
 BERT,Fine-tuning,0.8236
 BERT,Fine-tuning,0.8336
@@ -30,11 +30,13 @@ RoBERTa,Fine-tuning,0.9077
 RoBERTa,Fine-tuning,0.8976
 BERT,Transfer (Winogrande),0.6618
 RoBERTa,Transfer (Winogrande),0.5814
-Human,All,0.9442
-Human,Confident,0.9539
+Human,Human,0.9442
+Human (confident),Human,0.9539
 GPT-2,Fine-tuning,0.5532
 GPT-2,Fine-tuning,0.5619
 GPT-2,Fine-tuning,0.5541
 GPT-neo 1.3B,Fine-tuning,0.6937
 GPT-neo 1.3B,Fine-tuning,0.6963
 GPT-neo 1.3B,Fine-tuning,0.6928
+GPT-2,Prompting (suffix),0.5585
+GPT-neo 1.3B,Prompting (suffix),0.5942
