@@ -1,5 +1,6 @@
 import pandas as pd
 import spacy
+import sys
 
 def is_subarray(sub, arr):
     if len(arr) <= len(sub):
@@ -27,7 +28,14 @@ def substring_between(string, a, b):
     return string[i + len(a):j].strip()
 
 if __name__ == '__main__':
-    df = pd.read_csv('test.csv')
+    if len(sys.argv) != 3:
+        print('usage: python get_syntax_chunks.py input.csv output.csv')
+        sys.exit(1)
+
+    infile = sys.argv[1]
+    outfile = sys.argv[2]
+
+    df = pd.read_csv(infile)
     df['x'] = ''
     df['y'] = ''
     df['z'] = ''
@@ -77,11 +85,4 @@ if __name__ == '__main__':
             print(len(noun_phrases_cleaned), noun_phrases_cleaned)
             print()
 
-
-
-
-
-    df.to_csv('syntax_tagged.csv')
-
-
-
+    df.to_csv(outfile)
