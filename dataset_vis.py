@@ -140,7 +140,7 @@ if __name__ == "__main__":
     correctness_hyp_sub, counts_hyp_sub = correctness_by_hypernym(dummy_sub)
     #print(sorted(correctness_sub.items(), key=lambda x: counts_sub[x[0]], reverse=True))
     #print(sorted(correctness_hyp_sub.items(), key=lambda x: counts_hyp_sub[x[0]], reverse=True))
-    #pdb.set_trace()
+
     dummy_rel["pos_tag"] = dummy_rel["subj"].apply(get_pos_tags)
     dummy_rel["wordnet_pos"] = dummy_rel["pos_tag"].apply(get_wordnet_pos)
     dummy_rel["hypernyms"] = [get_hypernyms(sent, pos) for sent, pos in zip(dummy_rel["subj"], dummy_rel["wordnet_pos"])]
@@ -161,7 +161,6 @@ if __name__ == "__main__":
     print(sorted(correctness_hyp_obj.items(), key=lambda x: counts_hyp_obj[x[0]], reverse=True))
     print(counts_hyp_obj)
     #rel = rel.value_counts().rename_axis('unique_values').reset_index(name='counts')
-    pdb.set_trace()
     make_count_barplot(dummy_sub, "subj_bar", "Subject", "flare")
     make_count_barplot(dummy_rel, "rel_bar", "Relation", "crest")
     make_count_barplot(dummy_obj, "obj_bar", "Object", "viridis")
@@ -178,14 +177,12 @@ if __name__ == "__main__":
     # todo: build co-occurrence matrix by hand
     for s in subj_and_rel["subj"]:
         contains_subj = subj_and_rel.loc[subj_and_rel["subj"] == s]
-        pdb.set_trace()
     s_o = subj_and_rel.stack().str.get_dummies().sum(level=0).ne(0).astype(int)
     s_o =s_o.T.dot(s_o).astype(float)
     np.fill_diagonal(s_o.values, np.nan)
 
     a = s_o.stack()   
     a = a[a >= 1].rename_axis(('source', 'target')).reset_index(name='weight')
-    pdb.set_trace()
     G = nx.from_pandas_edgelist(a, edge_attr=True)
     X, Y = nx.bipartite.sets(G)
     pos = nx.bipartite_layout(G, X)
