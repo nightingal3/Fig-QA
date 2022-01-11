@@ -76,8 +76,6 @@ if __name__ == '__main__':
 
     print("Start evaluating...")        # this might take a while.
     for i, item in enumerate(metaphor_data.to_dict(orient="records")):
-        if i > 5:
-            continue
         print("startphrase: ", item["startphrase"])
         ending1, ending2 = item["ending1"], item["ending2"]
 
