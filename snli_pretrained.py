@@ -92,15 +92,15 @@ if __name__ == '__main__':
         print(f"ending2: {ending2} is {pred2}")
 
         if i % 2 == 0:
-            if pred1 == 0:
+            if pred1 == "entailment":
                 correct += 1
-            if pred2 == 1:
+            if pred2 == "contradiction":
                 correct += 1
             entailment_scores.append(entailment_score_1)
         else:
-            if pred1 == 1:
+            if pred1 == "contradiction":
                 correct += 1
-            if pred2 == 0:
+            if pred2 == "entailment":
                 correct += 1
             entailment_scores.append(entailment_score_2)
         total += 2
