@@ -8,6 +8,7 @@ import torch
 import json
 import pandas as pd
 import pdb
+import numpy as np
 
 
 def get_prediction(tokenizer, model, premise, hypothesis, max_length=256):
