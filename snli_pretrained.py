@@ -19,6 +19,10 @@ def get_prediction(tokenizer, model, premise, hypothesis, max_length=256):
     input_ids = torch.Tensor(tokenized_input_seq_pair['input_ids']).long().unsqueeze(0)
     token_type_ids = torch.Tensor(tokenized_input_seq_pair['token_type_ids']).long().unsqueeze(0)
     attention_mask = torch.Tensor(tokenized_input_seq_pair['attention_mask']).long().unsqueeze(0)
+    if torch.cuda.is_available():
+        input_ids = input_ids.to("cuda")
+        token_type_ids = token_type_ids.to("cuda")
+        attention_mask = attention_mask.to("cuda")
 
     outputs = model(input_ids,
                     attention_mask=attention_mask,
