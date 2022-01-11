@@ -110,7 +110,7 @@ if __name__ == '__main__':
         pred2_lst.append(pred2)
 
     print("Total / Correct / Accuracy:", f"{total} / {correct} / {correct / total}")
-    print("Correct (binary)": len(np.where(choice_preds == metaphor_data["labels"])[0])/len(metaphor_data))
+    print("Correct (binary): ", len(np.where(choice_preds == metaphor_data["labels"])[0])/len(metaphor_data))
 
     cols = {"startphrase": metaphor_data["startphrase"], "ending1": metaphor_data["ending1"], "ending2": metaphor_data["ending2"],
      "label": metaphor_data["labels"], "ending1_pred": pred1_lst, "ending2_pred": pred2_lst, "choice_pred": choice_preds}
