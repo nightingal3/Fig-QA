@@ -11,25 +11,25 @@ GPT-2,Prompting (k = 10),0.5262
 GPT-neo 1.3B,Prompting (k = 10),0.5881
 GPT-2,Fine-tuning,0.548
 GPT-neo 1.3B,Fine-tuning,0.6998
-GPT-3 Curie,Fine-tuning,0.7916
-GPT-3 Curie,Zero-shot,0.6572
-GPT-3 Davinci,Zero-shot,0.7093
-GPT-3 Babbage,Zero-shot,0.6307
-GPT-3 Ada,Zero-shot,0.5878
-GPT-3 Ada,Prompting (k = 3),0.5841
-GPT-3 Ada,Prompting (k = 5),0.5786
-GPT-3 Ada,Prompting (k = 10),0.5686
-GPT-3 Davinci,Prompting (k = 3),0.7422
-GPT-3 Ada,Fine-tuning,0.7258
-GPT-3 Babbage,Fine-tuning,0.7605
+GPT-3 Curie,Fine-tuning,0.7904
+GPT-3 Curie,Zero-shot,0.6536
+GPT-3 Davinci,Zero-shot,0.6841
+GPT-3 Babbage,Zero-shot,0.6291
+GPT-3 Ada,Zero-shot,0.5908
+GPT-3 Ada,Prompting (k = 3),0.5654
+GPT-3 Ada,Prompting (k = 5),0.5567
+GPT-3 Ada,Prompting (k = 10),0.5698
+GPT-3 Ada,Fine-tuning,0.6917
+GPT-3 Ada,Prompting (suffix),0.6012
+GPT-3 Babbage,Fine-tuning,0.7397
+RoBERTa,Transfer,0.6618
+BERT,Transfer,0.5814
 BERT,Fine-tuning,0.8473
 BERT,Fine-tuning,0.8236
 BERT,Fine-tuning,0.8336
 RoBERTa,Fine-tuning,0.9059
 RoBERTa,Fine-tuning,0.9077
 RoBERTa,Fine-tuning,0.8976
-BERT,Transfer (Winogrande),0.6618
-RoBERTa,Transfer (Winogrande),0.5814
 Human,Human,0.9442
 Human (confident),Human,0.9539
 GPT-2,Fine-tuning,0.5532

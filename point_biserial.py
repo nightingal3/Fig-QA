@@ -13,3 +13,9 @@ if __name__ == "__main__":
 
     answer_prob = list(df["P(y_1)"]) + list(df["P(y_2)"])
     print("answer prob correlation: ", pointbiserialr(answer_prob, correct_p))
+
+    segmented_file = "./dataset_characteristics/train_set_segmented.csv"
+    df_segment = pd.read_csv(segmented_file)
+    #pdb.set_trace()
+    #merged = pd.merge(df, df_segment, how="left", right_on="ending1", left_on="x_1")
+    #pdb.set_trace()

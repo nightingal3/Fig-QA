@@ -1,6 +1,6 @@
 import pandas as pd
 import pdb
-from sklearn.model_selection import train_test_split
+#from sklearn.model_selection import train_test_split
 
 def write_training_lines_correct(df: pd.DataFrame, out_filename: str, middle_phrase: str = "") -> None:
     second_sentence = [row["ending1"].replace(".", "") if row["labels"] == 0 else row["ending2"].replace(".", "") for row in df.to_dict(orient="records")]
@@ -47,8 +47,13 @@ def split_df(df, test_and_eval_size=0.6) -> None:
     return train, dev, test
 
 if __name__ == "__main__":
-    df = pd.read_csv("./filtered/annotators_combined.csv")
+    df = pd.read_csv("./filtered/train_xl.csv")
     valid_data = df.loc[df["valid"] == 1]
+    pdb.set_trace()
+    write_training_lines_correct(df, "./lm_train_data/train-xl.txt", "")
+    write_training_lines_all(df, "./lm_train_data/train-xl-contrast.txt", "")
+
+    pdb.set_trace()
     pilot_examples = pd.read_csv("./filtered/original_data.csv", sep="\t")
     valid_data.index = range(len(valid_data))
     valid_data["qid"] = valid_data.index // 2

@@ -8,7 +8,6 @@ import torch
 import json
 import pandas as pd
 import pdb
-from tqdm import tqdm
 
 
 def get_prediction(tokenizer, model, premise, hypothesis, max_length=256):
@@ -23,7 +22,7 @@ def get_prediction(tokenizer, model, premise, hypothesis, max_length=256):
         input_ids = input_ids.to("cuda")
         token_type_ids = token_type_ids.to("cuda")
         attention_mask = attention_mask.to("cuda")
-
+        
     outputs = model(input_ids,
                     attention_mask=attention_mask,
                     token_type_ids=token_type_ids,
@@ -70,15 +69,24 @@ if __name__ == '__main__':
         1: 'neutral',
         2: 'contradiction',
     }
-    preds = []
+    pred1_lst = []
+    pred2_lst = []
+    choice_preds = []
+    entailment_scores = []
 
     print("Start evaluating...")        # this might take a while.
-    for i, item in tqdm(enumerate(metaphor_data.to_dict(orient="records"))):
+    for i, item in enumerate(metaphor_data.to_dict(orient="records")):
+        if i > 5:
+            continue
         print("startphrase: ", item["startphrase"])
         ending1, ending2 = item["ending1"], item["ending2"]
 
-        _, pred_index_end1 = get_prediction(tokenizer, model, item['startphrase'], ending1)
-        _, pred_index_end2 = get_prediction(tokenizer, model, item['startphrase'], ending2)
+        pred_logits_1, pred_index_end1 = get_prediction(tokenizer, model, item['startphrase'], ending1)
+        pred_logits_2, pred_index_end2 = get_prediction(tokenizer, model, item['startphrase'], ending2)
+        entailment_score_1 = pred_logits_1[0] - pred_logits_1[2]
+        entailment_score_2 = pred_logits_2[0] - pred_logits_2[2]
+        choice_pred = 0 if entailment_score_1 > entailment_score_2 else 1
+
         pred1 = label_mapping[int(pred_index_end1)]
         pred2 = label_mapping[int(pred_index_end2)]
 
@@ -90,13 +98,22 @@ if __name__ == '__main__':
                 correct += 1
             if pred2 == 1:
                 correct += 1
+            entailment_scores.append(entailment_score_1)
         else:
             if pred1 == 1:
                 correct += 1
             if pred2 == 0:
                 correct += 1
+            entailment_scores.append(entailment_score_2)
         total += 2
+        choice_preds.append(choice_pred)
 
-        preds.extend([pred1, pred2])
+        pred1_lst.append(pred1)
+        pred2_lst.append(pred2)
 
     print("Total / Correct / Accuracy:", f"{total} / {correct} / {correct / total}")
+    cols = {"startphrase": metaphor_data["startphrase"], "ending1": metaphor_data["ending1"], "ending2": metaphor_data["ending2"],
+     "label": metaphor_data["labels"], "ending1_pred": pred1_lst, "ending2_pred": pred2_lst, "choice_pred": choice_preds}
+    snli_df = pd.DataFrame(cols)
+    snli_df.to_csv("snli_preds.csv", index=False)
+    pdb.set_trace()

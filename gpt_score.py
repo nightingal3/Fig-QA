@@ -37,7 +37,7 @@ def model_init(model_string, cuda, output_attentions=False, fast=False):
     return model, tokenizer
 
 
-def sent_scoring(model_tokenizer, text, cuda, score_type="loss", output_attentions=False):
+def sent_scoring(model_tokenizer, text, cuda, score_type="loss", output_attentions=False, length_normalize=False):
     model = model_tokenizer[0]
     tokenizer = model_tokenizer[1]
     assert model is not None
@@ -52,7 +52,12 @@ def sent_scoring(model_tokenizer, text, cuda, score_type="loss", output_attentio
 
     sentence_prob = loss.item()
     if score_type == "prob":
-        sentence_prob = math.exp(-1.0 * loss)
+        if length_normalize:
+            mult = 2
+        else:
+            mult = len(encoded_text)
+
+        sentence_prob = math.exp(-1.0 * loss * (mult - 1))
 
     if output_attentions:
         attn = outputs["attentions"]
