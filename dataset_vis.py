@@ -26,8 +26,9 @@ def lemmatize_words(words):
 
 def make_count_barplot(df: pd.DataFrame, out_filename: str, x_label: str, palette_name: str = "flare") -> None:
     plt.gca().clear()
+    plt.figure(figsize=(8,4))
     ax = sns.countplot(data=df, x="subj", order=df["subj"].value_counts().index, palette=palette_name)
-    plt.xlim(0, 24)
+    plt.xlim(-0.5, 24)
     plt.xticks(rotation=90)
     plt.xlabel("")
     plt.ylabel("Count")
@@ -114,52 +115,52 @@ if __name__ == "__main__":
     errors = set(list(pd.read_csv(errors_file)["startphrase"]))
 
     subj = df["x"].apply(lemmatize_words)
-    #subj = subj.loc[subj.shift() != subj] # only count subj, obj etc once per pair
+    subj = subj.loc[subj.shift() != subj] # only count subj, obj etc once per pair
     dummy_sub = pd.DataFrame({"subj": subj, "startphrase": df["startphrase"]})
 
     rel = df["y"].apply(lemmatize_words)
-    #rel = rel.loc[rel.shift() != rel]
+    rel = rel.loc[rel.shift() != rel]
     rel = rel.str.replace("wa\\b", "was", regex=True)
     rel = rel.str.replace("a\\b", "as", regex=True)
     rel = rel.str.replace("ha\\b", "has", regex=True)
     dummy_rel = pd.DataFrame({"subj": rel, "startphrase": df["startphrase"]})
 
     obj = df["z"].apply(lemmatize_words)
-    #obj = obj.loc[obj.shift() != obj]
+    obj = obj.loc[obj.shift() != obj]
     dummy_obj = pd.DataFrame({"subj": obj, "startphrase": df["startphrase"]})
 
     subj_unique = len(subj.value_counts())
     rel_unique = len(rel.value_counts())
     obj_unique = len(obj.value_counts())
 
-    dummy_sub["pos_tag"] = dummy_sub["subj"].apply(get_pos_tags)
-    dummy_sub["wordnet_pos"] = dummy_sub["pos_tag"].apply(get_wordnet_pos)
-    dummy_sub["hypernyms"] = [get_hypernyms(sent, pos) for sent, pos in zip(dummy_sub["subj"], dummy_sub["wordnet_pos"])]
-    dummy_sub["correctness"] = dummy_sub["startphrase"].apply(lambda x: x not in errors)
-    correctness_sub, counts_sub = correctness_by_pos(dummy_sub)
-    correctness_hyp_sub, counts_hyp_sub = correctness_by_hypernym(dummy_sub)
+    #dummy_sub["pos_tag"] = dummy_sub["subj"].apply(get_pos_tags)
+    #dummy_sub["wordnet_pos"] = dummy_sub["pos_tag"].apply(get_wordnet_pos)
+    #dummy_sub["hypernyms"] = [get_hypernyms(sent, pos) for sent, pos in zip(dummy_sub["subj"], dummy_sub["wordnet_pos"])]
+    #dummy_sub["correctness"] = dummy_sub["startphrase"].apply(lambda x: x not in errors)
+    #correctness_sub, counts_sub = correctness_by_pos(dummy_sub)
+    #correctness_hyp_sub, counts_hyp_sub = correctness_by_hypernym(dummy_sub)
     #print(sorted(correctness_sub.items(), key=lambda x: counts_sub[x[0]], reverse=True))
     #print(sorted(correctness_hyp_sub.items(), key=lambda x: counts_hyp_sub[x[0]], reverse=True))
 
-    dummy_rel["pos_tag"] = dummy_rel["subj"].apply(get_pos_tags)
-    dummy_rel["wordnet_pos"] = dummy_rel["pos_tag"].apply(get_wordnet_pos)
-    dummy_rel["hypernyms"] = [get_hypernyms(sent, pos) for sent, pos in zip(dummy_rel["subj"], dummy_rel["wordnet_pos"])]
-    dummy_rel["correctness"] = dummy_rel["startphrase"].apply(lambda x: x not in errors)
+    #dummy_rel["pos_tag"] = dummy_rel["subj"].apply(get_pos_tags)
+    #dummy_rel["wordnet_pos"] = dummy_rel["pos_tag"].apply(get_wordnet_pos)
+    #dummy_rel["hypernyms"] = [get_hypernyms(sent, pos) for sent, pos in zip(dummy_rel["subj"], dummy_rel["wordnet_pos"])]
+    #dummy_rel["correctness"] = dummy_rel["startphrase"].apply(lambda x: x not in errors)
 
     #print(sorted(correctness_rel.items(), key=lambda x: counts_rel[x[0]], reverse=True))
     
 
-    dummy_obj["pos_tag"] = dummy_obj["subj"].apply(get_pos_tags)
-    dummy_obj["wordnet_pos"] = dummy_obj["pos_tag"].apply(get_wordnet_pos)
-    dummy_obj["hypernyms"] = [get_hypernyms(sent, pos) for sent, pos in zip(dummy_obj["subj"], dummy_obj["wordnet_pos"])]
-    dummy_obj["correctness"] = dummy_obj["startphrase"].apply(lambda x: x not in errors)
-    correctness_obj, counts_objs = correctness_by_pos(dummy_obj)
-    correctness_hyp_obj, counts_hyp_obj = correctness_by_hypernym(dummy_obj)
+    #dummy_obj["pos_tag"] = dummy_obj["subj"].apply(get_pos_tags)
+    #dummy_obj["wordnet_pos"] = dummy_obj["pos_tag"].apply(get_wordnet_pos)
+    #dummy_obj["hypernyms"] = [get_hypernyms(sent, pos) for sent, pos in zip(dummy_obj["subj"], dummy_obj["wordnet_pos"])]
+    #dummy_obj["correctness"] = dummy_obj["startphrase"].apply(lambda x: x not in errors)
+    #correctness_obj, counts_objs = correctness_by_pos(dummy_obj)
+    #correctness_hyp_obj, counts_hyp_obj = correctness_by_hypernym(dummy_obj)
 
     #print(sorted(correctness_obj.items(), key=lambda x: counts_objs[x[0]], reverse=True))
     #print(counts_objs)
-    print(sorted(correctness_hyp_obj.items(), key=lambda x: counts_hyp_obj[x[0]], reverse=True))
-    print(counts_hyp_obj)
+    #print(sorted(correctness_hyp_obj.items(), key=lambda x: counts_hyp_obj[x[0]], reverse=True))
+    #print(counts_hyp_obj)
     #rel = rel.value_counts().rename_axis('unique_values').reset_index(name='counts')
     make_count_barplot(dummy_sub, "subj_bar", "Subject", "flare")
     make_count_barplot(dummy_rel, "rel_bar", "Relation", "crest")
