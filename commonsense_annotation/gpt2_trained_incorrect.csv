@@ -1,0 +1,512 @@
+startphrase,ending1,ending2,correct_label
+The girl was as down-to-earth as eggs and potatoes,The girl was not down-to-earth at all.,The girl was very down-to-earth.,1
+The girl's room was as messy as pig slops,The girl's room was a total mess.,The girl's room was very clean.,0
+The view as as clear as mud,The view was very clear.,The view as obstructed and not clear.,1
+World peace is a family dinner where no one fights,World peace is an unattainable ideal,"World peace is a good, if unexpected, thing",1
+Her greeting had the warmth of a snuffed out candle.,Her greeting was affectionate and genuine.,Her greeting was indifferent and fake.,1
+The test was like a litigation.,The test was hard.,The test was easy.,0
+He's as rich as MC Hammer in the '90s,He has a lot of money,He does not have a lot of money,1
+The conversation has me sweating like a snowman in the summer,The conversation is intense,The conversation is boring,0
+The football player's effort was a tortoise,The football player put forth a ton of effort.,The football player put forth no effort.,1
+The cat was as healthy as a newborn,the cat was in good shape,the cat was in bad shape,0
+Her waist has the width of a toothpick,Her waist is really skinny.,Her waist is really wide.,0
+The soccer player passed the ball to his teammate like a magician pulling a rabbit out of a hat.,The pass was surprising,The pass was very fast and direct,0
+The girl's dress pattern was as uniform as a potluck,The girl's dress pattern was highly varied.,The girl's dress pattern was highly uniform.,0
+The illusion has the convincibility of walking into a house and not seeing a ghost,The illusion is quite convincing,The illusion is not convincing at all,0
+The dog has the snores of a beluga whale after eating two dozen Thanksgiving dinners,The dog snores loudly,The dog hardly makes a sound,0
+The dog has the snores of a mouse hiding from a house cat,The dog snores loudly,The dog hardly makes a sound,1
+He has the attitude of the Grinch at Halloween,He has a bad attitude,He's got a good attitude,1
+The groom was feeling like a pig in mud,The groom was happy.,The groom was sad.,0
+When the morning is tough sip your hot coffee and watch the news,do not let one bad thing ruin your whole day,look at the world others are having a much rougher day.,1
+The butler's posture was that of a weeping willow.,The butler had poor posture.,The butler had good posture,0
+The music was as loud as a bumblebee,The music was loud,The music was quiet and soft,1
+The city was as big as a continent.,The city was very big.,The city was very small.,0
+The dog barked like a cricket.,The dog barked loudly.,The dog barked quietly.,1
+The pills have the chalkiness of a warm cup of milk,The pills are very chalky,The pills aren't at all chalky,1
+The jumper leaped as high as a grasshopper,The jumper jumped high.,The jumper didn't jump high.,0
+The movie was as scary as a lamb,The movie was scary,The movie was not scary.,1
+The problem was small as a pea.,The problem was small.,The problem was big.,0
+Life is a God's will,It is a learning experience,It is predisposed,1
+The girl has the gracefulness of butterfly,The girl doesn't have any grace.,The girl is very graceful.,1
+The boy had the courage of a guinea pig.,The boy is brave.,The boy is not brave.,1
+The gambling at the casino had all the excitement of A fast-paced football game,The gambling at the casino was boring,The gambling was exciting and entertaining,1
+That boy has the sense of a rock.,The boy is stupid.,The boy is a genius.,0
+She wore the dress like a potato sack.,Her dress was not flattering.,Her dress was beautiful.,0
+The girl treats her friends like Prada,The girl treasures her friends.,The girl treats her friends poorly.,0
+His temper was a tempest.,He had a terrible temper.,He didn't really have a temper.,0
+That job was an everyday knife in my eye.,The job was terrible.,The job was fun.,0
+The comedian's jokes were about as awful as a winning lotto ticket,the jokes were great,the jokes were bad,0
+The dress was as pretty as a picture,the dress was good looking,the dress was ugly,0
+His mother gave him the respect of a king,His mothe respected him,His mother disrespected him,0
+The mother's soup was a grand elixir,The mother's soup was Incredibly good,The mother's soup was very nasty,0
+The bowl is a durable baby turtle,The bowl is very durable,The bowl is fragile,1
+She had the anger of a nap,She was an angry person.,She was an evenhanded person.,1
+The list was long like a ribbon.,The list was long.,The list was short.,0
+The plot of the show is as clear as crystal.,The plot of the show isn't clear at all.,The plot of the show is very clear.,1
+The building was as big as a mountain,The building was big,The building was small,0
+That storage closet has the space of a mousehole filled with rats,There's a lot of room,There's barely any room at all,1
+The flea medication is a fully charged defibrillator.,The flea medication is ineffective.,The flea medication is efficacious.,1
+He writes like the village idiot,He writes well,He writes badly,1
+The table had the age of a toddler,The table was old,The table was young,1
+Raising a teenager is playing craps against a table with rigged dice,Raising a teenager is fraught with impossible risks,Raising a teenager is a pleasant surprise,0
+Owning a cat is an extended visit by your favorite aunt,Owning a cat is not pleasant.,Owning a cat is quite sweet.,1
+My professor is a great story teller.,My professor's lecture is so boring that it puts me to sleep.,My professor's lecture is so interesting that makes me keep wanting to listen to her.,1
+The hyperlink has the functionality of a brand new car,The hyperlink functions perfectly,The hyperlink doesn't work,0
+The hospital mattress was a slab of stone,The hospital mattress was very hard.,The hospital mattress was very soft.,0
+The classroom sounded like a dog pound,The classroom was noisy.,The classroom was quiet.,0
+Her dress was the colors of antique book pages,Her dress was dully colored.,Her dress was brightly colored.,0
+The sadness of her death was a planet,The sadness was large,The sadness was small,0
+Comedy is sunshine,Comedy is good,Comedy is bad,0
+The disease has the seriousness of The common cold,The disease is not serious,The disease is very serious,0
+he is as energetic as a new battery,he is excited,he is tired,0
+He is enthusiastic as a sleeping rat,he is excited,he is tired,1
+Her voice had the melody of a dying crow,Her voice was beautiful,Her voice was ugly,1
+The girl's temperament is a balloon,The girl is easily provoked.,The girl has a steady temperament.,0
+The car was as fast as a cheetah,The car was fast,The car was slow,0
+The girl lies as much as Jesus,The girl lies all the time.,The girl never lies.,1
+The girl's personality is prosecco,The girl has a boring personality.,The girl has a bubbly personality.,1
+The sculpture has the fragility of a cannon made of gladd,It's likely to break,It's practically unbreakable,0
+The football player was a dancer.,The football player was clumsy.,The football player was careful.,1
+The NHL player was a surgeon.,The NHL player was sloppy.,The NHL player was careful.,1
+Reading the comic was exciting as homework,Reading the comic was very exciting,Reading the comic was very boring,1
+He was as energized as a light bulb.,He was very energized.,He wasn't energized at all.,0
+The contract was as long as the Bible,The contract was very lengthy.,The contract was very short.,0
+The musician plays like as good as A gerbil,He plays badly,He plays well,0
+The student was as ashamed as a dog that found a bone,he was proud,he was embarrassed,0
+So many responsibilities had Joe about as hungry as a whale,Joe was very hungry because of his responsibilities,Joe was not very hungry because he had so much to do,0
+The spa has the charm of a stink bug.,The spa lacks amenities.,The spa is enjoyable.,0
+The football player has the agility of a mountain goat.,The football player is a klutz.,The football player is lithe.,1
+The cake is as moist as the surface of Mercury,It's very moist,It's incredibly dry,1
+The government plan is as expensive as penny candy,it is a lot,it is cheap,1
+To defeat the dark lord would be to topple a child's blocks.,Defeating the dark lord would be very difficult.,Defeating the dark lord would be very easy.,1
+He dove with all the grace of an anchor,He dove well.,"He dove poorly, and sank as he hit the water.",1
+The Christmas tree is as bright as nightlight in the middle of the day,It's very bright.,It's quite dim.,1
+The weightlifter has the strength of a dung beetle.,The weightlifter is weak.,The weightlifter is powerful.,1
+The math test was as straightforward as assembling a PBJ sandwich,The math test was straightforward.,The math test was complicated.,0
+The clothing has the smell of roses,The clothing smells pleasant,The clothing smells awful,0
+The pot roast was as tender as a boulder encased in concrete.,The pot roast is very tender.,The pot roast in not tender at all.,1
+It was built like a castle,It was durable.,It was flimsy.,0
+He has the belly of a bloated whale carcass,His belly is large,He has a tiny belly,0
+The doctor was as gentle as a lamb,he was nice,he was mean,0
+The doctor was as gentle as a boxer,he was nice,he was mean,1
+His mind was a Rubik's cube.,His thinking is rigid and mathematical.,His thinking is frenetic and open.,0
+He awoke from sleeping like a man falling off a cliff,He awoke suddenly,He awoke slowly,0
+Her eyes reflected a sparkle like that of a roach,Her eyes were bright and shiny,Her eyes were blank,1
+The man was as dangerous as a loaded gun.,The man was deadly.,The man was totally harmless.,0
+The new linebacker is as solid as water,The linebacker is tough and can hold his ground.,The linebacker is weak and people can run right through him.,1
+That light is as bright as the sun,the light is shiny,the light is dim,0
+The marriage was a stale piece of bread,The marriage was getting old.,The marriage was new.,0
+The marriage was a shiny ring,The marriage was getting old.,The marriage was new.,1
+The bath was as hot as the ocean,The bath was very hot,The bath was not hot,1
+The play went over like a charm,The play was good and successful,The play was terrible,0
+The cougar had the dangerousness of a goldfish in a kiddie pool,The cougar is quite dangerous,The cougar isn't too dangerous,1
+The cat had the meow of a fully grown bobcat,The cat had a strong meow,The cat's meow was weak,0
+He had all the style of a secondhand leisure suit.,He is very stylish and hip.,He's very OUT of style.,1
+The poem was as romantic as a love-letter.,The poem was very sweet and romantic.,The poem wasn't romantic at all.,0
+His style is so rotary phone,His style is so hot right now.,His style is so old-fashioned.,1
+This football game is like a blue starfish.,This football game is full of action.,This football game is moving slowly.,1
+The boy's style is as fresh as the morning's first cup of coffee.,His style is out of date.,His style is up to date.,1
+He feels the love of the devil to everything good,He feels a lot of love,He feels little love,1
+The rat has the speed of an upside down giraffe,The rat is very fast,The rat is very slow,1
+The flowers have the scent of a garbage fire on a hot summer night,The flowers have a good scent,The flowers have an awful scent,1
+Love is snow on a Christmas morning,Love is awesome,Love is terrible,0
+Love is rain on your beach vacation,Love is awesome,Love is terrible,1
+Her morals were soggy cereal,Her morals were flexible,Her morals were inflexible,0
+He entered the room with all the subtlety of an elephant,He entered quietly,He entered loudly,1
+"In the sunlight, her hair was woven gold",Her hair was red.,Her hair was blonde.,1
+The cop got the suspect to confess after applying the pressure of a feather,The cop used a lot of pressure.,The cop used little pressure.,1
+As poor as a Kardashian,You have no money,You are rich,1
+The cat's tail moved with the rhythm of a jet propellor,The cat's tail was fast,The cat's tail was slow,0
+The sisters were ribbons and bows.,The sisters got along together.,The sisters did not mix well with each other.,0
+His love was a many forked road.,His love was spread to many.,His love was straight and true.,0
+My life is a circus and I am the ringleader.,I am a freak,I control my life,1
+The girl craves as much attention as the red carpet,The girl wants all the attention.,The girl doesn't want any attention.,0
+The doctor has the warmth of a cozy blanket.,The doctor is cold and unfeeling.,The doctor is comforting.,1
+Her devotion to her family was as strong as an ox.,She is strongly devoted to her family.,She is only weakly devoted to her family.,0
+His skill in writing was as sharp as a knife.,Her writing skill is excellent.,Her writing skill is poor.,0
+He had the passion of a nap.,He was very passionate.,He was not passionate.,1
+The chemicals had the stability of melted ice cream,The chemicals were stable.,The chemicals were highly unstable.,1
+The victory was like getting wet in a thunderstorm.,The victory was too easy.,The victory was very hard-fought.,0
+The gun was as powerful as a titan,The gun was powerful.,The gun was weak.,0
+The boy was as innocent as a dove,the boy was pure,the boy was evil,0
+the pants were as torn as a sturdy ship,the pants were messed up,the pants were well put togther,1
+He is as tall as a tree,He is tall,He is short,0
+That surface is as smooth as sandpaper,That surface is smooth,That surface is rough,1
+That tree is a tall as Push pin,It is short,It is tall,0
+The tactic is as complex as Calculus,"The tactic is simple, easy to figure out",The tactic is complex and involves many steps,1
+The job is as easy as tying your shoes,The job is quite easy and almost everyone can do it,The job is difficult,0
+The win was as satisfying as a bowl of chicken soup,The win was perfectly satisfying.,The win wasn't satisfying at all.,0
+The blimp was as light as stone,The blimp was very light,The blimp was heavy,1
+he is as adventurous as a pioneer,he is exciting,he is boring,0
+This dog is as aggressive as a cotton ball,it is mean,it is harmless,1
+He had the dedication of a underpaid temp,He was dedicated.,He was undedicated.,1
+He has the courage of a baby,He is very courageous and brave,He is scared,1
+The dancer landed her jump with the grace of a seal,The dancer landed her jump gracefully.,The dancer landed her jump with a thud.,1
+The teacher's grading policy was as flexible as a steel beam,The teacher's grading policy was very flexible.,The teacher's grading policy was very rigid.,1
+The bottle was as rare as dirt,The bottle was rare,The bottle was common,1
+The toddler's cries were as loud as a library,The toddler's cries were loud.,The toddler's cries were quiet.,1
+The man has the addiction of an alcoholic who's just discovered beer comes in not just cans but easily concealed bottles,The man's addiction is severe,The man's addiction isn't very bad,0
+"The camel had the humps of Fergie as she depicts herself in the song ""My Humps""","The camel has big, mighty humps",The camel is flat and lacks humps,0
+He was as sturdy as a brick house.,"He's resiliant, very sturdy.","He's not sturdy, in fact he's easily knocked down.",0
+Her hair had the volume of a limp rag.,Her hair had a lot of volume.,Her hair lacked volume.,1
+The room is as clean as a hospital,the room is spotless,the room is filthy,0
+The water is as clear as coke,the water is clean,the water is dirty,1
+The math test was as simple as boiling pasta,The math test was a cinch.,The math test was very difficult.,0
+The knife was as sharp as A door knob,The knife is dull,The knife is sharp,0
+The bottle was thin like a brick wall.,The bottle was thin.,The bottle wasn't thin.,1
+He has the morality of the snake in the Garden of Eden,He is very moral,He lacks morality,1
+His fear was that of a farm pig facing down a bowl of slop,He had a lot of fear,He has no fear,1
+My coffee is as hot as the center of the earth.,The coffee is hot,The coffee is not hot,0
+The song has the melody of nails on a chalkboard.,The song has a beautiful melody.,The song has a very unpleasant melody and sound.,1
+The dog has nerves of glass.,The dog is fearless and unbothered.,The dog is easily upset and scared.,1
+The boss was as angry as a charging rhinoceros,The boss was vrey upset.,The boss was even-tempered.,0
+The church has all the visitors of a graveyard on the day after Halloween,The church has many visitors,There’s no one at the church,1
+The canyon has the depth of a mass grave,It’s quite deep,It’s shallow,0
+I'm as lively as a three year old before bedtime,I'm excited,I'm tired,0
+That rose has the redness of a Paula Red apple,It is very red,It's not at all red,0
+The man was as handsome as a toad,The man was very handsome,The man was ugly,1
+The gem was as bright as coal,The gem was bright and shiny,The gem was dark and dull,1
+The photography has the attractiveness of a concrete block.,The photography is unattractive.,The photography is very attractive.,0
+This actor has the dynamism of a parquet floor.,This actor is not dynamic.,This actor is extremely dynamic.,0
+The golfer has the accuracy of a rusty compass.,The golfer is inaccurate.,The golfer is highly accurate.,0
+The floor has the sheen of a show dog's coat,"The floor is dull, not shiny at all.",The floor is luxuriously shiny.,1
+Her boyfriend treats her like a CEO,Her boyfriend doesn't treat her well.,Her boyfriend treats her very well.,1
+"For the nation, their army was a a sword.",The army protected the country.,The army harmed other countries.,1
+She has the artistry of Picasso.,She has impressive artistic skills.,She has no artistic skills.,0
+The line move as fast as a scared cat.,The line moves quickly.,The line moves slowly.,0
+He has the money of Mr. Magoo after mistaking a post-it notepad for his wallet,He has a lot of money,He has almost no money,1
+The cat was as angry as an anthill,the cat was mad,The cat was docile,0
+I'm as annoyed as a secretary on vacation,I am irritated,I am calm,1
+The choir boy's vocals sounded like honey,The choir boy had good vocals.,The choir boy had poor vocals.,0
+The student was a fox.,The student was unintelligent.,The student was sly.,1
+That dog has the mass of a supermassive black hole,The dog is big,The dog is tiny,0
+The TV eats the electricity of an old wristwatch,It uses a lot of power,It draws very little power,1
+This structure is as permanent as stone,The structure will last.,The structure will not last long.,0
+The fireworks were as loud as whispers,The fireworks were loud,The fireworks were quiet,1
+He acted with the skill of a quack,He was skillful,He was unskilled,1
+His drive home was a party.,His drive home was nice.,His drive home was not nice.,0
+The well water has the pristineness of a toilet bowl.,The well water is foul.,The well water is pure and drinkable.,0
+The soup was as spicy as cinnamon hots,The soup was fiery in flavor.,The soup wasn't spicy at all.,0
+JON IS A HAS A MIND LIKE A SIEVE.,JON IS A FOOLISH PERSON.,JON IS A KNOWLEDGEABLE PERSON.,0
+"To her, facts are like flagstones","To her, facts are confusing and hard to navigate in.","To her, facts are easily see and used to guide.",1
+The facts were as clear as crystal,The facts were obvious.,The facts were obscure.,0
+The movie has as much mystery as a piece of glass,The movie isn't mysterious at all.,The movie has a lot of mystery to it.,0
+The film was as impressive as the Great Pyramids,The film was very impressive.,The film wasn't impressive at all.,0
+Her skin is a colander,Her skin is pockmarked,Her skin is smooth,0
+Her skin was a a carribean beach,Her skin was red and splotchy,Her skin was pale and clean,1
+He has the unconsciousness of an owl in the middle of the night after five cups of coffee,He's completely unconscious,He's extremely conscious,1
+The woman was the size of a dump truck,The woman was fat.,The woman was thin.,0
+Their love is as deep as deep as the center of the earth,They are madly in love,They're not in love,0
+The painter has the touch of a sledgehammer,The painter is forceful,The painter is gentle,0
+The painting is as random as a roll of dice,Anything goes; it is haphazard,It is well thought out and systematic,0
+She had all the honesty of a sinner at confession.,She wasn't very honest.,She was very honest.,1
+The girl had the speed of a car in traffic,The girl is fast.,The girl is slow.,1
+His argument is teflon.,His argument is weak.,His argument is strong.,1
+Matt's girlfriend is Quiktrip.,Matt's girlfriend is fast.,Matt's girlfriend is slow.,0
+After a workout he had as much energy as A wind up toy car.,He had a lot of energy.,He had very little energy.,1
+His movements were liquid.,His movements were graceful and flowed.,His movements were not graceful.,0
+"He was a d20 that always rolled a ""nat 20.""",He was unlucky.,He was lucky.,1
+The woman's back is a snake.,The woman's back is wavy.,The woman's back is straight.,0
+The dirt road is a snake.,The dirt road is curvy.,The dirt road is straight.,0
+The dirt road is measuring tape.,The dirt road is curvy.,The dirt road is straight.,1
+The man's toe is a snake.,The man's toe is bent.,The man's toe is straight.,0
+My mind is a blank slate,My mind is empty.,My mind is full of thoughts.,0
+She is like a snuggly bear.,She is comforting.,She is unapproachable.,0
+The wind was like a blast from a rocket,the wind was very strong,The wind was very soft,0
+He has all the rationality of Lex Luthor from Superman comics,He lacks rationality,He's quite rational,1
+The art has the depth of a puddle.,The art is superficial.,The art is profound.,0
+His book was as hard to navigate as a trip to the corner store,The book was hard to finish.,The book was easy to finish.,1
+The car's engine runs as smooth as a pig on stilts,The car's engine runs rough,The car's engine runs smooth,0
+The wind cooed like a lover,The wind was light.,The wind was heavy.,0
+The man was as handsome as a physician in a white coat,The man looked sharp.,The man was plain-looking.,0
+He's as ready as a steam engine.,He's fully ready.,He's not ready at all.,0
+The pool's as shallow as a black hole,The pool is shallow.,The pool is very very deep.,1
+He has the physique of a jellyfish,He's muscular and strong,He's flimsy and weak,1
+She is as fast as a cheetah,She is slow.,She is speedy.,1
+She kept her room as clean as a middle school cafeteria during lunchtime,Her room was very messy.,Her room was very clean.,0
+He hustles like rent was due three days ago.,He hustles hardcore.,He doesn't hustle at all.,0
+The employee was as busy as a CPA during tax season,The employee was frazzled with work.,The employee had nothing to do.,0
+We're headed to Mordor.,We're headed to danger.,We're headed to safety.,0
+This horse has the look of a star,The horse is attractive.,The horse is unattractive.,0
+This meat looks like it was prepared by a god,The food looks terrible,The food looks amazing,1
+The man swinging the hammer has the strength of A mighty Abrams tank,The man is weak,The man is strong,1
+The painter has the depth of a pot hole,The painter is deeply talented,The painter is untalented.,1
+Her love was as valuable as The feseral reserve.,He cherished her love.,She was not worth much to him.,0
+Her hair was as strong as Her wedding ring.,Her hair was strong as metal.,Her hair was brittle.,0
+The auditorium was as packed as a classroom in July,The auditorium had no people in it.,The auditorium had tons of people in it.,0
+His foot is as big as a mountain,He has really big feet,He has small feet,0
+His abs were a wall,His abs were soft.,His abs were hard.,1
+His bathroom was as clean as a freshly autoclaved surgical instrument,His bathroom was filthy,His bathroom was spotless,1
+The accountant was an Einstein.,The accountant was intelligent.,The accountant was stupid.,0
+My brain is as clear as a bright desert morning,I can think clearly,I can't think clearly,0
+He has all the anger of cotton candy.,He has a lot of anger.,He does not have a lot of anger.,1
+The worker has the discipline of a wise chess master,The worker had great discipline,The worker has little discipline,0
+The sky is as clear as ink.,The sky is dark and cloudy.,The sky is bright and clear.,0
+The man was had the strength of a sparrow,The man was very strong.,The man was very weak.,1
+The play was as good as a elementary class' Thanksgiving play.,"The play had a depth of meaning, was both poetic and entertaining, and had the quality of something that would last.",The play was simplistic and lacked a serious artistic quality.,1
+The album was as successful as a Bob Dylan song.,The album was very popular and achieved great success.,The album was not popular and achieved very little success.,0
+The racetrack was as slippery as carpet.,The track was very slippery.,The track was not slippery.,1
+The wedding had as much pizzazz as a child's birthday party at home,The wedding was very splashy.,The wedding was very ordinary.,1
+The event was as fancy as a backyard barbeque,The event was very fancy.,The event was very down to earth.,1
+He floats like a fish.,He floats very well.,He doesn't float at all.,0
+She and dogs go together like peanut butter and chocolate.,They go together really well.,They don't go together at all.,0
+The sweater had the stripes of a zebra in prison,The sweater had many stripes,The sweater was lacking in stripes,0
+They're as smart as a whip,they are smart,they aren't very intelligent,0
+He was as sharp as a butter knife,He was not very smart,He was very smart,0
+Her voice is music to my ears,Her voice is terrible,Her voice is lovely,1
+Time moves like lightning,Time moves quickly.,Time moves slowly.,0
+He punched like a pillow,He punched hard,He punched softly,1
+"She's as attractive as bacon, steak, beer and football after sleeping in on a Sunday.",She is ugly.,She is beautiful.,1
+Her house was clean like it had been cleaned by the servants of a violent king.,The house was meticulously clean.,The house wasn't clean at all.,0
+The girl's career took off as quickly as a wildebeest,The girl's career skyrocketed.,The girl's career stagnated.,0
+The girl commanded as much respect as a dunce,The girl didn't command respect.,The girl was very well-respected.,0
+The highway is a snake.,The highway is winding.,The highway is straight.,0
+I like this project as much as I like my game,The project is unlikeable,The project is likeable,1
+He felt right as acid rain,He was feeling right,He was feeling wrong,1
+The hamburger has the weight of a feather,The hamburger is heavy,The hamburger is light,1
+The movie has the humor of a funeral,The movie is sad,The movie is funny,0
+The memoir has all the entertainment of watching dried paint remain dry,The memoir was very entertaining,The memoir was boring,1
+The project had the complexity of A two-piece puzzle,The project is very simple,The project is very complicated,0
+The preacher had the speaking voice of a pregnant goat.,The preacher has an unpleasant voice.,The preacher has an impressive voice.,0
+The food had the smell of a sweet perfume.,The food had a bad smell,The food had a good smell,1
+She had the intelligence of a thousand monkeys sitting at desks and typing on typewriters.,The things she said were noisy and random,The things she said or did were methodical and calculating.,0
+The sex was a ressurrection.,The sex was fantastic.,The sex was boring.,0
+The businessman was as aggressive in negotiations as a secretary,The businessman went all out in negotiations.,The businessman was a timid negotiator.,1
+The movie had the depth of of a graduate school psychology course,The movie is shallow.,The movie is thought provoking.,1
+The movie has the depth of the roots of a daisy.,The movie is epic.,The movie lacks plot.,1
+Jeremy drank down the ocean.,Jeremy could drink a lot.,Jeremy could not drink a lot.,0
+That child is a chihuahua.,he is small and fearful.,He is big and brave.,0
+The book has the colors of a Fisher-Price kaleidoscope,The book is colorful,The book is dull and lacks color,0
+The plane seat area has the leg room of a chaise longue.,The plane seat area is cramped.,The plane seat area is comfortable.,1
+The lawn mower has the power of Edward Scissorhands.,The lawn mower doesn't work well.,The lawn mower cuts efficiently.,1
+The school was full of young monkeys.,The school was full of energetic children.,"The school was full of slow, lethargic children.",0
+The writer was about as quiet as a cricket on a summer night,The writer is very quiet,The writer is noisy,1
+George ran like a snail,George ran fast,George ran slow,1
+The movie has the depth of the brain function of the president of the Flat Earth Society,The movie is boring,The movie is profound,0
+Her presence at the wedding was as expected as a nudist at a Baptist tent revival,Her presence at the wedding was unexpected,Her presence at the wedding was very expected,0
+Her presence at the wedding was as expected as drama on the Jerry Springer show,Her presence at the wedding was unexpected,Her presence at the wedding was very expected,1
+This court trial is as fair as playing chess with a robot.,The court trial is unfair.,The court trial is very fair.,0
+His new job is as easy as climbing a cliff with one arm.,His new job is very easy,His new job is very hard.,1
+The meal was like a horror movie,The meal was invigorating,The recipient dreaded what came next while eating,1
+The high student has as many things on her to-do list as a business executive,The high school student has a to-do list that's packed.,The high school student doesn't have much on her to-do list.,0
+That judge thinks similar to a mathematical algorithm,the judge is rigorous,the judge is relaxed,0
+His new car has as much power as Chernobyl today.,The car has lots of power.,The car is so low in power it's not working.,1
+The wave has the sound of a whisper.,The wave is loud.,The wave is quiet.,1
+The car has the speed of a rocket travel as fast as light,The car is fast,The car is slow,0
+"To the audience, Sara's speech was bitter tea.","To the audience, Sara's speech was hurtful.","To the audience, Sara's speech was pleasant.",0
+"To the audience, Sara's speech was warm tea.","To the audience, Sara's speech was hurtful.","To the audience, Sara's speech was pleasant.",1
+She's got the anger of a sleeping little lamb,She's very angry,She's quite calm,1
+He's got the swimming ability of a pack of dolphins,He can swim well,He isn't good at swimming,0
+My sister is a Brain,My sister is smart,My sister is not smart,0
+It's as wet as the ocean,It's wet.,It's dry.,0
+Fame is as fleeting as A mosquito life span,Fame expires quickly,Fame lasts a long time,0
+Ex friends calling you are as transparent as skyscraper glass windows.,You can see through old friends contact attempts,You have no idea why old friends contact you,0
+He's felt that he was on top of a garbage pile.,He was really happy.,He's was sad.,1
+That party lasted as long as a pickle and olive pie at a dessert table,The party lasted a short amount of time,The party lasted a long time,1
+The man's sneeze was as noticeable as a whisper,The man's sneeze was unmistakably noticeable.,The man's sneeze was undetected.,1
+The sixth grader's homework assignment was as easy as making a sandwich,The sixth grader's homework assignment was a cinch to complete.,The sixth grader's homework assignment was very difficult to complete.,0
+The party was as grand as a book club meeting,The party was large and full of excitement,The party was uninteresting,1
+The girl was as bubbly as still water,The girl was vivacious.,The girl was bland.,1
+The man's personality was as volatile as a charging hippo,The man was often angry.,The man was laidback.,0
+The book had the depth of a sink.,The book was boring.,The book was profound.,0
+He flew like a stone,"He moved in a light, graceful way.","He moved in a clumsy, heavy way.",1
+His brain was made of curving winding roads leading into dark woods.,He is really efficient and thinks in a straightforward way.,He tends to get distracted.,1
+Jeremy was a wet blanket on a cold day.,Jeremy was comforting.,Jeremy was not comforting.,1
+He had the class of an aristocrat from an old novel,He had a lot class,He had little class,0
+It was as melodious a colicky baby,It was melodious.,It was not melodius.,1
+The kids have as much energy as Olympic athletes,The kids have tons of energy.,The kids don't have any energy at all.,0
+He has the nose of an elephant with a sinus infection,His nose is good looking,His nose looks ugly,1
+The game has all the challenge of walking to the bathroom first thing in the morning,The game is fairly challenging,The game lacks challenge,1
+The book has the depth of a kiddie pool.,The book is boring.,The book is profound.,0
+He had the wisdom of a turnip,He was wise.,He was ignorant.,1
+The word meaning was as clear as Molasses,The meaning was clear,The meaning was murky,1
+The car was as shiny as Concrete.,The car had a lot of shine.,The car was dull.,1
+The cake is a wet sponge,The cake is moist,The cake is dry,0
+The cake is sawdust,The cake is moist,The cake is dry,1
+His father was a pillar.,His father was really reliable.,His father was not reliable.,0
+The tea had the warmth of an igloo,The tea was warm,The tea was cold,1
+The tea was as dark as the night,The tea was strong,The tea was pleasant to drink,0
+This guy has the charisma of a Greek god.,"This guy is bland and boring, with no appeal.",This guy is incredibly appealing to the point of being legendary.,1
+The ball is a rubber band.,The ball is bouncy.,The ball is not bouncy.,0
+The ball is a rock,The ball is bouncy,The ball is not bouncy,1
+The cat is a mouse,The cat is aggressive,The cat is meek,1
+He's talks like a a hungover DMV employee.,He talks really fast.,He talks really slowly.,1
+My house is as loud as a cemetery,My house is loud.,My house is quiet.,1
+The razor has the cutting power of a cartoon cat's claws,The razor cuts well,The razor can barely cut at all,0
+The lion has the pouncing power of a dog with no legs,The lion has a lot of pouncing ability,The lion cannot pounce,1
+The ball is a big red sun.,The ball is large and red.,The ball is small.,0
+The giraffe was as tall as the Sears Tower,The giraffe was tall,The giraffe was short,0
+The boy is as daring as a roaring lion,The boy is timid.,The boy is fearless.,1
+She has the personality an A discoball,She is boring and lame,She is colorful and fun,1
+The man was as skinny as a sumo wrestler,The man was skinny,The man was fat,1
+My friend is as loyal as man's best friend.,My friend is a backtabber.,My friend would take a secret to the grave.,1
+The professor has the IQ of Einstein.,The professor is stupid.,The professor is intelligent.,1
+The car ride was as smooth as paper,The car ride went very smoothly.,The car ride was very bumpy.,0
+Jane was a friend as good as The smell of stale cigarette smoke.,Jane was a comforting friend.,Jane was stagnant as a friend.,1
+The architect's building design was as inspiring as a Soviet apartment block,The architect's building design was unoriginal,The architect's building design was a masterpiece,0
+The light on the tree were as bright as a searchlight,The light was bright,The light was dark,0
+The girl is as reliable as an SUV,The girl can definitely be relied upon.,The girl isn't reliable at all.,0
+He produces like a one-man factory.,He's very productive.,He's not productive at all.,0
+The tap dancer was an elephant.,The tap dancer was clumsy.,The tap dancer was graceful.,0
+The movie has the excitement of visiting a budget petting zoo,The movie is very exciting,The movie is pretty dull,1
+The blanker provides the warmth of an open refrigerator,The blanket provides a lot of warmth,The blanket provides little warmth,1
+The girl's facial expression was as clear as pea soup,The girl's facial expression was somewhat murky.,The girl's facial expression was obvious.,0
+The book plot was as straightforward as uncombed hair,The book plot was very straightforward.,The book plot was very twisted.,1
+The gambler had the luck of a black cat walking under a ladder.,The gambler was lucky,The gambler was unlucky.,1
+The lion has the roar of mosquito flying down a busy street,The lion's roar is loud,The lion's roar is bately audible,1
+The washing machine has the cleaning ability of a college kid with a hangover,The washing machine cleans very well,The washing machine leaves behind a lot of filth,1
+Love is a dumpster fire.,Love is trash.,Love is beautiful.,0
+The woman is a deer.,The woman is ugly.,The woman is beautiful.,1
+The office environment was as sterile as a dental hygienist's equipment,The office environment was totally dull.,The office environment was full of life.,0
+She swam like a cat.,She didn't swim well.,She swam very well.,0
+He was as smooth as butter.,He was very smooth.,He wasn't smooth at all.,0
+The gossip was as juicy as a sandbox,The gossip was entertaining,the gossip was boring,1
+That cake is as moist as H20,The cake is dry,The cake is not dry,1
+The ice cream was as tasty as Cheesecake,The ice cream is bland,The ice cream is flavorful,1
+The poem moved along like a truck that is breaking down.,The poem flowed smoothly and was easy to follow along with.,The poem had a clunky feel to it and was not smooth to follow.,1
+The diamond on the engagement ring is the size of an atom,The diamond on the engagement ring is huge.,The diamond on the engagement ring is barely visible.,1
+Inflation is as high as the clouds.,Inflation is very low.,Inflation is very high.,1
+The villain is as beautiful as an angel in heaven.,The villain is hideous.,The villain is gorgeous.,1
+This bag has the weight of a feather,The bag is heavy,The bag is light,1
+The hero was strong like steel,The hero was strong,The hero was not strong,0
+The girl's voice was as flat as sparkling water,The girl's voice was very bubbly.,The girl's voice was flat and monotonous.,0
+The book's plot was as twisted as a parade of soldiers,The book's plot was all over the place.,The book's plot followed a linear fashion.,1
+He's as country as Texas.,He's very country.,He's not very country at all.,0
+Her eyes were blue as a muddy pond,Her eyes were a clear blue,Her eyes were muddy and brown,1
+The officer has the training of a newborn goldfish,The officer is well trained,The officer has little training,1
+He has the villainy of Hitler on methamphetamine,He is quite the villain,He's not very villainous,0
+The driveway is a mirror.,The driveway is bumpy.,The driveway is smooth.,1
+His head was filled with molasses.,He wasn't very bright.,He was very smart and had a lot of good ideas.,0
+The toothbrush has the firmness of a brown banana,The toothbrush is very firm,The toothbrush lacks firmness,1
+The director possessed the intelligence of A baby fur seal,The director is stupid,The director is intelligent,0
+His attention span is as long as a hair pin,He has a really good attention span.,His attention span is nonexistent.,1
+My depression these days is like a close friend.,The speaker hates their depression but has not had to deal with it in a while.,The speaker deals with their depression so constantly that they have grown used to it.,1
+It's as loud as the vacuum of space,It's very loud,It makes no noise at all,1
+His depression was a gaping hole inside his heart.,His depression weighed deeply inside of him and left him feeling alone.,Everyone in the room was aware of his depression and getting warning signs from it.,0
+you're about as skinny as a pig,you are very skinny,you are fat,1
+That guy's voice sounds like silky pajamas,That guys voice is unpleasant,That guys voice is pleasant,1
+The night was as rowdy as a senior home,The night was very rowdy.,The night was very dull.,1
+His heart is as light as a feather.,He is guilt free and happy,He is cold and heartless,0
+Her sight is as good as a mole,Her sight is excellent,Her sight is terrible.,1
+His life lasted as long as a tortoise.,His life lasted only a short amount of time.,His life lasted a very long time.,1
+The security team is effective as fighting a wildfire with a watergun,The security team is useless,The security team is very effective,0
+The mall was a big as Downtown Chicago.,The mall was expansive.,The mall was cramped.,0
+The chocolate cake is as fluffy as a mattress,The chocolate cake is light.,The chocolate cake is dense.,1
+The movie plot was as intricate as A child's first toy,The movie plot was convoluted,The movie plot was simple.,1
+This guy has the pleasantness of a tiger,This guy is nice,This guy is rude,1
+The night sky was as dark as black coffee,The night sky was pitch black.,The night sky was very light.,0
+My wife's cooking tastes like heaven,My wife is a terrible cook.,My wife is an excellent cook.,1
+The military is as organized as a chessboard.,The military is very organized.,The military is not organized at all.,0
+Their family is an invading army,Their family is combative,Their family is helpful,0
+The student's performance was as competitive as a NASCAR driver,The student's performance was great.,The student's performance was lackluster.,0
+"I saw him running, he's a cheetah",He runs fast,He is a slow runner,0
+The running dog is A stranger on the street,The running dog is man's best friend,The running dog avoids people,1
+This new book is as profound as a Miltonian epic.,"The book shows psychological depth, lyrical poetry, and appeal of a classic work of literature.",The book is simplistic and amateurish.,0
+He had the moral values of a bloodthirsty vampire,He had no moral values.,He had a tremendous amount of moral values.,0
+The movie has the length of a gasp.,The movie is long.,The movie is short.,1
+The movie has the charm of a blind date with a wild boar.,The movie is not charming.,The movie is charming.,0
+The girl's life was as dramatic as the ocean at low tide,The girl's life was bland.,The girl's life was full of drama.,0
+George moved like a chicken with its head cut off,George was very focused,George lacked proper focus in the way he conducted himself,1
+His ideas are the size of Eurasia,His ideas are large,His ideas are small,0
+The board game requires the strategy of an embryo turned newborn,The board game requires a lot of strategy,The board game requires almost no strategy,1
+The food has all the flavor of dried sugar-free oatmeal,The food has a ton of flavor,The food is pretty bland,1
+This house is made out of diamond,"The house is flimsy, and could fall apart easily.",The house is durable and resistent to damage/the elements.,1
+The assignment was as clear as chocolate pudding,The assignment was hard to understand.,The assignment was easy to understand.,0
+My house is a castle,My house is elegant and proud.,My house is a mess.,0
+That couch is as soft as a boulder,The couch is hard,The couch is soft,0
+The man is as sharp as a bowling ball,The man is stupid,The man is smart,0
+The car was as fast as a bullet,The car was fast,The car was slow,0
+He was as inconspicuous as a peacock,He was very inconspicuous,He was highly conspicuous and noticeable.,1
+The quarterback put forth the effort of A weak infant,The quarterback did not try hard,The quarterback put forth great effort,0
+The relationship between Democrats and Republicans is that over a couple married for 50 years.,Democrats and Republicans do not get along.,Democrats and Republicans tolerate each other.,1
+This person has the warmth of an icicle,The person is kind.,The person is unkind.,1
+The song is as deep as the sea,The song is superficial,The song is heartfelt,1
+That person is as useful as a DVD rewinder.,The person's presence has no value.,The person is quite resourceful and helpful.,0
+The tower is as tall as an anthill,The tower is very short,The tower is extremely tall,0
+The phone is as loud as a fog horn,The phone is very quiet,The phone is very loud,1
+The boy moves as swiftly as a minnow swimming downstream,The boy moves with great swiftness.,The boy is very slow.,0
+That man's about as deep as the Mediterranean sea.,That man is not deep at all.,That man is very deep.,1
+Things around here are about as orderly as a gulag.,Things around there are not orderly at all.,Things around there are extremely orderly.,1
+I've got the memory of an elephant.,The person has a great memory.,The person has a really bad memory.,0
+The pillow was as soft as a cement slab,The pillow was soft,the pillow was hard,1
+He was as slimy as a puppy,He was someone who couldn't be trusted,He was someone you could trust,1
+He is as mean as Mother Teresa,He is mean,He is kind,1
+The girl left a mark as indelible as a pencil,The girl left a huge impact.,The girl's impact was minimal.,1
+The man has the intelligence of a frog.,The man is stupid.,The man is smart.,0
+Cats are scratches come to life.,Cats are violent.,Cats are friendly.,0
+The critic's review of the concert rang of A disapproving rant from an angry mother,The critic's review was negative and bad,The critic's review was good and full of praise,0
+The task group worked at the rate of A drop of frozen molasses,The group worked slowly,The group worked fast,0
+The teacher was as successful in her occupation as a lame-duck President.,"The teacher was inventive, at the forefront of her occupation, and highly successful.","The teacher was unsuccessful, basically useless in getting anything accomplished.",1
+Those two get along like a cold and vitamin-C.,They get along really poorly,They get along really well.,0
+The pudding tastes like A chocolate ocean.,The pudding is not at all edible,The pudding is delicious,1
+The grass was the green of puke,The grass was healthy and bright green,The grass was dying and ugly green,1
+The old man had the health of a young stallion,The man was healthy,The man was not healthy,0
+The air felt like knives against her skin,the air was so freezing it hurt,the air was hot and humid,0
+She was as sad as a child on Christmas morning.,She was sad,She was happy,1
+The panda has the spots of a rubber duck,The panda is very spotted,The panda lacks spots,1
+The tree was as old as a newborn baby,The tree was old,The tree was young,1
+This life is a raging storm,This life is a crazy place to live in.,"This life is filled with good and bad things, happy and sad moments.",0
+Chess is as easy as finger painting.,Chess is very easy.,Chess is very hard.,0
+Chess is as hard as a mountain.,Chess is very easy.,Chess is very hard.,1
+The park has all the appeal of a free triple scoop ice cream cone on a hot day.,The park is disgusting.,The park is enticing.,1
+The girl moved as fast as a cheetah,The girl was quick,The girl was slow,0
+The pizza was as large as the moon,The pizza was enormous.,The pizza was tiny.,0
+This cup had the filth of a brand new dishwasher,It is quite dirty,It's clean as can be,1
+Love is mysterious like a witch,Love cannot always be explained (in a good way),Love is trouble,1
+The fruit has the blueness of a depressed painter's canvas,Th fruit is very blue,The fruit isn't blue at all,0
+The girl's head is a balloon,The girl is ignorant.,The girl is very knowledgeable.,0
+This place is as friendly as a warzone,This place is friendly,This place is unfriendly and hostile,1
+He had the energy of a powerline,He had lots of energy,He didn't have much energy,0
+He cooked like a monkey.,He was precise in his way of cooking.,He was bad at cooking.,1
+The episode has the depth of the mariana trench.,The episode is boring.,The episode is interesting.,1
+The actor's skin is a piece of glass.,The actor's skin is bumpy and flaky.,The actor's skin is smooth.,1
+The ceiling fan has the capacity of a whirling dervish.,The fan has poor circulation.,The fan circulates efficiently.,1
+The enemy has all the menace of a monster,The enemy is menacing.,The enemy is nonthreatening.,0
+The amount of his deceit was the Pacific Ocean,The deceit was large,The deceit was small,0
+The inflation rate these days is a pig in a pen,Inflation has gotten out of control.,Inflation is under control.,1
+The interns are as common as kitchen sinks,There are tons of interns.,There aren't that many interns.,0
+The car ride is like being lulled to sleep in your mother's arms,The car ride is smooth and soothing,The car ride is bumpy,0
+That book was like a trip to the Disneyworld,That book was boring and tedious,That book was a fun adventure,1
+Her wit was a sharp as a tack,She was extremely witty.,She was dull at the best of times.,0
+This song has the tempo of a bullet train,This song is fast,This song is slow,0
+The fortress was as impenetrable as a wall,The fortress was well defended and reinforced.,The fortress was easily breached.,0
+The horse has the staying power of a three-legged dog.,The horse has little endurance.,The horse has lots of endurance.,0
+The opera's plot has the solidity of a brass ingot.,The opera's plot has many holes.,The opera's plot is integral.,1
+The fortress appears as a boulder,The fortress is large,The fortress is small,0
+This bag is as light as a party balloon,The bag is nearly weightless,The bag is extremely heavy,0
+This place is as hot as Syberia in winter,This place is so hot it could burn you,This place is actually extremely cold,1
+Her hair is A waterfall,Her hair is reflective and shiny,Her hair is dry and lifeless,0
+The temperature feels like outer space,The temperature is extremely hot,The temperature is freezing cold,1
+This tree is as tall as the space needle,The tree is very tall,The tree is not tall at all,0
+The departmental store manager has a golden heart,The departmental store manager is kind and friendly.,"The departmental store manager is unfriendly, cruel and unkind",0
+The old woman was a mountain,"The old woman was feisty, fiery, energetic, kinetic.",The old woman was still and unmovable.,1
+The Brain is a Prism,brain is hypersensitive and connects many things.,brain take one input and gives multiple output.,1
+He is as loud as an elephant carrying a piano,He is quiet,He is loud,1
+This water is as clear as the La Brea Tar Pits,The water is very murky,The water is very clear,0
+Riding a motorcycle is as dangerous as walking down the street,Riding a motorcycle is very dangerous,Riding a motorcycle isn't any more dangerous than doing normal everyday things.,1
+The fortress had the strength of a new born baby,The fortress was very strong,The fortress was very weak,1
+The witness is like Like an old broom,They know about all the dirt,They don't give up anything easily,0
+The soldiers thought the war was as fun as a page from an adventure comic,"The war was fun, fanciful, and enjoyable.","The war was not fun, hard, and mind-numbing",0
+That man has the laughter of a mouse,It's a very loud and deep laugh,It's barely audible and high-pitched,1
+He should be back before the sun implodes,He will be back quickly,He will be back slowly,1
+Her commitment to the cause was as sturdy as plywood,She was committed,She was uncommitted,1
+The crowd's reaction to the performance fizzled like fireworks,The crowd was enthusiastic,The crowd was unenthusiastic,0
+The pilot flew like a ballet dancer,The pilot flew in a restrained way,The pilot flew in a creative way,0
+She was as bright as diamond,She was intelligent,She was unintelligent,0
+The movie has the depth of a wading pool,The movie is profound,The movie is vapid,1
+Even a monkey falls from a tree sometimes,Experts can fail sometimes,Novices can succeed sometimes,0
+Time is a river,You can't change the future,You can change the future,1
+The bar is a cat's jump away,The bar is far away,The bar is close by,1
+He had funnels in his ears throughout the lecture,He did pay attention,He did not pay attention,0
+The conference had a rivulet of submission,There were few submissions,There were many submissions,0
+She's about as sharp as a spoon,She is smart,She is dimwitted,1
+The software is a ball of yarn,The software is well protected,the software is messy,1
+Her gaze is a disco ball,Her gaze is focused,Her gaze is diffuse,1
+The foundation of the argument was titanium,The argument was sound,The argument was unsound,0
+She is as dull as a knife,She is intelligent,She is unintelligent,0
+The atom is like a cloud,Electrons orbit the nucleus,Electrons are in probability densities,1
+The patient's blood vessels are a closet hallway,Blood is flowing smoothly,Blood is being blocked,1
+The nuclear reaction happened like falling dominoes,There were multiple steps to the reaction,The reaction happened all at once,0
+The camera is a cyclops,The camera has one lens,The camera has multiple lenses,0
+The current is morse code,The current is continuous,The current is discrete,1
+A chemical reaction is like a riot,The reaction is orderly,The reaction is disorderly,1
