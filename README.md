@@ -115,9 +115,21 @@ python3 src/models/train_lm_models.py {gpt2,gpt-neo-sm,gpt-neo-lg} \
 
 ### Generation GPT-3
 
+Completions are generated through a notebook at `./src/notebooks/completions.ipynb`.
+Please use your own API key.
+
 ### Training BERT/RoBERTa
 
 ### Producing the figures
+
+Visualization scripts are in `./src/visualizations/`.
+
+#### Figure 1 (dataset visualization)
+```
+python3 src/visualizations/dataset_vis.py
+```
+Saves by default in subj_bar.png, obj_bar.png, rel_bar.png.
+Does not run by default, but hypernyms/POS of each segment can be found with `get_hypernyms`/`get_pos_tags`.
 
 ## Contact 
 
