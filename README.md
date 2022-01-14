@@ -30,13 +30,10 @@ conda env create -f environment.yml --name <env_name>
 conda activate <env_name>
 ```
 
-#### For pip users
-`pip install -r requirements.txt`
-
 ### Zero-shot (scoring) for GPT-{2, neo}
 ```
 python3 src/models/gpt_score.py {gpt2,gpt-neo-sm,gpt-neo-lg} \
-[--middle_phrase=SUFFIX PROMPT] \
+[--middle_phrase=SUFFIX_PROMPT] \
 [--score_type={prob,loss}] \
 [--use_prefix=N] \
 [--verbose] \
@@ -59,7 +56,59 @@ python3 src/models/gpt_score.py {gpt2,gpt-neo-sm,gpt-neo-lg} \
 **out_file**: Write predictions (and probability scores) to this file. Defaults to `<model_id>_prob.csv.`
 
 ### Fine-tuning GPT-{2, neo}
+```
+python3 src/models/train_lm_models.py {gpt2,gpt-neo-sm,gpt-neo-lg} \
+[--dont_train] \
+[--dont_eval] \
+[--train_path=TRAIN_PATH] \
+[--eval_path=EVAL_PATH] \
+[--seed=SEED] \
+[--cuda] \
+[--num_epochs=NUM_EPOCHS] \
+[--learning_rate=LR] \
+[--middle_phrase=SUFFIX_PROMPT] \
+[--prefix=N] \
+[--contrastive] \
+[--contrast_lambd=a] \
+[--log_history] \
+[--deepspeed] \
+[----out_path=PATH] \
+[----early_stopping]
+```
 
+**dont_train**: skip training and just evaluate
+
+**dont_eval**: only train and don't eval
+
+**train_path**: path to processed train file (defaults to `"./data/lm_train_data/train.txt"`)
+
+**eval_path**: path to processed validation file (defaults to `"./data/lm_train_data/dev.txt"`)
+
+**seed**: random seed. Defaults to 42
+
+**cuda**: use CUDA (you may have to install torch with CUDA enabled)
+
+**num_epochs**: number of epochs to train for. Defaults to 3. Overridden by early stopping.
+
+**learning_rate**: learning rate. Defaults to 5e-5.
+
+**middle_phrase**: The suffix prompt to use (we used "that is to say, ")
+
+**prefix**: Number of random prefix (example) prompts to use.
+
+**contrastive**: use contrastive training or not. Did not work for GPT-* models in this project.
+
+**contrast_lambd**: also depreciated, hyperparameter for contrastive train.
+
+**log_history**: log eval loss at each epoch.
+
+**deepspeed**: use deepspeed. Required for GPT-neo.
+
+**out_file**: Write predictions (and probability scores) to this directory. Defaults to `"./experiments/<model_name>/epochs_<num_epochs>_<learning_rate>_/seed_<seed>"`.
+
+**early_stopping**: use early stopping.
+
+****
 ### Zero-shot (scoring) for GPT-3
 
 ### Fine-tuning GPT-3
