@@ -24,7 +24,6 @@ from transformers import (
     EarlyStoppingCallback
 )
 from torch.utils.data import ConcatDataset
-from sample_metaphors import trial_dataset
 import pdb
 
 from gpt_score import model_init, evaluate_model
@@ -63,9 +62,9 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
         get_dataset(eval_path, tokenizer=tokenizer, cache_dir=cache_dir)
     )
 
-    eval_df = pd.read_csv("./filtered/dev.csv")
+    eval_df = pd.read_csv("./data/filtered/dev.csv")
     eval_df["label"] = eval_df["labels"]
-    test_df = pd.read_csv("./filtered/test.csv")
+    test_df = pd.read_csv("./data/filtered/test.csv")
     test_df["label"] = test_df["labels"]
 
     data_collator = DataCollatorForLanguageModeling(
@@ -327,8 +326,8 @@ if __name__ == "__main__":
     parser.add_argument("model", choices=["gpt2", "gpt-neo-sm", "gpt-neo-lg"]) 
     parser.add_argument("--dont_train", action="store_true", default=False)
     parser.add_argument("--dont_eval", action="store_true", default=False)
-    parser.add_argument("-t", "--train_path", default="./lm_train_data/train.txt")
-    parser.add_argument("-e", "--eval_path", default="./lm_train_data/dev.txt")
+    parser.add_argument("-t", "--train_path", default="./data/lm_train_data/train.txt")
+    parser.add_argument("-e", "--eval_path", default="./data/lm_train_data/dev.txt")
     parser.add_argument("-s", "--seed", default=42, type=int)
     parser.add_argument("-c", "--cuda", default=False, action="store_true")
     parser.add_argument("--num_epochs", default=3, type=int)
