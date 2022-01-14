@@ -1,7 +1,26 @@
 # Testing the Ability of Language Models to Interpret Figurative Language
 
 ## Organization and Dataset
+The main data splits are contained in `./data/filtered/`. Each is a CSV file which can be further processed into other formats. Each row of the CSV contains a `startphrase` (metaphorical context), `ending1` and `ending2`, as well as `labels`. Each pair of sentences has a `qid`.
 
+```
+./data/
+├── commonsense_annotation/            # annotation of commonsense categories and lists of errors made by humans and models
+├── dataset_characteristics/           # subject, relation, object splits for test set and medium train set        
+├── filtered/
+  ├── train_s.csv                      # small training set
+  ├── train.csv                        # medium training set
+  ├── train_xl.csv                     # large training set
+  ├── dev.csv                          # validation set
+  └── test.csv                         # test set
+├── generation_annotation/             # annotation of GPT-3 Davinci's completions
+├── human_responses/                   # human performance on the task (each file was completed by a different participant)
+├── lm_train_data/                     # formatted train data to finetune models.    
+├── prob_sheets/                       # probability score output from autoregressive models
+├── common_metaphors.txt               # a list of common metaphors found online (https://leverageedu.com/blog/metaphors/).
+└── random_words.txt                   # a list of random words used to prompt MTurk workers
+
+```
 ## Usage
 ### To install the dependencies:
 
