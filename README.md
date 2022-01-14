@@ -109,16 +109,18 @@ python3 src/models/train_lm_models.py {gpt2,gpt-neo-sm,gpt-neo-lg} \
 **early_stopping**: use early stopping.
 
 
-### Zero-shot (scoring) for GPT-3
+### GPT-3 Zero-shot, Finetuning and Generation
+Code to call the OpenAI API are in the following notebooks:
+- Zero-shot (scoring): `./src/notebooks/OpenAI Probabilities.ipynb`.
+- Finetuning: `./src/notebooks/OpenAI Finetune.ipynb`.
+- Completion generation: `./src/notebooks/completions.ipynb`.
 
-### Fine-tuning GPT-3
-
-### Generation GPT-3
-
-Completions are generated through a notebook at `./src/notebooks/completions.ipynb`.
 Please use your own API key.
 
 ### Training BERT/RoBERTa
+We use the code from [WinoGrande](https://github.com/allenai/winogrande) without modification.
+Please use `./src/winogrande/preproc_to_winogrande_format.py` to preprocess the data into the WinoGrande codebase 
+format, and follow the instructions in that repository. Our sample run scripts are included in `./src/winogrande/*.sh`
 
 ### Producing the figures
 
