@@ -3,7 +3,6 @@ from transformers import OpenAIGPTTokenizer, OpenAIGPTLMHeadModel, GPTNeoForCaus
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 import numpy as np
 from scipy.special import softmax
-from sample_metaphors import trial_dataset
 from sample_metaphors_multi_hop import multi_hop_metaphors
 import pdb
 import pandas as pd
