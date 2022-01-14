@@ -108,7 +108,7 @@ python3 src/models/train_lm_models.py {gpt2,gpt-neo-sm,gpt-neo-lg} \
 
 **early_stopping**: use early stopping.
 
-****
+
 ### Zero-shot (scoring) for GPT-3
 
 ### Fine-tuning GPT-3
@@ -116,6 +116,8 @@ python3 src/models/train_lm_models.py {gpt2,gpt-neo-sm,gpt-neo-lg} \
 ### Generation GPT-3
 
 ### Training BERT/RoBERTa
+
+### Producing the figures
 
 ## Contact 
 
