@@ -131,6 +131,18 @@ python3 src/visualizations/dataset_vis.py
 Saves by default in subj_bar.png, obj_bar.png, rel_bar.png.
 Does not run by default, but hypernyms/POS of each segment can be found with `get_hypernyms`/`get_pos_tags`.
 
+#### Figure 2 (prompting)
+```
+python3 src/visualizations/make_performance_bar_chart.py
+```
+This will generate two figures, one for zero-shot and finetuning performance and one for prompting performance, however only the second was used in the paper (the first figure's data was presented in Table 6 instead).
+
+#### Figure 3 (odds and probability)
+```
+python3 src/visualizations/plot_log_odds_vs_pred.py
+```
+Running this will produce the plots trained_prob.png and untrained_prob.png. Spearman R values (Table 5) will also be printed.
+
 ## Contact 
 
 Insert contact information here afterwards
