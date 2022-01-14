@@ -6,7 +6,7 @@
 To install the dependencies:
 
 #### For conda users
-`conda create --name <env_name> --file requirements.txt`
+`conda env create -f environment.yml`
 
 #### For pip users
 `pip install -r requirements.txt`
