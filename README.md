@@ -3,6 +3,13 @@
 ## Organization and Dataset
 
 ## Usage
+To install the dependencies:
+
+#### For conda users
+`conda create --name <env_name> --file requirements.txt`
+
+#### For pip users
+`pip install -r requirements.txt`
 
 ## Contact 
 
