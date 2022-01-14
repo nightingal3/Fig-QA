@@ -3,7 +3,6 @@ from transformers import OpenAIGPTTokenizer, OpenAIGPTLMHeadModel, GPTNeoForCaus
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 import numpy as np
 from scipy.special import softmax
-from sample_metaphors import trial_dataset
 from sample_metaphors_multi_hop import multi_hop_metaphors
 import pdb
 import pandas as pd
@@ -12,9 +11,7 @@ from typing import List
 import random
 import argparse
 
-# current code is from this gist! https://gist.github.com/yuchenlin/eb63e2d0513f70cfc9bb85fa5a78953b
-# need to modify for the specific use case
-prompt_file = "./common_metaphors.txt"
+prompt_file = "./data/common_metaphors.txt"
 
 def model_init(model_string, cuda, output_attentions=False, fast=False):
     if model_string.startswith("gpt2"):
@@ -26,7 +23,6 @@ def model_init(model_string, cuda, output_attentions=False, fast=False):
             model = GPT2LMHeadModel.from_pretrained(model_string)
     elif model_string.startswith("EleutherAI/gpt-neo"):
         tokenizer = GPT2Tokenizer.from_pretrained(model_string, output_attentions=output_attentions)
-        #model = AutoModelForCausalLM.from_pretrained(model_string)
         model = GPTNeoForCausalLM.from_pretrained(model_string, output_attentions=output_attentions)
     else:
         tokenizer = OpenAIGPTTokenizer.from_pretrained(model_string)
@@ -260,7 +256,7 @@ if __name__ == '__main__':
         print("both correct: ", all_correct)
     else:
         model, tokenizer = model_init(model_name, use_cuda)
-        metaphor_data = pd.read_csv("./filtered/test.csv")
+        metaphor_data = pd.read_csv("./data/filtered/test.csv")
 
         total_df, all_preds, all_labels = evaluate_model(model, tokenizer, metaphor_data.to_dict(orient="records"), use_cuda=use_cuda, verbose=verbose, middle_phrase=middle_phrase, use_prefix=args.use_prefix)
         
