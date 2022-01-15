@@ -30,13 +30,10 @@ conda env create -f environment.yml --name <env_name>
 conda activate <env_name>
 ```
 
-#### For pip users
-`pip install -r requirements.txt`
-
 ### Zero-shot (scoring) for GPT-{2, neo}
 ```
 python3 src/models/gpt_score.py {gpt2,gpt-neo-sm,gpt-neo-lg} \
-[--middle_phrase=SUFFIX PROMPT] \
+[--middle_phrase=SUFFIX_PROMPT] \
 [--score_type={prob,loss}] \
 [--use_prefix=N] \
 [--verbose] \
@@ -59,14 +56,94 @@ python3 src/models/gpt_score.py {gpt2,gpt-neo-sm,gpt-neo-lg} \
 **out_file**: Write predictions (and probability scores) to this file. Defaults to `<model_id>_prob.csv.`
 
 ### Fine-tuning GPT-{2, neo}
+```
+python3 src/models/train_lm_models.py {gpt2,gpt-neo-sm,gpt-neo-lg} \
+[--dont_train] \
+[--dont_eval] \
+[--train_path=TRAIN_PATH] \
+[--eval_path=EVAL_PATH] \
+[--seed=SEED] \
+[--cuda] \
+[--num_epochs=NUM_EPOCHS] \
+[--learning_rate=LR] \
+[--middle_phrase=SUFFIX_PROMPT] \
+[--prefix=N] \
+[--contrastive] \
+[--contrast_lambd=a] \
+[--log_history] \
+[--deepspeed] \
+[----out_path=PATH] \
+[----early_stopping]
+```
 
-### Zero-shot (scoring) for GPT-3
+**dont_train**: skip training and just evaluate
 
-### Fine-tuning GPT-3
+**dont_eval**: only train and don't eval
 
-### Generation GPT-3
+**train_path**: path to processed train file (defaults to `"./data/lm_train_data/train.txt"`)
+
+**eval_path**: path to processed validation file (defaults to `"./data/lm_train_data/dev.txt"`)
+
+**seed**: random seed. Defaults to 42
+
+**cuda**: use CUDA (you may have to install torch with CUDA enabled)
+
+**num_epochs**: number of epochs to train for. Defaults to 3. Overridden by early stopping.
+
+**learning_rate**: learning rate. Defaults to 5e-5.
+
+**middle_phrase**: The suffix prompt to use (we used "that is to say, ")
+
+**prefix**: Number of random prefix (example) prompts to use.
+
+**contrastive**: use contrastive training or not. Did not work for GPT-* models in this project.
+
+**contrast_lambd**: also depreciated, hyperparameter for contrastive train.
+
+**log_history**: log eval loss at each epoch.
+
+**deepspeed**: use deepspeed. Required for GPT-neo.
+
+**out_file**: Write predictions (and probability scores) to this directory. Defaults to `"./experiments/<model_name>/epochs_<num_epochs>_<learning_rate>_/seed_<seed>"`.
+
+**early_stopping**: use early stopping.
+
+
+### GPT-3 Zero-shot, Finetuning and Generation
+Code to call the OpenAI API are in the following notebooks:
+- Zero-shot (scoring): `./src/notebooks/OpenAI Probabilities.ipynb`.
+- Finetuning: `./src/notebooks/OpenAI Finetune.ipynb`.
+- Completion generation: `./src/notebooks/completions.ipynb`.
+
+Please use your own API key.
 
 ### Training BERT/RoBERTa
+We use the code from [WinoGrande](https://github.com/allenai/winogrande) without modification.
+Please use `./src/winogrande/preproc_to_winogrande_format.py` to preprocess the data into the WinoGrande codebase 
+format, and follow the instructions in that repository. Our sample run scripts are included in `./src/winogrande/*.sh`
+
+### Producing the figures
+
+Visualization scripts are in `./src/visualizations/`.
+
+#### Figure 1 (dataset visualization)
+```
+python3 src/visualizations/dataset_vis.py
+```
+Saves by default in subj_bar.png, obj_bar.png, rel_bar.png.
+Does not run by default, but hypernyms/POS of each segment can be found with `get_hypernyms`/`get_pos_tags`.
+
+#### Figure 2 (prompting)
+```
+python3 src/visualizations/make_performance_bar_chart.py
+```
+This will generate two figures, one for zero-shot and finetuning performance and one for prompting performance, however only the second was used in the paper (the first figure's data was presented in Table 6 instead).
+
+#### Figure 3 (odds and probability)
+```
+python3 src/visualizations/plot_log_odds_vs_pred.py
+```
+Running this will produce the plots trained_prob.png and untrained_prob.png. Spearman R values (Table 5) will also be printed.
 
 ## Contact 
 
