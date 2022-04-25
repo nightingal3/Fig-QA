@@ -1,17 +1,12 @@
 # Testing the Ability of Language Models to Interpret Figurative Language
 
 ## Table of Contents
-[Introduction](#introduction)
-
-[Organization and Dataset](#organization-and-dataset)
-
-[Usage: Evaluate your own models](#usage-evaluate-your-own-models)
-
-[Usage: Reproducing figures from the paper](#usage-reproducing-figures)
-
-[Contact](#contact)
-
-[Citation](#citation)
+* [Introduction](#introduction)
+* [Organization and Dataset](#organization-and-dataset)
+* [Usage: Evaluate your own models](#usage-evaluate-your-own-models)
+* [Usage: Reproducing figures from the paper](#usage-reproducing-figures)
+* [Contact](#contact)
+* [Citation](#citation)
 
 ## Introduction
 This repository contains the dataset and code for the paper [Testing the Ability of Language Models to Interpret Figurative Language](arxiv-link-here). Fig-QA consists of 10256 examples of human-written creative metaphors that are paired as a Winograd schema. It can be used to evaluate the commonsense reasoning of models. The metaphors themselves can also be used as training data for other tasks, such as metaphor detection or generation. 
@@ -55,13 +50,15 @@ The main data splits are contained in `./data/filtered/`. Each is a CSV file whi
 ## Usage (evaluate your own models)
 ### Offline evaluation
 
-You can evaluate your models on the (dev set)[https://github.com/nightingal3/metaphor-qa/blob/master/data/filtered/dev.csv]. The labels for the test set are hidden, but you can still see the questions (here)[https://github.com/nightingal3/metaphor-qa/blob/master/data/filtered/test.csv].  
+You can evaluate your models on the [dev set](https://github.com/nightingal3/metaphor-qa/blob/master/data/filtered/dev.csv). The labels for the test set are hidden, but you can still see the questions [here](https://github.com/nightingal3/metaphor-qa/blob/master/data/filtered/test.csv).  
 
 ### Submitting systems to Explainaboard
 
 Instructions for explainaboard usage here
 
 ## Usage (reproducing figures)
+
+Note: since the test set is now hidden, these results are for the dev set, rather than for the test set as reported in the paper. You can see model performance for the test set on Explainaboard. 
 
 ### To install the dependencies:
 
@@ -82,19 +79,19 @@ python3 src/models/gpt_score.py {gpt2,gpt-neo-sm,gpt-neo-lg} \
 [--multi_hop] \
 [--out_file=PATH]
 ```
-**middle_phrase**: The suffix prompt to use (we used "that is to say, ")
+* **middle_phrase**: The suffix prompt to use (we used "that is to say, ")
 
-**score_type**: Return probability scores or LM loss in output. The predictions should be the same.
+* **score_type**: Return probability scores or LM loss in output. The predictions should be the same.
 
-**use_prefix**: Number of random prefix (example) prompts to use.
+* **use_prefix**: Number of random prefix (example) prompts to use.
 
-**verbose**: Prints predictions 
+* **verbose**: Prints predictions 
 
-**cuda**: use CUDA (you may have to install torch with CUDA enabled)
+* **cuda**: use CUDA (you may have to install torch with CUDA enabled)
 
-**multi-hop**: try multi-hop prediction. This was exploratory and not complete.
+* **multi-hop**: try multi-hop prediction. This was exploratory and not complete.
 
-**out_file**: Write predictions (and probability scores) to this file. Defaults to `<model_id>_prob.csv.`
+* **out_file**: Write predictions (and probability scores) to this file. Defaults to `<model_id>_prob.csv.`
 
 ### Fine-tuning GPT-{2, neo}
 ```
@@ -117,37 +114,37 @@ python3 src/models/train_lm_models.py {gpt2,gpt-neo-sm,gpt-neo-lg} \
 [----early_stopping]
 ```
 
-**dont_train**: skip training and just evaluate
+* **dont_train**: skip training and just evaluate
 
-**dont_eval**: only train and don't eval
+* **dont_eval**: only train and don't eval
 
-**train_path**: path to processed train file (defaults to `"./data/lm_train_data/train.txt"`)
+* **train_path**: path to processed train file (defaults to `"./data/lm_train_data/train.txt"`)
 
-**eval_path**: path to processed validation file (defaults to `"./data/lm_train_data/dev.txt"`)
+* **eval_path**: path to processed validation file (defaults to `"./data/lm_train_data/dev.txt"`)
 
-**seed**: random seed. Defaults to 42
+* **seed**: random seed. Defaults to 42
 
-**cuda**: use CUDA (you may have to install torch with CUDA enabled)
+* **cuda**: use CUDA (you may have to install torch with CUDA enabled)
 
-**num_epochs**: number of epochs to train for. Defaults to 3. Overridden by early stopping.
+* **num_epochs**: number of epochs to train for. Defaults to 3. Overridden by early stopping.
 
-**learning_rate**: learning rate. Defaults to 5e-5.
+* **learning_rate**: learning rate. Defaults to 5e-5.
 
-**middle_phrase**: The suffix prompt to use (we used "that is to say, ")
+* **middle_phrase**: The suffix prompt to use (we used "that is to say, ")
 
-**prefix**: Number of random prefix (example) prompts to use.
+* **prefix**: Number of random prefix (example) prompts to use.
 
-**contrastive**: use contrastive training or not. Did not work for GPT-* models in this project.
+* **contrastive**: use contrastive training or not. Did not work for GPT-* models in this project.
 
-**contrast_lambd**: also depreciated, hyperparameter for contrastive train.
+* **contrast_lambd**: also depreciated, hyperparameter for contrastive train.
 
-**log_history**: log eval loss at each epoch.
+* **log_history**: log eval loss at each epoch.
 
-**deepspeed**: use deepspeed. Required for GPT-neo.
+* **deepspeed**: use deepspeed. Required for GPT-neo.
 
-**out_file**: Write predictions (and probability scores) to this directory. Defaults to `"./experiments/<model_name>/epochs_<num_epochs>_<learning_rate>_/seed_<seed>"`.
+* **out_file**: Write predictions (and probability scores) to this directory. Defaults to `"./experiments/<model_name>/epochs_<num_epochs>_<learning_rate>_/seed_<seed>"`.
 
-**early_stopping**: use early stopping.
+* **early_stopping**: use early stopping.
 
 
 ### GPT-3 Zero-shot, Finetuning and Generation
