@@ -1,5 +1,36 @@
 # Testing the Ability of Language Models to Interpret Figurative Language
 
+## Table of Contents
+[Introduction](#introduction)
+
+[Organization and Dataset](#organization-and-dataset)
+
+[Usage: Evaluate your own models](#usage-evaluate-your-own-models)
+
+[Usage: Reproducing figures from the paper](#usage-reproducing-figures)
+
+[Contact](#contact)
+
+[Citation](#citation)
+
+## Introduction
+This repository contains the dataset and code for the paper [Testing the Ability of Language Models to Interpret Figurative Language](arxiv-link-here). Fig-QA consists of 10256 examples of human-written creative metaphors that are paired as a Winograd schema. It can be used to evaluate the commonsense reasoning of models. The metaphors themselves can also be used as training data for other tasks, such as metaphor detection or generation. 
+
+#### Why Figurative language?
+Most of NLP (as of the publication date of this paper) focuses on literal interpretation of phrases. However, this isn't the only way in which humans use language. In most cases, people can readily interpret creative phrases such as "She thinks of herself as a particle of sand in the desert", even if they have not directly heard such a phrase before. Figurative language is prominent in colloquial text and literature, and correct inference regarding figurative language involves commonsense knowledge as well as flexibility in word meaning inference.
+
+#### Examples
+The dataset is formatted as a Winograd schema. This means that sentences with the same beginning, but opposite meaning are paired together. This formatting was designed to reduce shortcut learning. Accuracy is calculated over all examples though, rather than for pairs.
+
+| Sentence  | Correct Answer |
+| ------------- | ------------- |
+| The future is as bright as the sun  | The future is bright  |
+| The future is as bright as ink  | The future is not bright  |
+| The concert was as crowded as a rush-hour train  | The concert was crowded  |
+| The concert was as crowded as a mausoleum  | The concert was not crowded  |
+| Sleeping over at his house is like spending a night at the Waldorf Astoria | He has very nice accommodations |
+| Sleeping over at his house is like spending a night at the Motel 6 | He has below average accommodations |
+
 ## Organization and Dataset
 The main data splits are contained in `./data/filtered/`. Each is a CSV file which can be further processed into other formats. Each row of the CSV contains a `startphrase` (metaphorical context), `ending1` and `ending2`, as well as `labels`. Each pair of sentences has a `qid`.
 
@@ -21,7 +52,17 @@ The main data splits are contained in `./data/filtered/`. Each is a CSV file whi
 └── random_words.txt                   # a list of random words used to prompt MTurk workers
 
 ```
-## Usage
+## Usage (evaluate your own models)
+### Offline evaluation
+
+You can evaluate your models on the (dev set)[https://github.com/nightingal3/metaphor-qa/blob/master/data/filtered/dev.csv]. The labels for the test set are hidden, but you can still see the questions (here)[https://github.com/nightingal3/metaphor-qa/blob/master/data/filtered/test.csv].  
+
+### Submitting systems to Explainaboard
+
+Instructions for explainaboard usage here
+
+## Usage (reproducing figures)
+
 ### To install the dependencies:
 
 #### For conda users
@@ -148,3 +189,7 @@ Running this will produce the plots trained_prob.png and untrained_prob.png. Spe
 ## Contact 
 
 Insert contact information here afterwards
+
+## Citation 
+
+Insert citation here afterwards
