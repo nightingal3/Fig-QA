@@ -5,6 +5,14 @@
 
 [Organization and Dataset](#organization-and-dataset)
 
+[Usage: Evaluate your own models](#usage-evaluate-your-own-models)
+
+[Usage: Reproducing figures from the paper](#usage-reproducing-figures)
+
+[Contact](#contact)
+
+[Citation](#citation)
+
 ## Introduction
 This repository contains the dataset and code for the paper [Testing the Ability of Language Models to Interpret Figurative Language](arxiv-link-here). Fig-QA consists of 10256 examples of human-written creative metaphors that are paired as a Winograd schema. It can be used to evaluate the commonsense reasoning of models. The metaphors themselves can also be used as training data for other tasks, such as metaphor detection or generation. 
 
