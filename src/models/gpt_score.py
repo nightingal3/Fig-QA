@@ -256,7 +256,7 @@ if __name__ == '__main__':
         print("both correct: ", all_correct)
     else:
         model, tokenizer = model_init(model_name, use_cuda)
-        metaphor_data = pd.read_csv("./data/filtered/test.csv")
+        metaphor_data = pd.read_csv("./data/filtered/dev.csv")
 
         total_df, all_preds, all_labels = evaluate_model(model, tokenizer, metaphor_data.to_dict(orient="records"), use_cuda=use_cuda, verbose=verbose, middle_phrase=middle_phrase, use_prefix=args.use_prefix)
         

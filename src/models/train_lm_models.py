@@ -64,7 +64,7 @@ def main(model_name: str, prompt: str, train_path: str, eval_path: str, contrast
 
     eval_df = pd.read_csv("./data/filtered/dev.csv")
     eval_df["label"] = eval_df["labels"]
-    test_df = pd.read_csv("./data/filtered/test.csv")
+    test_df = pd.read_csv("./data/filtered/dev.csv")
     test_df["label"] = test_df["labels"]
 
     data_collator = DataCollatorForLanguageModeling(
