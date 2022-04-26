@@ -54,7 +54,7 @@ You can evaluate your models on the [dev set](https://github.com/nightingal3/met
 
 ### Submitting systems to Explainaboard
 
-You can evaluate your models on the test set by submitting to the [leaderboard](https://explainaboard.inspiredco.ai/leaderboards?dataset=metaphor_qa) on Explainaboard. Click on "New" and select `qa-multiple-choice` for the task field. Select `accuracy` for the metric. You should upload results in the form of a system output file in JSON or JSONL format. 
+You can evaluate your models on the test set by submitting to the [leaderboard](https://explainaboard.inspiredco.ai/leaderboards?dataset=fig_qa) on Explainaboard. Click on "New" and select `qa-multiple-choice` for the task field. Select `accuracy` for the metric. You should upload results in the form of a system output file in JSON or JSONL format. 
 
 #### System output format
 The system output format is detailed [here](https://github.com/neulab/ExplainaBoard/blob/753e98011e41337eaddaa0546a50e5b6d4747e87/docs/task_qa_multiple_choice.md).
