@@ -199,6 +199,7 @@ Please contact mengyan3@cs.cmu.edu first if you have any questions.
 ## Citation 
 note: add proceedings version after the conference
 
+```
 @misc{https://doi.org/10.48550/arxiv.2204.12632,
   doi = {10.48550/ARXIV.2204.12632},
   url = {https://arxiv.org/abs/2204.12632},
