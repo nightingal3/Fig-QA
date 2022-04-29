@@ -192,8 +192,20 @@ Running this will produce the plots trained_prob.png and untrained_prob.png. Spe
 
 ## Contact 
 
-Insert contact information here afterwards
+The author emails are {mengyan3,,cxcui,kzheng2,gneubig}@cs.cmu.edu
+
+Please contact mengyan3@cs.cmu.edu first if you have any questions.
 
 ## Citation 
+note: add proceedings version after the conference
 
-Insert citation here afterwards
+@misc{https://doi.org/10.48550/arxiv.2204.12632,
+  doi = {10.48550/ARXIV.2204.12632},
+  url = {https://arxiv.org/abs/2204.12632},
+  author = {Liu, Emmy and Cui, Chen and Zheng, Kenneth and Neubig, Graham},
+  keywords = {Computation and Language (cs.CL), Artificial Intelligence (cs.AI), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  title = {Testing the Ability of Language Models to Interpret Figurative Language},
+  publisher = {arXiv},
+  year = {2022},
+  copyright = {Creative Commons Attribution Share Alike 4.0 International}
+}
