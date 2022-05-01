@@ -9,7 +9,7 @@
 * [Citation](#citation)
 
 ## Introduction
-This repository contains the dataset and code for the paper [Testing the Ability of Language Models to Interpret Figurative Language](arxiv-link-here). Fig-QA consists of 10256 examples of human-written creative metaphors that are paired as a Winograd schema. It can be used to evaluate the commonsense reasoning of models. The metaphors themselves can also be used as training data for other tasks, such as metaphor detection or generation. 
+This repository contains the dataset and code for the paper [Testing the Ability of Language Models to Interpret Figurative Language](https://arxiv.org/abs/2204.12632). Fig-QA consists of 10256 examples of human-written creative metaphors that are paired as a Winograd schema. It can be used to evaluate the commonsense reasoning of models. The metaphors themselves can also be used as training data for other tasks, such as metaphor detection or generation. 
 
 #### Why Figurative language?
 Most of NLP (as of the publication date of this paper) focuses on literal interpretation of phrases. However, this isn't the only way in which humans use language. In most cases, people can readily interpret creative phrases such as "She thinks of herself as a particle of sand in the desert", even if they have not directly heard such a phrase before. Figurative language is prominent in colloquial text and literature, and correct inference regarding figurative language involves commonsense knowledge as well as flexibility in word meaning inference.
